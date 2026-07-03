@@ -17,17 +17,28 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 async function runInfiniteGenerator() {
     console.log(`\n♾️ [PHASE 2] INFINITE pSEO Article Generator Booting Up...\n`);
     
-    if (!process.env.GEMINI_API_KEY) {
-        console.log(`❌ ERROR: GEMINI_API_KEY is missing.`);
+    if (!process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEYS) {
+        console.log(`❌ ERROR: GEMINI_API_KEY or GEMINI_API_KEYS is missing.`);
         return;
     }
 
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    let apiKeys = [];
+    if (process.env.GEMINI_API_KEYS) {
+        apiKeys = process.env.GEMINI_API_KEYS.split(',').map(k => k.trim());
+    } else {
+        apiKeys = [process.env.GEMINI_API_KEY.trim()];
+    }
+
+    console.log(`🔑 Loaded ${apiKeys.length} API Key(s) for massive scaling.`);
+    
     let totalGenerated = 0;
 
     // Infinite loop: it will run forever until you stop the script
     while (true) {
         try {
+            // Pick a random key for this iteration to avoid rate limits
+            const randomKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
+            const ai = new GoogleGenAI({ apiKey: randomKey });
             console.log(`\n=========================================================`);
             
             // Randomly select a language for Global Dominance
@@ -78,7 +89,7 @@ async function runInfiniteGenerator() {
             const articlePrompt = `You are an expert product reviewer and SEO copywriter writing natively in ${targetLanguage}.
             Write a comprehensive, highly-engaging buyer's guide in ${targetLanguage} for the search query: "${topic.title}"
             
-            Return ONLY valid Markdown format. Do not use any markdown code blocks (```). Just raw markdown.
+            Return ONLY valid Markdown format. Do not use any markdown code blocks (\`\`\`). Just raw markdown.
             
             Start with the frontmatter exactly like this:
             ---
