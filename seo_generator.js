@@ -29,19 +29,28 @@ async function runInfiniteGenerator() {
     while (true) {
         try {
             console.log(`\n=========================================================`);
-            console.log(`🧠 Step 1: Inventing a new, highly-profitable Amazon niche...`);
             
-            // Generate a random, highly specific niche that hasn't been done 1000 times
+            // Randomly select a language for Global Dominance
+            const languages = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
+            const targetLanguage = languages[Math.floor(Math.random() * languages.length)];
+            
+            console.log(`🌍 Step 1: Inventing a new Amazon niche for the ${targetLanguage} market...`);
+            
             const topicPrompt = `You are a creative Amazon Affiliate marketer. 
             Invent ONE highly specific, long-tail product search query that someone might type into Google.
             It can be from ANY category on Amazon (e.g., Industrial tools, obscure hobbies, specialized medical supplies, weird sports, professional equipment, anything!).
             
+            CRITICAL: The entire output MUST be natively written in ${targetLanguage}.
+            
             Return ONLY a valid JSON object in this exact format, with no markdown formatting or extra text:
             {
-                "product": "Name of specific product type",
-                "audience": "Specific type of person who buys this",
-                "budget": "Price constraint (e.g., Under $50, Premium)",
-                "category": "One short word representing the broad SEO category (e.g. Photography, Home, Gaming, Tools, Audio)"
+                "slug": "kebab-case-seo-optimized-url-in-target-language",
+                "title": "Full SEO Title (e.g. Los Mejores Zapatos para Correr en 2026)",
+                "product": "Name of specific product type in target language",
+                "audience": "Specific type of person who buys this in target language",
+                "budget": "Price constraint (e.g., Under $50, Premium) in target language",
+                "category": "One short word representing the broad SEO category in English (e.g. Photography, Home, Gaming, Tools, Audio)",
+                "language": "${targetLanguage}"
             }`;
 
             const topicResponse = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: topicPrompt });
@@ -54,8 +63,7 @@ async function runInfiniteGenerator() {
             
             const topic = JSON.parse(jsonString.trim());
             
-            const rawSlug = `best-${topic.product}-for-${topic.audience}-${topic.budget}`;
-            const slug = rawSlug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+            const slug = topic.slug.toLowerCase().replace(/[^a-z0-9\-]+/g, '').replace(/(^-|-$)+/g, '');
             const filePath = path.join(contentDir, `${slug}.md`);
 
             // If by sheer coincidence it generated one we already have, skip to next loop
@@ -67,25 +75,27 @@ async function runInfiniteGenerator() {
             console.log(`🎯 Chosen Topic: Best ${topic.product} for ${topic.audience} (${topic.budget})`);
             console.log(`✍️ Step 2: Writing the SEO Article...`);
 
-            const articlePrompt = `You are an expert product reviewer and SEO copywriter.
-            Write a comprehensive, highly-engaging buyer's guide for the search query: "Best ${topic.product} for ${topic.audience} ${topic.budget}"
+            const articlePrompt = `You are an expert product reviewer and SEO copywriter writing natively in ${targetLanguage}.
+            Write a comprehensive, highly-engaging buyer's guide in ${targetLanguage} for the search query: "${topic.title}"
             
             Return ONLY valid Markdown format. Do not use any markdown code blocks (```). Just raw markdown.
             
             Start with the frontmatter exactly like this:
             ---
-            title: "Best ${topic.product} for ${topic.audience} (${topic.budget})"
+            title: "${topic.title}"
             date: "${new Date().toISOString().split('T')[0]}"
             category: "${topic.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"
+            language: "${targetLanguage}"
             ---
             
             CRITICAL: To optimize for AI Search Engines (ChatGPT, Gemini, Perplexity), you MUST include highly structured data.
+            EVERYTHING MUST BE WRITTEN IN ${targetLanguage}.
             
             Structure the article exactly like this:
             1. An engaging introduction addressing the specific needs of ${topic.audience}.
-            2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products (Columns: Product Name, Best Feature, Price Category).
+            2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products.
             3. Top 3 product recommendations. 
-               - CRITICAL PSYCHOLOGY HACK: You must explicitly label the #1 product recommendation as the "👑 Editor's Top Pick".
+               - CRITICAL PSYCHOLOGY HACK: You must explicitly label the #1 product recommendation as the "👑 Editor's Top Pick" (translated to ${targetLanguage}).
                - For each product, make it sound like a real Amazon product for this niche.
                - Write a **Pros & Cons List** using bullet points.
                - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/dp/B08XYZ?tag=${affiliateId})

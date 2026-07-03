@@ -22,6 +22,7 @@ const getArticles = () => {
         slug: file.replace('.md', ''),
         title: data.title || file.replace('.md', '').split('-').join(' '),
         date: data.date || 'Recently Updated',
+        language: data.language || 'English',
       };
     });
 
@@ -87,9 +88,19 @@ export default function Home() {
                 </div>
                 
                 <div className="p-6 flex flex-col flex-grow">
-                  <div className="text-xs font-bold text-indigo-500 tracking-wider uppercase mb-3 flex items-center">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
-                    Buying Guide
+                  <div className="text-xs font-bold text-indigo-500 tracking-wider uppercase mb-3 flex items-center justify-between">
+                    <div className="flex items-center">
+                      <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
+                      Buying Guide
+                    </div>
+                    <div className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded-md text-[10px]">
+                      {article.language === 'English' ? '🇺🇸 EN' : 
+                       article.language === 'Spanish' ? '🇪🇸 ES' : 
+                       article.language === 'French' ? '🇫🇷 FR' : 
+                       article.language === 'German' ? '🇩🇪 DE' : 
+                       article.language === 'Italian' ? '🇮🇹 IT' : 
+                       article.language === 'Portuguese' ? '🇧🇷 PT' : article.language}
+                    </div>
                   </div>
                   <h3 className="text-xl font-bold text-slate-800 leading-tight mb-4 group-hover:text-indigo-600 transition-colors">
                     {article.title}
