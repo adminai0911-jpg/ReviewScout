@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "ReviewScout | Find the Perfect Gear",
   description: "Expertly curated recommendations for every profession, hobby, and budget.",
   verification: {
-    google: "google354815f7262d036d",
+    google: "j-mQs3Pv3ReJuzkgkgBGVr0A6P-GnDnABftQbbCLuic",
   },
 };
 
