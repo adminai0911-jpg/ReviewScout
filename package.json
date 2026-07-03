@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/genai": "^2.10.0",
+    "@supabase/supabase-js": "^2.110.0",
     "@tailwindcss/typography": "^0.5.20",
     "dotenv": "^17.4.2",
     "gray-matter": "^4.0.3",

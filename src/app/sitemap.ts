@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   const files = fs.readdirSync(contentDir);
+  const categories = new Set<string>();
   
   const articles: MetadataRoute.Sitemap = files
     .filter(file => file.endsWith('.md'))
@@ -27,6 +28,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const filePath = path.join(contentDir, file);
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       const { data } = matter(fileContent);
+      
+      if (data.category) {
+        categories.add(data.category.toLowerCase());
+      }
       
       return {
         url: `${baseUrl}/article/${file.replace('.md', '')}`,
@@ -36,6 +41,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       };
     });
 
+  const categoryPages: MetadataRoute.Sitemap = Array.from(categories).map(category => ({
+    url: `${baseUrl}/category/${category}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.9,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -43,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'always',
       priority: 1,
     },
+    ...categoryPages,
     ...articles,
   ];
 }

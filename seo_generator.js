@@ -40,7 +40,8 @@ async function runInfiniteGenerator() {
             {
                 "product": "Name of specific product type",
                 "audience": "Specific type of person who buys this",
-                "budget": "Price constraint (e.g., Under $50, Premium)"
+                "budget": "Price constraint (e.g., Under $50, Premium)",
+                "category": "One short word representing the broad SEO category (e.g. Photography, Home, Gaming, Tools, Audio)"
             }`;
 
             const topicResponse = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: topicPrompt });
@@ -66,16 +67,16 @@ async function runInfiniteGenerator() {
             console.log(`🎯 Chosen Topic: Best ${topic.product} for ${topic.audience} (${topic.budget})`);
             console.log(`✍️ Step 2: Writing the SEO Article...`);
 
-            const articlePrompt = `You are an expert SEO copywriter and Amazon Affiliate marketer optimizing for both Google and AI Search Engines (AIO/GEO). 
-            Write a highly engaging, 800-word blog post targeting the exact long-tail keyword: 
-            "Best ${topic.product} for ${topic.audience} ${topic.budget} in 2026"
+            const articlePrompt = `You are an expert product reviewer and SEO copywriter.
+            Write a comprehensive, highly-engaging buyer's guide for the search query: "Best ${topic.product} for ${topic.audience} ${topic.budget}"
             
-            The article MUST be formatted in Markdown.
-            Include a Frontmatter header at the top like this:
+            Return ONLY valid Markdown format. Do not use any markdown code blocks (```). Just raw markdown.
+            
+            Start with the frontmatter exactly like this:
             ---
             title: "Best ${topic.product} for ${topic.audience} (${topic.budget})"
-            keyword: "best ${topic.product} for ${topic.audience}"
             date: "${new Date().toISOString().split('T')[0]}"
+            category: "${topic.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"
             ---
             
             CRITICAL: To optimize for AI Search Engines (ChatGPT, Gemini, Perplexity), you MUST include highly structured data.
