@@ -1,65 +1,122 @@
-import Image from "next/image";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import Link from 'next/link';
+
+// Read all markdown files from the content directory
+const getArticles = () => {
+  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
+  
+  if (!fs.existsSync(contentDir)) {
+      return [];
+  }
+
+  const files = fs.readdirSync(contentDir);
+  const articles = files
+    .filter(file => file.endsWith('.md'))
+    .map(file => {
+      const filePath = path.join(contentDir, file);
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      const { data } = matter(fileContent);
+      return {
+        slug: file.replace('.md', ''),
+        title: data.title || file.replace('.md', '').split('-').join(' '),
+        date: data.date || 'Recently Updated',
+      };
+    });
+
+  return articles;
+};
 
 export default function Home() {
+  const articles = getArticles();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+          <Link href="/" className="text-2xl font-black text-indigo-600 tracking-tight">
+            ReviewScout<span className="text-slate-800">.tech</span>
+          </Link>
+          <nav>
+            <ul className="flex space-x-6 text-sm font-medium text-slate-600">
+              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Tech</li>
+              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Home</li>
+              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Outdoors</li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="max-w-5xl mx-auto px-6 py-12">
+        <div className="text-center py-16 mb-12 bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-900 rounded-3xl shadow-2xl text-white">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
+            Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Perfect Gear.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl md:text-2xl font-light text-indigo-100 max-w-2xl mx-auto px-4">
+            Expertly curated recommendations for every profession, hobby, and budget.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Article Grid */}
+        <div className="mb-8 flex justify-between items-end">
+          <h2 className="text-2xl font-bold text-slate-800">Latest Buyer's Guides</h2>
+          <span className="text-sm font-medium text-slate-500 bg-white px-3 py-1 rounded-full shadow-sm border border-slate-100">
+            {articles.length} guides available
+          </span>
         </div>
+
+        {articles.length === 0 ? (
+          <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 border-dashed">
+            <div className="text-4xl mb-4">🤖</div>
+            <p className="text-slate-500 font-medium text-lg">The AI Engine is currently generating the first articles...</p>
+            <p className="text-slate-400 text-sm mt-2">Refresh the page in a minute.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((article) => (
+              <Link href={`/article/${article.slug}`} key={article.slug} className="group flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden transform hover:-translate-y-1">
+                {/* Fake Image Placeholder for Premium Look */}
+                <div className="h-48 bg-slate-100 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 group-hover:scale-105 transition-transform duration-500"></div>
+                  <div className="absolute inset-0 flex items-center justify-center text-slate-300">
+                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  </div>
+                </div>
+                
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="text-xs font-bold text-indigo-500 tracking-wider uppercase mb-3 flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
+                    Buying Guide
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-800 leading-tight mb-4 group-hover:text-indigo-600 transition-colors">
+                    {article.title}
+                  </h3>
+                  <div className="mt-auto flex justify-between items-center pt-4 border-t border-slate-100">
+                    <span className="text-xs font-medium text-slate-400 flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      {article.date}
+                    </span>
+                    <span className="text-sm font-semibold text-indigo-600 flex items-center group-hover:translate-x-1 transition-transform">
+                      Read Guide <span className="ml-1">→</span>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </main>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-slate-400 py-12 mt-20">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="font-semibold text-slate-300 mb-2">ReviewScout.tech</p>
+          <p className="text-sm">© 2026 All rights reserved. As an Amazon Associate we earn from qualifying purchases.</p>
+        </div>
+      </footer>
     </div>
   );
 }

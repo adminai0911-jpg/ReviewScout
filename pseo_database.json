@@ -1,0 +1,65 @@
+{
+    "affiliate_id": "inamazon0f2-21",
+    "categories": [
+        {
+            "name": "Home Office & Tech",
+            "products": ["Ergonomic Chair", "Standing Desk", "Curved Monitor", "Mechanical Keyboard", "Noise Cancelling Headphones", "Webcam", "USB Microphone", "Desk Lamp"],
+            "audiences": ["Software Engineers", "Graphic Designers", "Remote Workers", "Data Scientists", "Video Editors", "Writers", "Traders", "Students"],
+            "budgets": ["Under $100", "Under $300", "Under $500", "Under $1000", "Premium"]
+        },
+        {
+            "name": "Camera & Video Gear",
+            "products": ["Mirrorless Camera", "Vlogging Drone", "Gimbal Stabilizer", "Key Light Kit", "Wireless Lavalier Mic", "Camera Backpack", "Action Camera", "Tripod"],
+            "audiences": ["YouTubers", "Filmmakers", "Travel Vloggers", "Wedding Photographers", "Streamers", "Real Estate Agents", "TikTokers"],
+            "budgets": ["Under $100", "Under $500", "Under $1000", "Under $2000", "Professional"]
+        },
+        {
+            "name": "Smart Home Automation",
+            "products": ["Smart Lock", "Video Doorbell", "Mesh WiFi System", "Smart Thermostat", "Security Camera System", "Robot Vacuum", "Smart Blinds", "Smart Speaker"],
+            "audiences": ["Homeowners", "Airbnb Hosts", "Apartment Renters", "Tech Enthusiasts", "Families", "Pet Owners", "Seniors"],
+            "budgets": ["Under $50", "Under $150", "Under $300", "Under $500", "Whole House"]
+        },
+        {
+            "name": "Home Gym & Fitness",
+            "products": ["Adjustable Dumbbells", "Treadmill", "Rowing Machine", "Spin Bike", "Kettlebell Set", "Yoga Mat", "Power Rack", "Massage Gun"],
+            "audiences": ["Beginners", "CrossFitters", "Apartment Dwellers", "Seniors", "Bodybuilders", "Runners", "Busy Parents", "Athletes"],
+            "budgets": ["Under $50", "Under $200", "Under $500", "Under $1000", "Commercial Grade"]
+        },
+        {
+            "name": "Kitchen & Culinary",
+            "products": ["Espresso Machine", "Air Fryer", "Vitamix Blender", "Dutch Oven", "Knife Set", "Stand Mixer", "Sous Vide Cooker", "Toaster Oven"],
+            "audiences": ["Home Chefs", "College Students", "Bakers", "Busy Families", "Coffee Snobs", "Meal Preppers", "Vegans"],
+            "budgets": ["Under $50", "Under $100", "Under $300", "Under $500", "Professional"]
+        },
+        {
+            "name": "Pet Supplies & Tech",
+            "products": ["Automatic Pet Feeder", "Self-Cleaning Litter Box", "GPS Dog Collar", "Pet Camera", "Orthopedic Dog Bed", "Cat Tree", "Travel Carrier"],
+            "audiences": ["Large Dog Owners", "Cat Owners", "Apartment Renters", "Frequent Travelers", "Puppy Owners", "Senior Pet Owners"],
+            "budgets": ["Under $50", "Under $100", "Under $200", "Under $500", "Luxury"]
+        },
+        {
+            "name": "Gaming Gear",
+            "products": ["Gaming Mouse", "Mechanical Keyboard", "Gaming Headset", "Ultra-Wide Monitor", "Gaming Chair", "Controller", "Streaming Capture Card"],
+            "audiences": ["PC Gamers", "Console Gamers", "Twitch Streamers", "Esports Competitors", "Casual Gamers", "Kids", "Simulation Gamers"],
+            "budgets": ["Under $50", "Under $100", "Under $250", "Under $500", "Enthusiast"]
+        },
+        {
+            "name": "Outdoor & Camping",
+            "products": ["Camping Tent", "Sleeping Bag", "Portable Power Station", "Camping Stove", "Cooler", "Hiking Boots", "Headlamp", "Water Filter"],
+            "audiences": ["Backpackers", "Car Campers", "Families", "Survivalists", "Hikers", "Festival Goers", "Overlanders"],
+            "budgets": ["Under $50", "Under $100", "Under $250", "Under $500", "Expedition Grade"]
+        },
+        {
+            "name": "Baby & Parenting",
+            "products": ["Baby Monitor", "Stroller", "Car Seat", "Breast Pump", "Diaper Bag", "High Chair", "Baby Carrier"],
+            "audiences": ["New Parents", "Toddler Parents", "Traveling Parents", "Twins", "Urban Parents", "Grandparents"],
+            "budgets": ["Under $50", "Under $100", "Under $300", "Under $500", "Premium"]
+        },
+        {
+            "name": "Audio & Music",
+            "products": ["Turntable", "Bookshelf Speakers", "Audio Interface", "MIDI Keyboard", "Studio Monitors", "Podcast Mic", "Synthesizer"],
+            "audiences": ["Audiophiles", "Music Producers", "Podcasters", "DJ Beginners", "Vinyl Collectors", "Vocalists"],
+            "budgets": ["Under $100", "Under $300", "Under $500", "Under $1000", "Studio Grade"]
+        }
+    ]
+}
