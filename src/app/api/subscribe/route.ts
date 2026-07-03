@@ -1,13 +1,24 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase Client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Force dynamic so Next.js doesn't try to statically prerender the API route
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
+    // Initialize Supabase Client INSIDE the request to prevent build-time crashes
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    
+    // Fallback if environment variables are missing during Vercel build
+    if (!supabaseUrl || !supabaseKey) {
+      console.warn("Supabase keys are missing. Skipping DB insert.");
+      const referer = request.headers.get('referer') || '/';
+      return NextResponse.redirect(new URL(referer, request.url));
+    }
+    
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
     const formData = await request.formData();
     const email = formData.get('email') as string;
     
