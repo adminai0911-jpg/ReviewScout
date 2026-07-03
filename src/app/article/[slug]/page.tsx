@@ -32,6 +32,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(fileContent);
 
+  // CRO: Extract the Amazon Link from the markdown for the sticky mobile button
+  const amazonLinkMatch = content.match(/\[.*\]\((https:\/\/amazon\.com\/dp\/[^)]+)\)/);
+  const amazonUrl = amazonLinkMatch ? amazonLinkMatch[1] : `https://amazon.com/?tag=inamazon0f2-21`;
+
+  // SEO: Automated Internal Linking (get 3 random related articles)
+  const allFiles = fs.readdirSync(contentDir).filter(f => f.endsWith('.md') && f !== `${resolvedParams.slug}.md`);
+  const shuffled = allFiles.sort(() => 0.5 - Math.random());
+  const relatedFiles = shuffled.slice(0, 3);
+  const relatedArticles = relatedFiles.map(f => {
+    const fc = fs.readFileSync(path.join(contentDir, f), 'utf-8');
+    const fData = matter(fc).data;
+    return { slug: f.replace('.md', ''), title: fData.title };
+  });
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
@@ -106,12 +120,44 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </article>
       </main>
       
-      <footer className="bg-slate-900 text-slate-400 py-12 mt-20">
+      {/* SEO: Automated Internal Linking Section */}
+      {relatedArticles.length > 0 && (
+        <section className="max-w-4xl mx-auto px-6 py-12 border-t border-slate-200">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6">Related Buyer's Guides</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedArticles.map((article, i) => (
+              <Link key={i} href={`/article/${article.slug}`} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition border border-slate-100 flex flex-col justify-between h-full group">
+                <h3 className="font-bold text-slate-700 leading-tight group-hover:text-indigo-600 transition">{article.title}</h3>
+                <span className="text-sm font-semibold text-indigo-500 mt-4 inline-block">Read Guide →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <footer className="bg-slate-900 text-slate-400 py-12 mt-10 pb-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <p className="font-semibold text-slate-300 mb-2">ReviewScout.tech</p>
           <p className="text-sm">© 2026 All rights reserved. As an Amazon Associate we earn from qualifying purchases.</p>
         </div>
       </footer>
+
+      {/* CRO: Sticky Mobile Buy Button (Visible mostly on small screens, stays fixed) */}
+      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-4 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-50">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
+          <div className="hidden sm:block text-slate-800 font-bold truncate pr-4">
+            {data.title}
+          </div>
+          <a 
+            href={amazonUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg py-3 px-8 rounded-full shadow-lg hover:shadow-orange-500/50 hover:-translate-y-1 transition text-center whitespace-nowrap"
+          >
+            Check Price on Amazon
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

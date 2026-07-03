@@ -83,8 +83,9 @@ async function runInfiniteGenerator() {
             Structure the article exactly like this:
             1. An engaging introduction addressing the specific needs of ${topic.audience}.
             2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products (Columns: Product Name, Best Feature, Price Category).
-            3. Top 3 product recommendations. For each product:
-               - Make it sound like a real Amazon product for this niche.
+            3. Top 3 product recommendations. 
+               - CRITICAL PSYCHOLOGY HACK: You must explicitly label the #1 product recommendation as the "👑 Editor's Top Pick".
+               - For each product, make it sound like a real Amazon product for this niche.
                - Write a **Pros & Cons List** using bullet points.
                - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/dp/B08XYZ?tag=${affiliateId})
             4. A buying guide section.
