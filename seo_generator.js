@@ -104,6 +104,9 @@ async function runInfiniteGenerator() {
             console.log(`✅ Saved to ${slug}.md`);
             totalGenerated++;
             
+            // Omnichannel Social Automation Hook (Phase 6)
+            console.log(`🐦 [Social Bot] Preparing to blast ${slug} to Pinterest & Twitter... (Awaiting API Keys)`);
+            
             // Auto-Deploy to Vercel via GitHub every 5 articles
             if (totalGenerated % 5 === 0) {
                 console.log(`\n🚀 [AUTO-DEPLOY] Pushing 5 new articles to GitHub to trigger Vercel build...`);
