@@ -66,7 +66,7 @@ async function runInfiniteGenerator() {
             console.log(`🎯 Chosen Topic: Best ${topic.product} for ${topic.audience} (${topic.budget})`);
             console.log(`✍️ Step 2: Writing the SEO Article...`);
 
-            const articlePrompt = `You are an expert SEO copywriter and Amazon Affiliate marketer. 
+            const articlePrompt = `You are an expert SEO copywriter and Amazon Affiliate marketer optimizing for both Google and AI Search Engines (AIO/GEO). 
             Write a highly engaging, 800-word blog post targeting the exact long-tail keyword: 
             "Best ${topic.product} for ${topic.audience} ${topic.budget} in 2026"
             
@@ -78,10 +78,15 @@ async function runInfiniteGenerator() {
             date: "${new Date().toISOString().split('T')[0]}"
             ---
             
-            Structure the article with:
+            CRITICAL: To optimize for AI Search Engines (ChatGPT, Gemini, Perplexity), you MUST include highly structured data.
+            
+            Structure the article exactly like this:
             1. An engaging introduction addressing the specific needs of ${topic.audience}.
-            2. Top 3 product recommendations (make them sound like real Amazon products for this niche).
-            3. For each product, include a markdown link formatted exactly like this: [Check Price on Amazon](https://amazon.com/dp/B08XYZ?tag=${affiliateId})
+            2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products (Columns: Product Name, Best Feature, Price Category).
+            3. Top 3 product recommendations. For each product:
+               - Make it sound like a real Amazon product for this niche.
+               - Write a **Pros & Cons List** using bullet points.
+               - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/dp/B08XYZ?tag=${affiliateId})
             4. A buying guide section.
             5. A conclusion.
             
