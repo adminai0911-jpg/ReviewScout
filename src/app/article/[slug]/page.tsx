@@ -162,7 +162,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -mr-20 -mt-20"></div>
           <h2 className="text-3xl font-bold mb-4 relative z-10">Don't Miss the Next Big Deal</h2>
           <p className="text-indigo-100 mb-8 max-w-2xl mx-auto relative z-10">Join 15,000+ subscribers who get our exclusive Amazon deal alerts and top-rated buyer's guides delivered straight to their inbox.</p>
-          <form className="flex flex-col sm:flex-row max-w-xl mx-auto relative z-10" onSubmit={(e) => { e.preventDefault(); alert("Thanks for subscribing! Check your inbox."); }}>
+          <form className="flex flex-col sm:flex-row max-w-xl mx-auto relative z-10" action="/api/subscribe" method="POST">
             <input type="email" placeholder="Enter your email address" className="flex-grow px-6 py-4 rounded-full sm:rounded-r-none text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-4 sm:mb-0 shadow-inner" required />
             <button type="submit" className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-full sm:rounded-l-none transition whitespace-nowrap shadow-lg">
               Subscribe Free
