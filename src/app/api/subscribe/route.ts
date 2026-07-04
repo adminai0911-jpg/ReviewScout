@@ -1,49 +1,32 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Force dynamic so Next.js doesn't try to statically prerender the API route
-export const dynamic = 'force-dynamic';
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    // Initialize Supabase Client INSIDE the request to prevent build-time crashes
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    const subscription = await req.json();
     
-    // Fallback if environment variables are missing during Vercel build
-    if (!supabaseUrl || !supabaseKey) {
-      console.warn("Supabase keys are missing. Skipping DB insert.");
-      const referer = request.headers.get('referer') || '/';
-      return NextResponse.redirect(new URL(referer, request.url));
-    }
-    
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    const formData = await request.formData();
-    const email = formData.get('email') as string;
-    
-    // We get the referring URL to redirect back to the same article
-    const referer = request.headers.get('referer') || '/';
-
-    if (!email) {
-      return NextResponse.redirect(new URL(referer, request.url));
-    }
-
-    // Insert email into Supabase
+    // Save to Supabase
     const { error } = await supabase
-      .from('subscribers')
-      .insert([{ email: email }]);
+      .from('push_subscriptions')
+      .upsert({
+        endpoint: subscription.endpoint,
+        p256dh: subscription.keys.p256dh,
+        auth: subscription.keys.auth
+      }, { onConflict: 'endpoint' });
 
     if (error) {
       console.error('Supabase Error:', error);
-      // We still redirect back, but you could add an error query param like ?error=true
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Redirect back with a 303 See Other so the browser switches from POST to GET
-    return NextResponse.redirect(new URL(referer, request.url), { status: 303 });
-    
-  } catch (err) {
-    console.error('API Error:', err);
-    return NextResponse.redirect(new URL('/', request.url), { status: 303 });
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    console.error('Subscription Error:', err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

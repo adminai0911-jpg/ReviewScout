@@ -38,6 +38,7 @@ export const metadata: Metadata = {
 };
 
 import LeadPopup from "@/components/LeadPopup";
+import PushManager from "@/components/PushManager";
 
 export default function RootLayout({
   children,
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <LeadPopup />
+        <PushManager />
       </body>
     </html>
   );
