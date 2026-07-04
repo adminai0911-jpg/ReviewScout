@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Quiet Mini Dehumidifiers for Walk-In Closets with Automatic Shut-Off and Mold Prevention (Under $100)"
 date: "2026-07-04"
 category: "home"
