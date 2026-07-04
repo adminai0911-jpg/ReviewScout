@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "I Migliori Alberi Tiragraffi per Gatti Anziani con Artrite e Difficoltà Motorie: Guida all'Acquisto 2024"
 date: "2026-07-04"
 category: "pets"
