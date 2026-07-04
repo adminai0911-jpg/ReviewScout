@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Flexible Solar Panels for Marine Sailboats (12V, Flush Mount, Walkable)"
 date: "2026-07-04"
 category: "marine"
