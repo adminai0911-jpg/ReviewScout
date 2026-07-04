@@ -39,12 +39,11 @@ export async function POST(request: Request) {
       // We still redirect back, but you could add an error query param like ?error=true
     }
 
-    // Redirect back with a success parameter to show a "Thank You" message if desired
-    // For now, we just redirect back to the article URL so the page reloads cleanly.
-    return NextResponse.redirect(new URL(referer, request.url));
+    // Redirect back with a 303 See Other so the browser switches from POST to GET
+    return NextResponse.redirect(new URL(referer, request.url), { status: 303 });
     
   } catch (err) {
     console.error('API Error:', err);
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/', request.url), { status: 303 });
   }
 }
