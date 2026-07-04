@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Adjustable brass saddle slotting file set for Classical guitar luthiers (Premium)"
 keyword: "best Adjustable brass saddle slotting file set for Classical guitar luthiers"
 date: "2026-07-03"
