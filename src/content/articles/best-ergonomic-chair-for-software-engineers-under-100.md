@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Ergonomic Chair for Software Engineers (Under $100)"
 keyword: "best Ergonomic Chair for Software Engineers"
 date: "2026-07-03"

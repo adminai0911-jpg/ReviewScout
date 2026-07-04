@@ -56,15 +56,16 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const articles = getArticlesByCategory(params.slug);
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const articles = getArticlesByCategory(resolvedParams.slug);
 
   if (articles.length === 0) {
     notFound();
   }
 
   // Format category name for display (e.g. "home-office" -> "Home Office")
-  const categoryName = params.slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const categoryName = resolvedParams.slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return (
     <div className="min-h-screen bg-slate-50">
