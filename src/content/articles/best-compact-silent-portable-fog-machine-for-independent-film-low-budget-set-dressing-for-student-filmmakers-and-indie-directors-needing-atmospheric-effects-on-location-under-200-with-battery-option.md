@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Compact silent portable fog machine for independent film low-budget set dressing for Student filmmakers and indie directors needing atmospheric effects on location (Under $200 with battery option)"
 keyword: "Best Compact silent portable fog machine for independent film low-budget set dressing for Student filmmakers and indie directors needing atmospheric effects on location Under $200 with battery option in 2026"
 date: "2026-07-03"
