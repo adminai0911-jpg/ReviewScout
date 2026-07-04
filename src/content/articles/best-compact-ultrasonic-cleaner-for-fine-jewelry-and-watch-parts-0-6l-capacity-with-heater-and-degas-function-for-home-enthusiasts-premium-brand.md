@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Compact ultrasonic cleaner for fine jewelry and watch parts, 0.6L capacity, with heater and degas function for Home enthusiasts (Premium brand)"
 keyword: "best Compact ultrasonic cleaner for fine jewelry and watch parts, 0.6L capacity, with heater and degas function for Home enthusiasts"
 date: "2026-07-03"
