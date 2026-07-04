@@ -4,7 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://review-scout-pi.vercel.app';
+  const baseUrl = 'https://reviewscout.tech';
   
   const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
   

@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Sterile Pre-Cut Adhesive Eye Dressings for Post-Cataract Surgery in Humid Climates"
 date: "2026-07-04"
 category: "medical"

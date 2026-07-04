@@ -18,6 +18,23 @@ export const metadata: Metadata = {
   verification: {
     google: "j-mQs3Pv3ReJuzkgkgBGVr0A6P-GnDnABftQbbCLuic",
   },
+  alternates: {
+    canonical: 'https://reviewscout.tech',
+    languages: {
+      'en-US': 'https://reviewscout.tech',
+      'es-ES': 'https://reviewscout.tech/es',
+      'fr-FR': 'https://reviewscout.tech/fr',
+      'de-DE': 'https://reviewscout.tech/de',
+      'pt-BR': 'https://reviewscout.tech/pt',
+      'it-IT': 'https://reviewscout.tech/it'
+    },
+  },
+  openGraph: {
+    title: "ReviewScout | Find the Perfect Gear",
+    description: "Expertly curated recommendations for every profession, hobby, and budget.",
+    siteName: "ReviewScout.tech",
+    type: "website"
+  }
 };
 
 export default function RootLayout({
