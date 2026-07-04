@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Left-handed stainless steel oyster shucking knife for Amateur home cooks who are left-handed and enjoy shucking oysters (Durable options under $40)"
 keyword: "best Left-handed stainless steel oyster shucking knife for Amateur home cooks who are left-handed and enjoy shucking oysters"
 date: "2026-07-03"

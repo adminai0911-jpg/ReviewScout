@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Miniature ceramic disc oxygen diffuser for Small-scale indoor aquaponics enthusiasts (Under $30)"
 keyword: "best Miniature ceramic disc oxygen diffuser for Small-scale indoor aquaponics enthusiasts"
 date: "2026-07-03"
