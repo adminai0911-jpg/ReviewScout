@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "La Mejor Almohada Cervical Ergonómica para Dormir de Lado Post-Cirugía de Fusión Lumbar con Soporte Extra Firme y Funda Hipoalergénica"
 date: "2026-07-04"
 category: "health"
