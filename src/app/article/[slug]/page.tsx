@@ -32,9 +32,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(fileContent);
 
-  // CRO: Extract the Amazon Link from the markdown for the sticky mobile button
-  const amazonLinkMatch = content.match(/\[.*\]\((https:\/\/amazon\.com\/dp\/[^)]+)\)/);
-  const amazonUrl = amazonLinkMatch ? amazonLinkMatch[1] : `https://amazon.com/?tag=inamazon0f2-21`;
+  // CRO: Generate a dynamic Amazon Search Link based on the article title (prevents 404s from AI-hallucinated ASINs)
+  const affiliateId = "inamazon0f2-21";
+  const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
 
   // SEO: Automated Internal Linking (get 3 random related articles)
   const allFiles = fs.readdirSync(contentDir).filter(f => f.endsWith('.md') && f !== `${resolvedParams.slug}.md`);
@@ -123,7 +123,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               prose-p:text-slate-600 prose-p:leading-relaxed
               prose-li:text-slate-600
               prose-strong:text-slate-900">
-              <ReactMarkdown>{content}</ReactMarkdown>
+              <ReactMarkdown
+                components={{
+                  a: ({ node, ...props }) => {
+                    if (props.href && props.href.includes('amazon.com')) {
+                      return <a {...props} href={`https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`} target="_blank" rel="noopener noreferrer" />;
+                    }
+                    return <a {...props} />;
+                  }
+                }}
+              >
+                {content}
+              </ReactMarkdown>
             </div>
           </div>
           
