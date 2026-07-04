@@ -29,9 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: title,
       description: description,
       type: 'article',
-      url: `https://reviewscout.tech/article/${resolvedParams.slug}`,
+      url: `https://review-scout-pi.vercel.app/article/${resolvedParams.slug}`,
       siteName: 'ReviewScout',
-      images: [{ url: 'https://reviewscout.tech/og-image.jpg' }],
+      images: [{ url: 'https://review-scout-pi.vercel.app/og-image.jpg' }],
     },
     twitter: {
       card: 'summary_large_image',

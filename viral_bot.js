@@ -80,7 +80,7 @@ async function processArticle(filepath) {
         console.log(`💬 Caption generated: "${viralText}"`);
 
         const slug = filename.replace('.md', '');
-        const articleLink = `https://reviewscout.tech/article/${slug}`;
+        const articleLink = `https://review-scout-pi.vercel.app/article/${slug}`;
 
         if (!N8N_WEBHOOK) {
             console.log(`⚠️ Webhook URL missing in .env! Skipping auto-post, but here is your generated post:\n\n${viralText}\n\n${articleLink}\n`);

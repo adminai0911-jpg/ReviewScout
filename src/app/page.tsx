@@ -165,12 +165,12 @@ export default function Home() {
               <div className="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center text-white">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               </div>
-              ReviewScout.tech
+              review-scout-pi.vercel.app
             </Link>
             <p className="text-sm text-slate-500 max-w-sm">Aggregating global consumer data to find the absolute best products on the market.</p>
           </div>
           <div className="md:text-right text-xs text-slate-600 space-y-2">
-            <p>© {new Date().getFullYear()} ReviewScout.tech. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} review-scout-pi.vercel.app. All rights reserved.</p>
             <p>As an Amazon Associate we earn from qualifying purchases. This helps keep our research free.</p>
           </div>
         </div>

@@ -19,20 +19,20 @@ export const metadata: Metadata = {
     google: "j-mQs3Pv3ReJuzkgkgBGVr0A6P-GnDnABftQbbCLuic",
   },
   alternates: {
-    canonical: 'https://reviewscout.tech',
+    canonical: 'https://review-scout-pi.vercel.app',
     languages: {
-      'en-US': 'https://reviewscout.tech',
-      'es-ES': 'https://reviewscout.tech/es',
-      'fr-FR': 'https://reviewscout.tech/fr',
-      'de-DE': 'https://reviewscout.tech/de',
-      'pt-BR': 'https://reviewscout.tech/pt',
-      'it-IT': 'https://reviewscout.tech/it'
+      'en-US': 'https://review-scout-pi.vercel.app',
+      'es-ES': 'https://review-scout-pi.vercel.app/es',
+      'fr-FR': 'https://review-scout-pi.vercel.app/fr',
+      'de-DE': 'https://review-scout-pi.vercel.app/de',
+      'pt-BR': 'https://review-scout-pi.vercel.app/pt',
+      'it-IT': 'https://review-scout-pi.vercel.app/it'
     },
   },
   openGraph: {
     title: "ReviewScout | Find the Perfect Gear",
     description: "Expertly curated recommendations for every profession, hobby, and budget.",
-    siteName: "ReviewScout.tech",
+    siteName: "review-scout-pi.vercel.app",
     type: "website"
   }
 };
