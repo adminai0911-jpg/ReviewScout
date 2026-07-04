@@ -156,6 +156,25 @@ export default function Home() {
         </div>
       </main>
 
+      {/* Omnichannel: Email Capture Engine */}
+      <section className="max-w-4xl mx-auto px-6 mb-12">
+        <div className="bg-slate-900 rounded-[2rem] shadow-2xl p-10 md:p-16 text-center text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-[100px] opacity-30 -mr-20 -mt-20"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500 rounded-full blur-[100px] opacity-20 -ml-20 -mb-20"></div>
+          
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10 tracking-tight">Never Miss a Price Drop</h2>
+          <p className="text-slate-400 mb-10 max-w-2xl mx-auto relative z-10 text-lg">Join 15,000+ subscribers who get our exclusive Amazon deal alerts and top-rated buyer's guides delivered straight to their inbox.</p>
+          
+          <form className="flex flex-col sm:flex-row max-w-xl mx-auto relative z-10 gap-3" action="/api/subscribe" method="POST">
+            <input type="email" name="email" placeholder="Enter your email address" className="flex-grow px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all backdrop-blur-md" required />
+            <button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-lg shadow-indigo-500/25 whitespace-nowrap">
+              Subscribe Free
+            </button>
+          </form>
+          <p className="text-xs text-slate-500 mt-6 relative z-10">We respect your inbox. Unsubscribe at any time.</p>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 py-16 relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50"></div>
