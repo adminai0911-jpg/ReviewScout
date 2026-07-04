@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Foldable Magnetic Dry Erase Planner for RV Kitchen Door Organizers"
 date: "2026-07-04"
 category: "home"
