@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Ergonomic Standing Desk Mats for Extra Tall Users: 2024 Anti-Fatigue Guide"
 date: "2026-07-04"
 category: "office"
