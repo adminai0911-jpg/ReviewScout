@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best 1:12 Scale Dollhouse Miniature Silicone Molds for Polymer Clay Bakery Items"
 date: "2026-07-04"
 category: "crafts"
