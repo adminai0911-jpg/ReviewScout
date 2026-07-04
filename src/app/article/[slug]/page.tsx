@@ -295,18 +295,24 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <p>© {new Date().getFullYear()} All rights reserved. As an Amazon Associate we earn from qualifying purchases.</p>
       </footer>
 
-      {/* CRO: Sticky Mobile Buy Button (Glassmorphism) */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-md bg-white/80 backdrop-blur-xl border border-white/40 p-2 rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] z-50 flex items-center justify-between sm:hidden">
-        <div className="flex-grow flex justify-center">
-          <a 
-            href={amazonUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-lg shadow-orange-500/25 flex justify-center items-center gap-2"
-          >
-            Check Price
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          </a>
+      {/* CRO: Aggressive Global Sticky Buy Bar (Desktop + Mobile) */}
+      <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-2xl border-t border-slate-200/50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-[100] transform transition-transform duration-300">
+        <div className="max-w-4xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
+          <div className="hidden sm:block flex-grow truncate">
+            <p className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-0.5 animate-pulse">Top Pick</p>
+            <p className="text-slate-900 font-bold truncate pr-4">{data.title || "The Ultimate Buying Guide"}</p>
+          </div>
+          <div className="flex-grow sm:flex-grow-0 flex justify-center sm:justify-end w-full sm:w-auto">
+            <a 
+              href={amazonUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black text-lg py-3 px-8 rounded-xl shadow-lg shadow-orange-500/30 flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95"
+            >
+              Check Price on Amazon
+              <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
