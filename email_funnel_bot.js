@@ -1,14 +1,15 @@
 const { createClient } = require('@supabase/supabase-js');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 
 // Configuration
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
 const SMTP_PORT = process.env.SMTP_PORT || 587;
-const SMTP_USER = process.env.SMTP_USER; // E.g., your gmail address
-const SMTP_PASS = process.env.SMTP_PASS; // E.g., your gmail app password
+const SMTP_USER = process.env.GMAIL_USER;
+const SMTP_PASS = process.env.GMAIL_PASS;
 
 if (!supabaseUrl || !supabaseKey) {
     console.error("❌ ERROR: Supabase keys missing in .env");
@@ -31,15 +32,22 @@ const transporter = nodemailer.createTransport({
 const affiliateId = "inamazon0f2-21";
 
 const welcomeEmailTemplate = `
-<h2>Welcome to ReviewScout! 🚀</h2>
-<p>Thank you for subscribing to our exclusive deal alerts.</p>
-<p>As promised, here are the top 3 best-selling tech deals on Amazon right now:</p>
-<ol>
+<h2>Welcome to the Wealth Matrix! 🚀</h2>
+<p>Thank you for subscribing to our exclusive insider circle.</p>
+<p>If you are looking to truly scale your income and business automatically, you need to check out our premium software:</p>
+<div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3 style="color: #2563eb;">🤖 Automesion - The Ultimate AI Business Automation Suite</h3>
+    <p>Stop doing manual work. Automesion puts your entire business on autopilot for just $997/mo.</p>
+    <a href="https://automesion.com/?ref=reviewscout" style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Start Your Free Trial Now</a>
+</div>
+<hr>
+<p>And as promised, here are the top 3 best-selling tech deals on Amazon right now:</p>
+<ul>
     <li><a href="https://www.amazon.com/s?k=best+tech+deals&tag=${affiliateId}">🔥 Top Trending Tech Deals</a></li>
     <li><a href="https://www.amazon.com/s?k=smart+home+gadgets&tag=${affiliateId}">🏠 Smart Home Essentials</a></li>
     <li><a href="https://www.amazon.com/s?k=budget+laptops&tag=${affiliateId}">💻 Budget Laptops Under $500</a></li>
-</ol>
-<p>We will email you once a week when we find massive price drops!</p>
+</ul>
+<p>We will email you every week with more exclusive software secrets and deal alerts!</p>
 <br>
 <p><small>As an Amazon Associate we earn from qualifying purchases.</small></p>
 `;

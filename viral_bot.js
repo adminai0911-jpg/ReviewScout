@@ -39,7 +39,7 @@ function markAsProcessed(filename) {
 async function generateViralCaption(articleData) {
     try {
         const response = await openai.chat.completions.create({
-            model: "grok-beta",
+            model: "grok-2-1212",
             messages: [
                 {
                     role: "system",
