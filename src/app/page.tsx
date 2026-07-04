@@ -47,15 +47,15 @@ export default function Home() {
           <nav className="hidden md:block">
             <ul className="flex space-x-8 text-sm font-semibold text-slate-500">
               <li className="hover:text-indigo-600 cursor-pointer transition-colors relative group">
-                Tech
+                <Link href="/category/tech">Tech</Link>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
               </li>
               <li className="hover:text-indigo-600 cursor-pointer transition-colors relative group">
-                Outdoors
+                <Link href="/category/outdoors">Outdoors</Link>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
               </li>
               <li className="hover:text-indigo-600 cursor-pointer transition-colors relative group">
-                Home
+                <Link href="/category/home">Home</Link>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
               </li>
             </ul>
