@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Le Migliori Arnie Modulari per Balcone Urbano Anti-Vespe con Sistema di Estrazione Miele Facilitata Sotto i 200 Euro"
 date: "2026-07-04"
 category: "gardening"
