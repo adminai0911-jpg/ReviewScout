@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best Portable pH Meter for Hydroponic Nutrient Solutions Under $150 with Backlit Display"
 date: "2026-07-04"
 category: "gardening"
