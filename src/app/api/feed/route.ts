@@ -7,7 +7,7 @@ const SITE_URL = 'https://review-scout-pi.vercel.app';
 
 export async function GET() {
   const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  let files = [];
+  let files: string[] = [];
   try {
     files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md'));
   } catch (e) {
