@@ -39,6 +39,7 @@ export const metadata: Metadata = {
 
 import LeadPopup from "@/components/LeadPopup";
 import PushManager from "@/components/PushManager";
+import AIChatAgent from "@/components/AIChatAgent";
 
 export default function RootLayout({
   children,
@@ -50,10 +51,30 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="min-h-full flex flex-col">
+        {/* Analytics and Interactivity */}
+        <Script
+          strategy="lazyOnload"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        />
+        <Script strategy="lazyOnload" id="ga-script">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          `}
+        </Script>
+
         {children}
+        
+        {/* Global Components */}
         <LeadPopup />
         <PushManager />
+        <AIChatAgent />
       </body>
     </html>
   );
