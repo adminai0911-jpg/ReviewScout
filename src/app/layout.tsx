@@ -57,6 +57,42 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* Massive AI-GEO Global Schema */}
+        <Script id="global-schema" type="application/ld+json" strategy="beforeInteractive">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://review-scout-pi.vercel.app/#website",
+                  "url": "https://review-scout-pi.vercel.app",
+                  "name": "ReviewScout.tech",
+                  "description": "Expertly curated AI-driven recommendations for every profession, hobby, and budget.",
+                  "publisher": {
+                    "@id": "https://review-scout-pi.vercel.app/#organization"
+                  },
+                  "inLanguage": "en-US"
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://review-scout-pi.vercel.app/#organization",
+                  "name": "ReviewScout",
+                  "url": "https://review-scout-pi.vercel.app",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://review-scout-pi.vercel.app/favicon.ico"
+                  },
+                  "sameAs": [
+                    "https://twitter.com/reviewscout",
+                    "https://www.linkedin.com/company/reviewscout"
+                  ]
+                }
+              ]
+            }
+          `}
+        </Script>
+        
         {/* Analytics and Interactivity */}
         <Script
           strategy="lazyOnload"
