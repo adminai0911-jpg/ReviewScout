@@ -42,6 +42,7 @@ import LeadPopup from "@/components/LeadPopup";
 import PushManager from "@/components/PushManager";
 import AIChatAgent from "@/components/AIChatAgent";
 import LiveSalesPopup from "@/components/LiveSalesPopup";
+import GlobalPromoBanner from "@/components/GlobalPromoBanner";
 
 export default function RootLayout({
   children,
@@ -57,6 +58,8 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="min-h-full flex flex-col">
+        <GlobalPromoBanner />
+        
         {/* Massive AI-GEO Global Schema */}
         <Script id="global-schema" type="application/ld+json" strategy="beforeInteractive">
           {`
