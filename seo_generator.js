@@ -138,7 +138,18 @@ async function runInfiniteGenerator() {
             else if (articleMarkdown.startsWith('```')) articleMarkdown = articleMarkdown.substring(3);
             if (articleMarkdown.endsWith('```')) articleMarkdown = articleMarkdown.substring(0, articleMarkdown.length - 3);
 
-            fs.writeFileSync(filePath, articleMarkdown.trim());
+            // SANITIZE: Prevent LLM from hallucinating duplicate 'pinned:' YAML keys which crash Next.js builds
+            let firstPinned = true;
+            const sanitizedLines = articleMarkdown.trim().split('\n').map(l => {
+                if (l.trim().startsWith('pinned:')) {
+                    if (firstPinned) { firstPinned = false; return l; }
+                    return ''; // Strip duplicates
+                }
+                return l;
+            });
+            articleMarkdown = sanitizedLines.join('\n');
+
+            fs.writeFileSync(filePath, articleMarkdown);
             console.log(`✅ Saved to ${slug}.md`);
             totalGenerated++;
             

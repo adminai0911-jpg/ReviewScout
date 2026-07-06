@@ -1,5 +1,4 @@
 ---
-pinned: true
 title: "Best AI-Powered Medical Transcription Software for Ophthalmologists with Epic EHR Integration"
 date: "2026-07-06"
 category: "software"
