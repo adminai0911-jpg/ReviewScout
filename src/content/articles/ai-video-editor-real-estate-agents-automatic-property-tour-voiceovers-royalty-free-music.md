@@ -4,7 +4,6 @@ title: "Best AI Video Editor for Real Estate Agents with Automatic Property Tour
 date: "2026-07-06"
 category: "software"
 language: "English"
-pinned: false
 ---
 
 # Best AI Video Editor for Real Estate Agents with Automatic Property Tour Voiceovers and Royalty-Free Music Integration

@@ -4,7 +4,6 @@ title: "Best AI-Powered CRM for Residential Roofing Contractors in 2025"
 date: "2026-07-06"
 category: "software"
 language: "English"
-pinned: false
 ---
 
 # Best AI-Powered CRM for Residential Roofing Contractors in 2025

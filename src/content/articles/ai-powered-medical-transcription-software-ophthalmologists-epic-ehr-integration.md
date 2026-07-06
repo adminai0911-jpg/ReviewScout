@@ -4,7 +4,6 @@ title: "Best AI-Powered Medical Transcription Software for Ophthalmologists with
 date: "2026-07-06"
 category: "software"
 language: "English"
-pinned: false
 ---
 
 # Best AI-Powered Medical Transcription Software for Ophthalmologists with Epic EHR Integration

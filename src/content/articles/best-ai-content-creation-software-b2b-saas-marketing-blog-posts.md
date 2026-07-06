@@ -4,7 +4,6 @@ title: "Best AI Content Creation Software for B2B SaaS Marketers (Blog Posts & S
 date: "2026-07-06"
 category: "software"
 language: "English"
-pinned: false
 ---
 
 # Best AI Content Creation Software for B2B SaaS Marketers (Blog Posts & Social Media)
