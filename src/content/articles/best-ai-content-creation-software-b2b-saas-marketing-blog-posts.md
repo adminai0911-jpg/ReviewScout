@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best AI Content Creation Software for B2B SaaS Marketers (Blog Posts & Social Media)"
 date: "2026-07-06"
 category: "software"
