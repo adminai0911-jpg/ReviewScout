@@ -23,6 +23,7 @@ const getArticles = () => {
         title: data.title || file.replace('.md', '').split('-').join(' '),
         date: data.date || 'Recently Updated',
         language: data.language || 'English',
+        category: data.category || 'uncategorized',
       };
     });
 
