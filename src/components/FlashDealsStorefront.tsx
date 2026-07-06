@@ -3,17 +3,38 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-// Mock deals for the storefront - in a real production environment these would be 
-// fetched dynamically from Supabase or the Amazon Product API.
+// Mock deals for the storefront
 const MOCK_DEALS = [
-  { id: 1, name: "Sony WH-1000XM5 Wireless Noise Canceling Headphones", price: "$298.00", oldPrice: "$399.99", discount: "25% OFF", image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=400&q=80", rating: "4.8" },
-  { id: 2, name: "Ninja AF101 Air Fryer, 4 Qt, Black/Grey", price: "$89.95", oldPrice: "$129.99", discount: "31% OFF", image: "https://images.unsplash.com/photo-1626808642875-0aa545482dfb?auto=format&fit=crop&w=400&q=80", rating: "4.9" },
-  { id: 3, name: "Apple AirPods Pro (2nd Generation)", price: "$189.99", oldPrice: "$249.00", discount: "24% OFF", image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=400&q=80", rating: "4.7" },
-  { id: 4, name: "Bose SoundLink Flex Bluetooth Portable Speaker", price: "$119.00", oldPrice: "$149.00", discount: "20% OFF", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=400&q=80", rating: "4.8" },
+  { id: 1, name: "Sony WH-1000XM5 Wireless Noise Canceling Headphones", price: 298.00, oldPrice: 399.99, discount: "25% OFF", image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=400&q=80", rating: "4.8" },
+  { id: 2, name: "Ninja AF101 Air Fryer, 4 Qt, Black/Grey", price: 89.95, oldPrice: 129.99, discount: "31% OFF", image: "https://images.unsplash.com/photo-1626808642875-0aa545482dfb?auto=format&fit=crop&w=400&q=80", rating: "4.9" },
+  { id: 3, name: "Apple AirPods Pro (2nd Generation)", price: 189.99, oldPrice: 249.00, discount: "24% OFF", image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=400&q=80", rating: "4.7" },
+  { id: 4, name: "Bose SoundLink Flex Bluetooth Portable Speaker", price: 119.00, oldPrice: 149.00, discount: "20% OFF", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=400&q=80", rating: "4.8" },
 ];
+
+const TIMEZONE_TO_CURRENCY: Record<string, string> = {
+  'Asia/Calcutta': 'INR', 'Asia/Kolkata': 'INR',
+  'Europe/London': 'GBP',
+  'Europe/Berlin': 'EUR', 'Europe/Paris': 'EUR', 'Europe/Rome': 'EUR', 'Europe/Madrid': 'EUR', 'Europe/Amsterdam': 'EUR',
+  'America/Toronto': 'CAD', 'America/Vancouver': 'CAD',
+  'Australia/Sydney': 'AUD', 'Australia/Melbourne': 'AUD', 'Australia/Brisbane': 'AUD',
+  'Asia/Tokyo': 'JPY',
+  'Asia/Dubai': 'AED',
+  'Asia/Singapore': 'SGD',
+  'America/Mexico_City': 'MXN',
+  'America/Sao_Paulo': 'BRL',
+  'Africa/Johannesburg': 'ZAR',
+  'Pacific/Auckland': 'NZD',
+  'Asia/Shanghai': 'CNY',
+  'Asia/Hong_Kong': 'HKD',
+  'Asia/Seoul': 'KRW',
+  'Europe/Stockholm': 'SEK',
+  'Europe/Oslo': 'NOK',
+  'Europe/Zurich': 'CHF'
+};
 
 export default function FlashDealsStorefront() {
   const [region, setRegion] = useState('your region');
+  const [currency, setCurrency] = useState({ code: 'USD', rate: 1 });
   
   useEffect(() => {
     try {
@@ -21,9 +42,30 @@ export default function FlashDealsStorefront() {
       if (tz) {
         const city = tz.split('/')[1]?.replace('_', ' ');
         if (city) setRegion(city);
+
+        // Detect local currency
+        const localCode = TIMEZONE_TO_CURRENCY[tz] || 'USD';
+        
+        if (localCode !== 'USD') {
+          // Fetch live exchange rates from a free, open API
+          fetch('https://api.exchangerate-api.com/v4/latest/USD')
+            .then(res => res.json())
+            .then(data => {
+              if (data && data.rates && data.rates[localCode]) {
+                setCurrency({ code: localCode, rate: data.rates[localCode] });
+              }
+            })
+            .catch(e => console.error("Rate fetch failed", e));
+        }
       }
     } catch (e) {}
   }, []);
+
+  const formatPrice = (priceInUSD: number) => {
+    const converted = priceInUSD * currency.rate;
+    // Suppress hydration warning since server renders USD and client might switch to INR
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.code }).format(converted);
+  };
 
   return (
     <section className="bg-slate-50 border-b border-slate-200 py-16 relative overflow-hidden">
@@ -44,7 +86,7 @@ export default function FlashDealsStorefront() {
               Live Storefront
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Today's Flash Deals</h2>
-            <p className="text-slate-500 mt-2 font-medium">Aggressive price drops trending right now in <span className="text-slate-800 font-bold underline decoration-slate-300 underline-offset-2">{region}</span>.</p>
+            <p className="text-slate-500 mt-2 font-medium">Aggressive price drops trending right now in <span suppressHydrationWarning className="text-slate-800 font-bold underline decoration-slate-300 underline-offset-2">{region}</span>.</p>
           </div>
           
           <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200 text-sm font-bold text-slate-600">
@@ -83,8 +125,8 @@ export default function FlashDealsStorefront() {
                 
                 <div className="mt-auto flex items-end justify-between">
                   <div>
-                    <p className="text-xs text-slate-400 line-through mb-0.5">{deal.oldPrice}</p>
-                    <p className="text-2xl font-black text-rose-600">{deal.price}</p>
+                    <p suppressHydrationWarning className="text-xs text-slate-400 line-through mb-0.5">{formatPrice(deal.oldPrice)}</p>
+                    <p suppressHydrationWarning className="text-2xl font-black text-rose-600">{formatPrice(deal.price)}</p>
                   </div>
                   
                   {/* Dynamic Amazon Affiliate Routing Link */}
