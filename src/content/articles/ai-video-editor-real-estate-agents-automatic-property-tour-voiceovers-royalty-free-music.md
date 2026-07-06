@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best AI Video Editor for Real Estate Agents with Automatic Property Tour Voiceovers and Royalty-Free Music Integration"
 date: "2026-07-06"
 category: "software"
