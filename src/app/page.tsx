@@ -153,7 +153,7 @@ export default async function Home() {
                   {/* Image Header */}
                   <div className="h-56 bg-slate-900 relative overflow-hidden">
                     <img 
-                      src={`https://image.pollinations.ai/prompt/${encodeURIComponent(article.title)}?width=600&height=400&nologo=true`}
+                      src={`https://image.pollinations.ai/prompt/${encodeURIComponent("Professional 4K product photography of " + article.title + ", studio lighting, highly detailed, photorealistic, clean background")}?width=600&height=400&nologo=true`}
                       alt={article.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     />

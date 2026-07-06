@@ -122,7 +122,7 @@ async function runInfiniteGenerator() {
             
             CRITICAL VISUAL RULES (IMAGES):
             To increase conversions, you MUST include product images! You can dynamically generate them using this URL format:
-            ![Image of Product](https://image.pollinations.ai/prompt/PRODUCT_NAME_URL_ENCODED?width=800&height=500&nologo=true)
+            ![Image of Product](https://image.pollinations.ai/prompt/Professional%204K%20product%20photography%20of%20PRODUCT_NAME_URL_ENCODED%2C%20studio%20lighting%2C%20highly%20detailed%2C%20photorealistic%2C%20clean%20background?width=800&height=500&nologo=true)
             Place a beautiful hero image at the very top of the article, and place an image above each of the Top 3 product reviews.
 
             Return ONLY valid Markdown format. Do not use any markdown code blocks (\`\`\`). Just raw markdown. Do not include YAML frontmatter.
@@ -130,7 +130,7 @@ async function runInfiniteGenerator() {
             Structure the article exactly like this:
             # ${topic.title}
             
-            ![Hero Image](https://image.pollinations.ai/prompt/${encodeURIComponent(topic.product)}?width=1200&height=600&nologo=true)
+            ![Hero Image](https://image.pollinations.ai/prompt/Professional%204K%20product%20photography%20of%20${encodeURIComponent(topic.product)}%2C%20studio%20lighting%2C%20highly%20detailed%2C%20photorealistic%2C%20clean%20background?width=1200&height=600&nologo=true)
             
             1. An engaging introduction addressing the specific needs of ${topic.audience}.
             2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products.

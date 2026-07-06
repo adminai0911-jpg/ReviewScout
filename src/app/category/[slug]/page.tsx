@@ -113,7 +113,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <Link href={`/article/${article.slug}`} key={article.slug} className="group flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden transform hover:-translate-y-1">
               <div className="h-48 bg-slate-900 relative overflow-hidden">
                 <img 
-                  src={`https://image.pollinations.ai/prompt/${encodeURIComponent(article.title)}?width=600&height=400&nologo=true`}
+                  src={`https://image.pollinations.ai/prompt/${encodeURIComponent("Professional 4K product photography of " + article.title + ", studio lighting, highly detailed, photorealistic, clean background")}?width=600&height=400&nologo=true`}
                   alt={article.title}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
