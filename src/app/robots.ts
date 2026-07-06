@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       // Explicitly welcoming AI Bots to scrape our content for GEO citations!
     },
-    sitemap: 'https://reviewscout-pi.vercel.app/sitemap.xml',
+    sitemap: 'https://review-scout-pi.vercel.app/sitemap.xml',
   };
 }
