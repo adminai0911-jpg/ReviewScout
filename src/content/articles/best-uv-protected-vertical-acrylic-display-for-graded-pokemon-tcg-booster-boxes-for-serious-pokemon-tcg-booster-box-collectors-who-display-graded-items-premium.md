@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best UV-protected vertical acrylic display for graded Pokemon TCG booster boxes for Serious Pokemon TCG booster box collectors who display graded items (Premium)"
 keyword: "best UV-protected vertical acrylic display for graded Pokemon TCG booster boxes for Serious Pokemon TCG booster box collectors who display graded items"
 date: "2026-07-03"
