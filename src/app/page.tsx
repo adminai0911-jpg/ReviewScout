@@ -152,17 +152,21 @@ export default async function Home() {
                   
                   {/* Image Header */}
                   <div className="h-56 bg-slate-900 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-slate-800 to-violet-900 group-hover:scale-110 transition-transform duration-700 ease-out opacity-80"></div>
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
+                    <img 
+                      src={`https://image.pollinations.ai/prompt/${encodeURIComponent(article.title)}?width=600&height=400&nologo=true`}
+                      alt={article.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
                     
-                    <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="absolute top-4 left-4 flex gap-2 z-10">
                       <div className="bg-white/20 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-white/10 shadow-lg">
                         {article.language}
                       </div>
                     </div>
                     
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <div className="flex items-center text-xs font-medium text-indigo-200 mb-2">
+                    <div className="absolute bottom-4 left-4 right-4 text-white z-10">
+                      <div className="flex items-center text-xs font-medium text-white mb-2 drop-shadow-md">
                         <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         {article.date}
                       </div>
