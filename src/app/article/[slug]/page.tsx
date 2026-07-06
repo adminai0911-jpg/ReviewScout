@@ -323,6 +323,53 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     
                     return <li {...props} className="marker:text-indigo-400 pl-2">{children}</li>;
                   },
+                  table: ({ node, ...props }) => (
+                    <div className="w-full overflow-x-auto pb-4 mb-10 mt-6 not-prose">
+                      <table className="w-full text-left border-collapse bg-white rounded-2xl shadow-xl shadow-indigo-500/10 overflow-hidden border border-slate-100 min-w-[600px]" {...props} />
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => <thead className="bg-slate-900 text-white" {...props} />,
+                  th: ({ node, children, ...props }) => {
+                    const getText = (children: React.ReactNode): string => {
+                      let text = '';
+                      React.Children.forEach(children, (child) => {
+                        if (typeof child === 'string') text += child;
+                        else if (React.isValidElement(child) && child.props.children) {
+                          text += getText(child.props.children);
+                        }
+                      });
+                      return text;
+                    };
+                    const text = getText(children).trim();
+                    const isFeatureCol = text.toLowerCase() === 'feature' || text.toLowerCase() === 'features' || text === '';
+                    
+                    return (
+                      <th className="p-5 font-bold text-sm tracking-wider border-b border-white/10" {...props}>
+                        {!isFeatureCol ? (
+                          <div className="flex flex-col items-start gap-3">
+                            <span className="text-white text-base leading-snug">{children}</span>
+                            <a 
+                              href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(text)}&tag=reviewscout-20`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wide shadow-md hover:-translate-y-0.5 transition-all w-full border border-white/20"
+                            >
+                              Check Price
+                            </a>
+                          </div>
+                        ) : (
+                          <span className="text-slate-400 uppercase text-xs">{children}</span>
+                        )}
+                      </th>
+                    );
+                  },
+                  tbody: ({ node, ...props }) => <tbody className="divide-y divide-slate-100" {...props} />,
+                  tr: ({ node, ...props }) => <tr className="hover:bg-indigo-50/40 transition-colors group" {...props} />,
+                  td: ({ node, children, ...props }) => (
+                    <td className="p-5 text-slate-600 align-top group-hover:text-slate-900 transition-colors text-sm" {...props}>
+                      {children}
+                    </td>
+                  ),
                   a: ({ node, ...props }) => {
                     if (props.href && props.href.includes('amazon.')) {
                       // Pass the original Amazon link through our Geo-Routing engine
