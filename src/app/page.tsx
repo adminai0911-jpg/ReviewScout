@@ -94,15 +94,40 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* Article Grid Header */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-10 pb-4 border-b border-slate-200">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Latest Intel</h2>
-              <p className="text-slate-500 mt-1">Fresh guides updated hourly.</p>
+          {/* Article Grid Header & Language Filters */}
+          <div className="flex flex-col gap-6 mb-10">
+            <div className="flex flex-col md:flex-row justify-between items-end pb-4 border-b border-slate-200">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Latest Intel</h2>
+                <p className="text-slate-500 mt-1">Fresh guides updated hourly.</p>
+              </div>
+              <div className="mt-4 md:mt-0 flex items-center gap-2 text-sm font-semibold text-slate-500 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
+                <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                {articles.length} active guides
+              </div>
             </div>
-            <div className="mt-4 md:mt-0 flex items-center gap-2 text-sm font-semibold text-slate-500 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
-              <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-              {articles.length} active guides
+            
+            {/* Language Filter Pills */}
+            <div className="flex flex-wrap gap-3 items-center">
+              <span className="text-sm font-bold text-slate-500 mr-2 uppercase tracking-wider">Regions:</span>
+              <Link href="/language/english" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+                🇺🇸 English
+              </Link>
+              <Link href="/language/spanish" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+                🇪🇸 Español
+              </Link>
+              <Link href="/language/french" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+                🇫🇷 Français
+              </Link>
+              <Link href="/language/german" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+                🇩🇪 Deutsch
+              </Link>
+              <Link href="/language/italian" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+                🇮🇹 Italiano
+              </Link>
+              <Link href="/language/portuguese" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+                🇧🇷 Português
+              </Link>
             </div>
           </div>
 
