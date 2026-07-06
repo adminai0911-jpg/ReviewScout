@@ -4,7 +4,6 @@ title: "Best AI-Powered Transcription Software for Podcast Editors with Speaker 
 date: "2026-07-06"
 category: "software"
 language: "English"
-pinned: false
 ---
 
 # Best AI-Powered Transcription Software for Podcast Editors with Speaker Identification and Timestamping

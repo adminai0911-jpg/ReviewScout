@@ -1,9 +1,9 @@
 ---
+pinned: true
 title: "Best AI Transcription Software for Academic Researchers with Multiple Speaker Identification and HIPAA Compliance"
 date: "2026-07-06"
 category: "software"
 language: "English"
-pinned: false
 ---
 
 # Best AI Transcription Software for Academic Researchers with Multiple Speaker Identification and HIPAA Compliance
