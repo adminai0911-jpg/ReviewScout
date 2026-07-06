@@ -110,6 +110,46 @@ async function runInfiniteGenerator() {
                 return;
             }
 
+            console.log(`🎯 Chosen Topic: Best ${topic.product} for ${topic.audience} (${topic.budget})`);
+            console.log(`✍️ Step 2: Writing the SEO Article using Multi-Model Engine...`);
+
+            const articlePrompt = `You are an expert product reviewer, high-converting copywriter, and SEO specialist writing natively in ${targetLanguage}.
+            Write a comprehensive, highly-engaging buyer's guide in ${targetLanguage} for the search query: "${topic.title}"
+            
+            CRITICAL MONETIZATION RULES:
+            1. Every time you mention a specific product, you MUST make it a clickable affiliate link.
+            2. If it is a physical product (like Amazon), use this URL format: [Product Name](https://www.amazon.com/s?k=PRODUCT+NAME+HERE&tag=reviewscout-20)
+            
+            CRITICAL VISUAL RULES (IMAGES):
+            To increase conversions, you MUST include product images! You can dynamically generate them using this URL format:
+            ![Image of Product](https://image.pollinations.ai/prompt/PRODUCT_NAME_URL_ENCODED?width=800&height=500&nologo=true)
+            Place a beautiful hero image at the very top of the article, and place an image above each of the Top 3 product reviews.
+
+            Return ONLY valid Markdown format. Do not use any markdown code blocks (\`\`\`). Just raw markdown. Do not include YAML frontmatter.
+            
+            Structure the article exactly like this:
+            # ${topic.title}
+            
+            ![Hero Image](https://image.pollinations.ai/prompt/${encodeURIComponent(topic.product)}?width=1200&height=600&nologo=true)
+            
+            1. An engaging introduction addressing the specific needs of ${topic.audience}.
+            2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products.
+            3. Top 3 product recommendations. 
+               - CRITICAL PSYCHOLOGY HACK: You must explicitly label the #1 product recommendation as the "👑 Editor's Top Pick" (translated to ${targetLanguage}).
+               - For each product, include a dynamic image using the pollinations.ai URL.
+               - Write a **Pros & Cons List** using bullet points.
+               - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/s?k=PRODUCT+NAME&tag=reviewscout-20)
+            4. A buying guide section.
+            5. A conclusion.
+            
+            Do not include any extra text outside the markdown.`;
+
+            let articleMarkdown = await generateContentWithFailover(articlePrompt, apiKeys, grokKey);
+            
+            if (articleMarkdown.startsWith('```markdown')) articleMarkdown = articleMarkdown.substring(11);
+            else if (articleMarkdown.startsWith('```')) articleMarkdown = articleMarkdown.substring(3);
+            if (articleMarkdown.endsWith('```')) articleMarkdown = articleMarkdown.substring(0, articleMarkdown.length - 3);
+
             // Push to Supabase Database for infinite scalability
             if (supabase) {
                 console.log(`☁️ Pushing article to Supabase Database...`);
