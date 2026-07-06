@@ -41,6 +41,8 @@ const getTopCategories = (articles: any[]) => {
     .map(x => x[0]);
 };
 
+import AIWizard from '../components/AIWizard';
+
 export default async function Home() {
   const articles = await getArticles();
   const topCategories = getTopCategories(articles);
@@ -93,6 +95,10 @@ export default async function Home() {
               Expertly curated recommendations, deeply researched specs, and the absolute best prices on Amazon.
             </p>
           </div>
+
+          <AIWizard />
+
+          <div className="mt-20"></div>
 
           {/* Article Grid Header & Language Filters */}
           <div className="flex flex-col gap-6 mb-10">

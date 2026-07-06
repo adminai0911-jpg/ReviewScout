@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { createClient } from '@supabase/supabase-js';
+import PriceDropWidget from '../../../components/PriceDropWidget';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -104,8 +105,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
 
   // CRO: Generate a dynamic Amazon Search Link based on the article title
-  const affiliateId = "inamazon0f2-21";
-  const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
+  const affiliateId = "reviewscout-20";
+  const rawAmazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
+  const amazonUrl = `/api/go?url=${encodeURIComponent(rawAmazonUrl)}`;
 
   // SEO: Automated Internal Linking
   let relatedArticles: any[] = [];
@@ -256,9 +258,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <ReactMarkdown
                 components={{
                   a: ({ node, ...props }) => {
-                    if (props.href && props.href.includes('amazon.com')) {
+                    if (props.href && props.href.includes('amazon.')) {
+                      // Pass the original Amazon link through our Geo-Routing engine
+                      // If the LLM hallucinated a bad link, fallback to a search query
+                      const baseAmzUrl = props.href.includes('/dp/') || props.href.includes('/s?') 
+                        ? props.href 
+                        : `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=reviewscout-20`;
+                      const routedUrl = `/api/go?url=${encodeURIComponent(baseAmzUrl)}`;
+                      
                       return (
-                        <a {...props} href={`https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`} target="_blank" rel="noopener noreferrer">
+                        <a {...props} href={routedUrl} target="_blank" rel="noopener noreferrer">
                           Check Price on Amazon
                           <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                         </a>
@@ -271,6 +280,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {content}
               </ReactMarkdown>
             </div>
+
+            <PriceDropWidget articleSlug={resolvedParams.slug} productName={data.title || "this product"} />
 
             {/* Affiliate Disclaimer (Mandatory for Amazon Associates to prevent bans) */}
             <div className="mt-16 p-6 bg-slate-50 border border-slate-100 rounded-xl">
