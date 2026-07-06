@@ -15,12 +15,25 @@ export default function LeadPopup() {
   const [hasDismissed, setHasDismissed] = useState(false);
 
   useEffect(() => {
-    // Show popup after 5 seconds if they haven't dismissed it
     const dismissed = localStorage.getItem("leadPopupDismissed");
-    if (!dismissed) {
-      const timer = setTimeout(() => setIsOpen(true), 5000);
-      return () => clearTimeout(timer);
-    }
+    if (dismissed) return;
+
+    // Mobile fallback (since mobile has no mouseleave)
+    const timer = setTimeout(() => setIsOpen(true), 25000);
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      // If cursor moves rapidly towards the top of the browser window
+      if (e.clientY <= 0 || e.clientY < 50 && e.movementY < 0) {
+        setIsOpen(true);
+        document.removeEventListener("mouseleave", handleMouseLeave);
+      }
+    };
+
+    document.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
   }, []);
 
   const handleClose = () => {
@@ -77,11 +90,14 @@ export default function LeadPopup() {
         </button>
 
         <div className="text-center">
+          <div className="mx-auto w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-4">
+            <span className="text-3xl">🛑</span>
+          </div>
           <h2 className="text-3xl font-bold tracking-tight text-white mb-2">
-            Unlock the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Wealth Matrix</span>
+            Wait! Don't buy anything <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">yet.</span>
           </h2>
           <p className="text-zinc-400 mb-6">
-            Join 15,000+ others getting exclusive AI automation secrets, high-ticket deal alerts, and software discounts sent directly to their inbox.
+            Get today's secret Amazon discounts, hidden price drops, and top-rated buyer's guides sent directly to your inbox before you checkout.
           </p>
         </div>
 

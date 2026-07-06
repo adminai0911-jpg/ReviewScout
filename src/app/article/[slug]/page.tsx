@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import { createClient } from '@supabase/supabase-js';
 import PriceDropWidget from '../../../components/PriceDropWidget';
+import SaaSBanner from '../../../components/SaaSBanner';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -416,6 +417,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
         </article>
+
+        {/* High-Ticket SaaS Injector */}
+        <SaaSBanner category={data.category} />
       </main>
       
       {/* Related Articles */}
