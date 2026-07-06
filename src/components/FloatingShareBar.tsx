@@ -11,13 +11,11 @@ export default function FloatingShareBar({ title }: { title?: string }) {
     setUrl(window.location.href);
   }, []);
 
-  if (!mounted) return null;
-
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title || "Check out this guide!");
 
   return (
-    <div className="hidden xl:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col gap-3 z-40 animate-in fade-in slide-in-from-left-8 duration-700">
+    <div suppressHydrationWarning className="hidden xl:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col gap-3 z-40 animate-in fade-in slide-in-from-left-8 duration-700">
       <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center mb-2" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
         Share Article
       </div>

@@ -13,11 +13,9 @@ const MOCK_DEALS = [
 ];
 
 export default function FlashDealsStorefront() {
-  const [mounted, setMounted] = useState(false);
   const [region, setRegion] = useState('your region');
   
   useEffect(() => {
-    setMounted(true);
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       if (tz) {
@@ -26,8 +24,6 @@ export default function FlashDealsStorefront() {
       }
     } catch (e) {}
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <section className="bg-slate-50 border-b border-slate-200 py-16 relative overflow-hidden">

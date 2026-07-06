@@ -12,8 +12,8 @@ export default function LiveSalesPopup() {
   const [data, setData] = useState({ name: '', city: '', action: '', time: '' });
 
   useEffect(() => {
-    // Start the first popup after 10 seconds
-    const initialTimer = setTimeout(showPopup, 10000);
+    // Start the first popup after 1 second
+    const initialTimer = setTimeout(showPopup, 1000);
     return () => clearTimeout(initialTimer);
   }, []);
 

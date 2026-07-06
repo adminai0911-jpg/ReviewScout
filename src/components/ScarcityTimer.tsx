@@ -3,13 +3,10 @@
 import React, { useState, useEffect } from 'react';
 
 export default function ScarcityTimer() {
-  const [mounted, setMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ hours: 3, minutes: 14, seconds: 59 });
   const [region, setRegion] = useState('your region');
 
   useEffect(() => {
-    setMounted(true);
-
     // Try to grab user's timezone for geo-personalization
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -40,9 +37,6 @@ export default function ScarcityTimer() {
 
     return () => clearInterval(timer);
   }, []);
-
-  if (!mounted) return null;
-
   return (
     <div className="bg-rose-50 border-y sm:border border-rose-200 sm:rounded-2xl p-4 md:p-6 my-8 relative overflow-hidden group shadow-sm">
       {/* Background Pulse */}
