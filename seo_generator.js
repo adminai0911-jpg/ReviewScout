@@ -98,71 +98,17 @@ async function runInfiniteGenerator() {
             const slug = topic.slug.toLowerCase().replace(/[^a-z0-9\-]+/g, '').replace(/(^-|-$)+/g, '');
             const filePath = path.join(contentDir, `${slug}.md`);
 
-            if (fs.existsSync(filePath)) {
-                console.log(`⚠️  Topic already exists, thinking of a new one...`);
-                continue;
-            }
-
-            console.log(`🎯 Chosen Topic: Best ${topic.product} for ${topic.audience} (${topic.budget})`);
-            console.log(`✍️ Step 2: Writing the SEO Article using Multi-Model Engine...`);
-
-            const articlePrompt = `You are an expert product reviewer, high-converting copywriter, and SEO specialist writing natively in ${targetLanguage}.
-            Write a comprehensive, highly-engaging buyer's guide in ${targetLanguage} for the search query: "${topic.title}"
-            
-            CRITICAL MONETIZATION RULES:
-            1. Every time you mention a specific product, you MUST make it a clickable affiliate link.
-            2. If it is a physical product (like Amazon), use this URL format: [Product Name](https://www.amazon.com/s?k=PRODUCT+NAME+HERE&tag=reviewscout-20)
-            3. If it is a software/SaaS product, use this URL format: [Product Name](https://automesion.com/?ref=reviewscout)
-            4. Do NOT output raw URLs, always use markdown links.
-
-            Return ONLY valid Markdown format. Do not use any markdown code blocks (\`\`\`). Just raw markdown.
-            
-            The structure must be:
-            ---
-            title: "${topic.title}"
-            date: "${new Date().toISOString().split('T')[0]}"
-            category: "${topic.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"
-            language: "${targetLanguage}"
-            pinned: false
-            ---
-            
-            # ${topic.title}
-            
-            CRITICAL: To optimize for AI Search Engines (ChatGPT, Gemini, Perplexity), you MUST include highly structured data.
-            EVERYTHING MUST BE WRITTEN IN ${targetLanguage}.
-            
-            Structure the article exactly like this:
-            1. An engaging introduction addressing the specific needs of ${topic.audience}.
-            2. **TL;DR Comparison Table**: Create a Markdown Table comparing the Top 3 products.
-            3. Top 3 product recommendations. 
-               - CRITICAL PSYCHOLOGY HACK: You must explicitly label the #1 product recommendation as the "👑 Editor's Top Pick" (translated to ${targetLanguage}).
-               - For each product, make it sound like a real Amazon product for this niche.
-               - Write a **Pros & Cons List** using bullet points.
-               - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/dp/B08XYZ?tag=${affiliateId})
-            4. A buying guide section.
-            5. A conclusion.
-            
-            Do not include any extra text outside the markdown.`;
-
-            let articleMarkdown = await generateContentWithFailover(articlePrompt, apiKeys, grokKey);
-            
-            if (articleMarkdown.startsWith('```markdown')) articleMarkdown = articleMarkdown.substring(11);
-            else if (articleMarkdown.startsWith('```')) articleMarkdown = articleMarkdown.substring(3);
-            if (articleMarkdown.endsWith('```')) articleMarkdown = articleMarkdown.substring(0, articleMarkdown.length - 3);
-
-            // SANITIZE: Prevent LLM from hallucinating duplicate 'pinned:' YAML keys which crash Next.js builds
-            let firstPinned = true;
-            const sanitizedLines = articleMarkdown.trim().split('\n').map(l => {
-                if (l.trim().startsWith('pinned:')) {
-                    if (firstPinned) { firstPinned = false; return l; }
-                    return ''; // Strip duplicates
+            // Check if topic exists in Supabase
+            if (supabase) {
+                const { data } = await supabase.from('articles').select('slug').eq('slug', slug).single();
+                if (data) {
+                    console.log(`⚠️  Topic already exists in DB, thinking of a new one...`);
+                    continue;
                 }
-                return l;
-            });
-            articleMarkdown = sanitizedLines.join('\n');
-
-            fs.writeFileSync(filePath, articleMarkdown);
-            console.log(`✅ Saved to ${slug}.md`);
+            } else {
+                console.log(`❌ Supabase is not configured. Aborting.`);
+                return;
+            }
 
             // Push to Supabase Database for infinite scalability
             if (supabase) {

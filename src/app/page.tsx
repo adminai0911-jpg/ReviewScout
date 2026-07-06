@@ -8,7 +8,9 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-// Read articles from Supabase or fallback to local markdown
+export const revalidate = 3600; // ISR cache for 1 hour
+
+// Read articles from Supabase
 const getArticles = async () => {
   if (supabase) {
     try {
@@ -21,33 +23,10 @@ const getArticles = async () => {
         return data;
       }
     } catch (e) {
-      console.log('Supabase fetch failed, falling back to local files');
+      console.log('Supabase fetch failed:', e);
     }
   }
-
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  
-  if (!fs.existsSync(contentDir)) {
-      return [];
-  }
-
-  const files = fs.readdirSync(contentDir);
-  const articles = files
-    .filter(file => file.endsWith('.md'))
-    .map(file => {
-      const filePath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent);
-      return {
-        slug: file.replace('.md', ''),
-        title: data.title || file.replace('.md', '').split('-').join(' '),
-        date: data.date || 'Recently Updated',
-        language: data.language || 'English',
-        category: data.category || 'uncategorized',
-      };
-    });
-
-  return articles;
+  return [];
 };
 
 const getTopCategories = (articles: any[]) => {

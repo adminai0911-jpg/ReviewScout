@@ -9,6 +9,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
+export const revalidate = 3600;
+
 // Read and filter articles by category
 const getArticlesByCategory = async (categorySlug: string) => {
   if (supabase) {
@@ -23,58 +25,16 @@ const getArticlesByCategory = async (categorySlug: string) => {
         return data;
       }
     } catch (e) {
-      console.log('Supabase fetch failed, falling back to local files');
+      console.log('Supabase fetch failed:', e);
     }
   }
-
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  
-  if (!fs.existsSync(contentDir)) {
-      return [];
-  }
-
-  const files = fs.readdirSync(contentDir);
-  const articles = files
-    .filter(file => file.endsWith('.md'))
-    .map(file => {
-      const filePath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent);
-      return {
-        slug: file.replace('.md', ''),
-        title: data.title || file.replace('.md', '').split('-').join(' '),
-        date: data.date || 'Recently Updated',
-        category: data.category || 'uncategorized',
-        language: data.language || 'English',
-      };
-    })
-    .filter(article => article.category.toLowerCase() === categorySlug.toLowerCase());
-
-  return articles;
+  return [];
 };
 
-// Next.js requires generateStaticParams for dynamic routes in static export
+// With Supabase + ISR, we rely on dynamicParams (true by default).
+// We don't pre-render all categories at build time to save Vercel build hours.
 export async function generateStaticParams() {
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  if (!fs.existsSync(contentDir)) return [];
-
-  const files = fs.readdirSync(contentDir);
-  const categories = new Set<string>();
-
-  files.forEach(file => {
-    if (file.endsWith('.md')) {
-      const filePath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent);
-      if (data.category) {
-        categories.add(data.category.toLowerCase());
-      }
-    }
-  });
-
-  return Array.from(categories).map((category) => ({
-    slug: category,
-  }));
+  return [];
 }
 
 const getTopCategories = (articles: any[]) => {
@@ -98,12 +58,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   }
 
   // Get all articles for dynamic navbar
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  const files = fs.readdirSync(contentDir);
-  const allArticles = files.filter(f => f.endsWith('.md')).map(f => {
-    const { data } = matter(fs.readFileSync(path.join(contentDir, f), 'utf-8'));
-    return { category: data.category || 'uncategorized' };
-  });
+  let allArticles: any[] = [];
+  if (supabase) {
+    try {
+      const { data } = await supabase.from('articles').select('category');
+      if (data) allArticles = data;
+    } catch (e) {}
+  }
   const topCategories = getTopCategories(allArticles);
 
   // Format category name for display (e.g. "home-office" -> "Home Office")

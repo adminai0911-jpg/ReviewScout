@@ -34,16 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   if (!loadedFromSupabase) {
-    const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-    const filePath = path.join(contentDir, `${resolvedParams.slug}.md`);
-    if (fs.existsSync(filePath)) {
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent);
-      title = data.title || title;
-      description = data.description || description;
-    } else {
-      return { title: 'Article Not Found | ReviewScout' };
-    }
+    return { title: 'Article Not Found | ReviewScout' };
   }
 
   return {
@@ -65,13 +56,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+export const revalidate = 3600; // ISR Cache for 1 hour
+
 export async function generateStaticParams() {
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  if (!fs.existsSync(contentDir)) return [];
-  const files = fs.readdirSync(contentDir);
-  return files.filter(f => f.endsWith('.md')).map(file => ({
-    slug: file.replace('.md', '')
-  }));
+  return []; // DynamicParams handles missing slugs
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -104,24 +92,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     }
   }
 
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-
   if (!loadedFromSupabase) {
-    const filePath = path.join(contentDir, `${resolvedParams.slug}.md`);
-    if (!fs.existsSync(filePath)) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-slate-800 mb-4">Article Not Found</h1>
-            <Link href="/" className="text-indigo-600 hover:underline font-semibold">← Back to Homepage</Link>
-          </div>
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-slate-800 mb-4">Article Not Found</h1>
+          <Link href="/" className="text-indigo-600 hover:underline font-semibold">← Back to Homepage</Link>
         </div>
-      );
-    }
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const parsed = matter(fileContent);
-    data = parsed.data;
-    content = parsed.content;
+      </div>
+    );
   }
 
   // CRO: Generate a dynamic Amazon Search Link based on the article title
@@ -144,16 +123,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
   
   if (relatedArticles.length === 0) {
-    if (fs.existsSync(contentDir)) {
-      const allFiles = fs.readdirSync(contentDir).filter(f => f.endsWith('.md') && f !== `${resolvedParams.slug}.md`);
-      const shuffled = allFiles.sort(() => 0.5 - Math.random());
-      const relatedFiles = shuffled.slice(0, 3);
-      relatedArticles = relatedFiles.map(f => {
-        const fc = fs.readFileSync(path.join(contentDir, f), 'utf-8');
-        const fData = matter(fc).data;
-        return { slug: f.replace('.md', ''), title: fData.title };
-      });
-    }
+    // If no related articles exist, we just leave it empty.
+    relatedArticles = [];
   }
 
   // Calculate dynamic review rating based on string length (pseudo-random but consistent)

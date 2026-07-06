@@ -27,7 +27,23 @@ async function migrate() {
     for (const file of files) {
         const slug = file.replace('.md', '');
         const filePath = path.join(contentDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        let fileContent = fs.readFileSync(filePath, 'utf-8');
+        
+        // Strip duplicate pinned keys in memory before parsing
+        if (fileContent.match(/pinned:.*\n[\s\S]*pinned:/)) {
+            let first = true;
+            fileContent = fileContent.split(/\r?\n/).filter(l => {
+                if (l.trim().startsWith('pinned:')) {
+                    if (first) {
+                        first = false;
+                        return true;
+                    }
+                    return false;
+                }
+                return true;
+            }).join('\n');
+        }
+        
         const parsed = matter(fileContent);
         
         const title = parsed.data.title || slug.split('-').join(' ');
