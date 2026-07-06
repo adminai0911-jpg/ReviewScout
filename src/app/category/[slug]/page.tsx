@@ -3,9 +3,30 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 // Read and filter articles by category
-const getArticlesByCategory = (categorySlug: string) => {
+const getArticlesByCategory = async (categorySlug: string) => {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('category', categorySlug.toLowerCase())
+        .order('created_at', { ascending: false });
+        
+      if (!error && data && data.length > 0) {
+        return data;
+      }
+    } catch (e) {
+      console.log('Supabase fetch failed, falling back to local files');
+    }
+  }
+
   const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
   
   if (!fs.existsSync(contentDir)) {
@@ -70,7 +91,7 @@ const getTopCategories = (articles: any[]) => {
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const articles = getArticlesByCategory(resolvedParams.slug);
+  const articles = await getArticlesByCategory(resolvedParams.slug);
 
   if (articles.length === 0) {
     notFound();

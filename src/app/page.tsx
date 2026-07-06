@@ -2,9 +2,29 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js';
 
-// Read all markdown files from the content directory
-const getArticles = () => {
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+
+// Read articles from Supabase or fallback to local markdown
+const getArticles = async () => {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .order('created_at', { ascending: false });
+        
+      if (!error && data && data.length > 0) {
+        return data;
+      }
+    } catch (e) {
+      console.log('Supabase fetch failed, falling back to local files');
+    }
+  }
+
   const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
   
   if (!fs.existsSync(contentDir)) {
@@ -33,7 +53,7 @@ const getArticles = () => {
 const getTopCategories = (articles: any[]) => {
   const counts: Record<string, number> = {};
   articles.forEach(a => {
-    const cat = a.category.toLowerCase();
+    const cat = a.category ? a.category.toLowerCase() : 'uncategorized';
     counts[cat] = (counts[cat] || 0) + 1;
   });
   return Object.entries(counts)
@@ -42,8 +62,8 @@ const getTopCategories = (articles: any[]) => {
     .map(x => x[0]);
 };
 
-export default function Home() {
-  const articles = getArticles();
+export default async function Home() {
+  const articles = await getArticles();
   const topCategories = getTopCategories(articles);
 
   return (

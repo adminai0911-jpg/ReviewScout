@@ -5,22 +5,46 @@ import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 // --- SEO: Dynamic Metadata Generation ---
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  const filePath = path.join(contentDir, `${resolvedParams.slug}.md`);
+  
+  let title = "The Ultimate Buying Guide";
+  let description = `Read our comprehensive expert review and buyer's guide for ${title}. Find the best prices and top features.`;
 
-  if (!fs.existsSync(filePath)) {
-    return { title: 'Article Not Found | ReviewScout' };
+  let loadedFromSupabase = false;
+  if (supabase) {
+    try {
+      const { data: supaData, error } = await supabase
+        .from('articles')
+        .select('title')
+        .eq('slug', resolvedParams.slug)
+        .single();
+      if (!error && supaData) {
+        title = supaData.title;
+        loadedFromSupabase = true;
+      }
+    } catch (e) {}
   }
 
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data } = matter(fileContent);
-
-  const title = data.title || "The Ultimate Buying Guide";
-  const description = data.description || `Read our comprehensive expert review and buyer's guide for ${title}. Find the best prices and top features.`;
+  if (!loadedFromSupabase) {
+    const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
+    const filePath = path.join(contentDir, `${resolvedParams.slug}.md`);
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      const { data } = matter(fileContent);
+      title = data.title || title;
+      description = data.description || description;
+    } else {
+      return { title: 'Article Not Found | ReviewScout' };
+    }
+  }
 
   return {
     title: `${title} | ReviewScout Verified Review`,
@@ -52,36 +76,85 @@ export async function generateStaticParams() {
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
-  const filePath = path.join(contentDir, `${resolvedParams.slug}.md`);
   
-  if (!fs.existsSync(filePath)) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Article Not Found</h1>
-          <Link href="/" className="text-indigo-600 hover:underline font-semibold">← Back to Homepage</Link>
-        </div>
-      </div>
-    );
+  let data: any = {};
+  let content = '';
+  let loadedFromSupabase = false;
+
+  if (supabase) {
+    try {
+      const { data: supaData, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('slug', resolvedParams.slug)
+        .single();
+      
+      if (!error && supaData) {
+        data = {
+          title: supaData.title,
+          date: supaData.date,
+          category: supaData.category,
+          language: supaData.language
+        };
+        content = supaData.content;
+        loadedFromSupabase = true;
+      }
+    } catch (e) {
+      console.log('Supabase fetch failed');
+    }
   }
 
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(fileContent);
+  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
+
+  if (!loadedFromSupabase) {
+    const filePath = path.join(contentDir, `${resolvedParams.slug}.md`);
+    if (!fs.existsSync(filePath)) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-slate-800 mb-4">Article Not Found</h1>
+            <Link href="/" className="text-indigo-600 hover:underline font-semibold">← Back to Homepage</Link>
+          </div>
+        </div>
+      );
+    }
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const parsed = matter(fileContent);
+    data = parsed.data;
+    content = parsed.content;
+  }
 
   // CRO: Generate a dynamic Amazon Search Link based on the article title
   const affiliateId = "inamazon0f2-21";
   const amazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
 
   // SEO: Automated Internal Linking
-  const allFiles = fs.readdirSync(contentDir).filter(f => f.endsWith('.md') && f !== `${resolvedParams.slug}.md`);
-  const shuffled = allFiles.sort(() => 0.5 - Math.random());
-  const relatedFiles = shuffled.slice(0, 3);
-  const relatedArticles = relatedFiles.map(f => {
-    const fc = fs.readFileSync(path.join(contentDir, f), 'utf-8');
-    const fData = matter(fc).data;
-    return { slug: f.replace('.md', ''), title: fData.title };
-  });
+  let relatedArticles: any[] = [];
+  if (loadedFromSupabase && supabase) {
+    try {
+      const { data: relatedData } = await supabase
+        .from('articles')
+        .select('slug, title')
+        .neq('slug', resolvedParams.slug)
+        .limit(3);
+      if (relatedData) {
+        relatedArticles = relatedData;
+      }
+    } catch(e) {}
+  }
+  
+  if (relatedArticles.length === 0) {
+    if (fs.existsSync(contentDir)) {
+      const allFiles = fs.readdirSync(contentDir).filter(f => f.endsWith('.md') && f !== `${resolvedParams.slug}.md`);
+      const shuffled = allFiles.sort(() => 0.5 - Math.random());
+      const relatedFiles = shuffled.slice(0, 3);
+      relatedArticles = relatedFiles.map(f => {
+        const fc = fs.readFileSync(path.join(contentDir, f), 'utf-8');
+        const fData = matter(fc).data;
+        return { slug: f.replace('.md', ''), title: fData.title };
+      });
+    }
+  }
 
   // Calculate dynamic review rating based on string length (pseudo-random but consistent)
   const ratingValue = data.title ? (4.2 + (data.title.length % 8) / 10).toFixed(1) : "4.8";

@@ -2,6 +2,11 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { GoogleGenAI } = require('@google/genai');
+const { createClient } = require('@supabase/supabase-js');
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 const contentDir = path.join(__dirname, 'src', 'content', 'articles');
 const affiliateId = "inamazon0f2-21";
@@ -151,6 +156,29 @@ async function runInfiniteGenerator() {
 
             fs.writeFileSync(filePath, articleMarkdown);
             console.log(`✅ Saved to ${slug}.md`);
+
+            // Push to Supabase Database for infinite scalability
+            if (supabase) {
+                console.log(`☁️ Pushing article to Supabase Database...`);
+                try {
+                    const { error } = await supabase.from('articles').insert([{
+                        slug: slug,
+                        title: topic.title,
+                        category: topic.category.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                        content: articleMarkdown,
+                        date: new Date().toISOString().split('T')[0],
+                        language: targetLanguage
+                    }]);
+                    if (error) {
+                        console.log(`⚠️ Supabase push failed (Table might not exist yet): ${error.message}`);
+                    } else {
+                        console.log(`✅ Successfully pushed ${slug} to Supabase!`);
+                    }
+                } catch (e) {
+                    console.log(`⚠️ Supabase error: ${e.message}`);
+                }
+            }
+
             totalGenerated++;
             
             if (totalGenerated % 5 === 0) {
