@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best AI-Powered Transcription Software for Academic Researchers (HIPAA Compliant)"
 date: "2026-07-06"
 category: "software"
