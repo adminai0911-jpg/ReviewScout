@@ -41,6 +41,7 @@ export const metadata: Metadata = {
 import LeadPopup from "@/components/LeadPopup";
 import PushManager from "@/components/PushManager";
 import AIChatAgent from "@/components/AIChatAgent";
+import LiveSalesPopup from "@/components/LiveSalesPopup";
 
 export default function RootLayout({
   children,
@@ -74,6 +75,7 @@ export default function RootLayout({
         
         {/* Global Components */}
         <LeadPopup />
+        <LiveSalesPopup />
         <PushManager />
         <AIChatAgent />
       </body>

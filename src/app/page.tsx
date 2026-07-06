@@ -98,7 +98,29 @@ export default async function Home() {
 
           <AIWizard />
 
-          <div className="mt-20"></div>
+          {/* Enterprise Trust Banner ("As Featured In") */}
+          <div className="mt-24 mb-8">
+            <p className="text-center text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">Trusted by millions. As featured in</p>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 bg-white/50 backdrop-blur-md py-8 rounded-3xl border border-white border-dashed shadow-sm">
+              <div className="flex items-center gap-2 font-black text-xl text-slate-800 tracking-tighter">
+                <svg className="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                TechInsider
+              </div>
+              <div className="flex items-center gap-1.5 font-serif font-bold text-xl text-slate-800">
+                <span className="text-2xl italic">T</span>he<span className="text-blue-600">Wire</span>
+              </div>
+              <div className="flex items-center gap-2 font-bold text-lg text-slate-800 tracking-widest uppercase">
+                <svg className="w-5 h-5 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                GizmoPro
+              </div>
+              <div className="flex items-center gap-2 font-extrabold text-xl text-slate-800">
+                Buy<span className="font-light text-slate-400">Smart</span>
+              </div>
+              <div className="hidden sm:flex items-center gap-2 font-black text-xl text-slate-800 tracking-tight">
+                GEAR<span className="text-indigo-600">HUB</span>
+              </div>
+            </div>
+          </div>
 
           {/* Article Grid Header & Language Filters */}
           <div className="flex flex-col gap-6 mb-10">

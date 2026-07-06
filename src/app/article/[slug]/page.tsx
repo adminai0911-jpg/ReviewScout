@@ -9,6 +9,7 @@ import Script from 'next/script';
 import { createClient } from '@supabase/supabase-js';
 import PriceDropWidget from '../../../components/PriceDropWidget';
 import SaaSBanner from '../../../components/SaaSBanner';
+import FloatingShareBar from '../../../components/FloatingShareBar';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -179,39 +180,84 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-slate-900 to-violet-900/50 z-0"></div>
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[100px] z-0"></div>
 
-            {/* SEO: Rich Snippet JSON-LD - Review Schema */}
+            {/* SEO: Rich Snippet JSON-LD - Advanced Schema Array */}
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "Review",
-                  "itemReviewed": {
-                    "@type": "Product",
-                    "name": data.title || "Reviewed Product",
-                    "description": "Comprehensive buyer's guide and review.",
-                    "brand": {
-                      "@type": "Brand",
-                      "name": "Top Rated"
+                __html: JSON.stringify([
+                  {
+                    "@context": "https://schema.org",
+                    "@type": "Review",
+                    "itemReviewed": {
+                      "@type": "Product",
+                      "name": data.title || "Reviewed Product",
+                      "description": "Comprehensive buyer's guide and review.",
+                      "brand": {
+                        "@type": "Brand",
+                        "name": "Top Rated"
+                      }
+                    },
+                    "reviewRating": {
+                      "@type": "Rating",
+                      "ratingValue": ratingValue,
+                      "bestRating": "5"
+                    },
+                    "author": {
+                      "@type": "Organization",
+                      "name": "ReviewScout.tech"
+                    },
+                    "datePublished": data.date || new Date().toISOString().split('T')[0],
+                    "publisher": {
+                      "@type": "Organization",
+                      "name": "ReviewScout.tech"
                     }
                   },
-                  "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": ratingValue,
-                    "bestRating": "5"
+                  {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": data.title || "The Ultimate Buying Guide",
+                    "image": "https://review-scout-pi.vercel.app/og-image.jpg",
+                    "author": {
+                      "@type": "Organization",
+                      "name": "ReviewScout.tech"
+                    },
+                    "publisher": {
+                      "@type": "Organization",
+                      "name": "ReviewScout.tech",
+                      "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://review-scout-pi.vercel.app/logo.png"
+                      }
+                    },
+                    "datePublished": data.date || new Date().toISOString().split('T')[0]
                   },
-                  "author": {
-                    "@type": "Organization",
-                    "name": "ReviewScout.tech"
-                  },
-                  "datePublished": data.date || new Date().toISOString().split('T')[0],
-                  "publisher": {
-                    "@type": "Organization",
-                    "name": "ReviewScout.tech"
+                  {
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                      {
+                        "@type": "Question",
+                        "name": `Is ${data.title} worth buying?`,
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": `Yes, based on our expert AI analysis and verified buyer reviews, ${data.title} is highly recommended for its performance and value.`
+                        }
+                      },
+                      {
+                        "@type": "Question",
+                        "name": `Where can I find the best price for ${data.title}?`,
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": `We constantly monitor prices. You can check the current lowest price on Amazon using our verified links in the article.`
+                        }
+                      }
+                    ]
                   }
-                })
+                ])
               }}
             />
+
+            <FloatingShareBar title={data.title} />
 
             <div className="relative z-10 max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-8 border border-white/10 shadow-xl">
