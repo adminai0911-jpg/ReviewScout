@@ -1,4 +1,5 @@
 ---
+pinned: true
 title: "Best AI Video Editing Software for Real Estate Agents 2025"
 date: "2026-07-06"
 category: "software"
