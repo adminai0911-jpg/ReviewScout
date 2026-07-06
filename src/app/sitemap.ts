@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .from('articles')
         .select('slug, created_at, category');
       
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         const categories = new Set<string>();
         data.forEach(item => {
           if (item.category) categories.add(item.category);
