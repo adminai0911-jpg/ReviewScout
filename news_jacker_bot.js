@@ -4,7 +4,7 @@ const path = require('path');
 const { generateContentWithFailover } = require('./seo_generator');
 
 const parser = new Parser();
-const contentDir = path.join(__dirname, 'src', 'content');
+const contentDir = path.join(__dirname, 'src', 'content', 'articles');
 const logFile = path.join(__dirname, 'news_jacker_log.json');
 
 // Ensure log file exists to track processed news

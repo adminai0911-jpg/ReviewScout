@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-const contentDir = path.join(__dirname, 'src', 'content');
+const contentDir = path.join(__dirname, 'src', 'content', 'articles');
 const SITE_URL = 'https://review-scout-pi.vercel.app';
 
 async function runSpiderBot() {

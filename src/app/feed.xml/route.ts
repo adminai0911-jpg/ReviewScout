@@ -6,7 +6,7 @@ import matter from 'gray-matter';
 const SITE_URL = 'https://review-scout-pi.vercel.app';
 
 export async function GET() {
-  const contentDir = path.join(process.cwd(), 'src', 'content');
+  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
   let files = [];
   try {
     files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md'));
