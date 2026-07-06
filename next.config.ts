@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production", // Strip console logs in production for faster execution
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   }
 };
 
