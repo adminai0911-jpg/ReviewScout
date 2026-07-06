@@ -56,6 +56,18 @@ export async function generateStaticParams() {
   }));
 }
 
+const getTopCategories = (articles: any[]) => {
+  const counts: Record<string, number> = {};
+  articles.forEach(a => {
+    const cat = a.category.toLowerCase();
+    counts[cat] = (counts[cat] || 0) + 1;
+  });
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(x => x[0]);
+};
+
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const articles = getArticlesByCategory(resolvedParams.slug);
@@ -63,6 +75,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   if (articles.length === 0) {
     notFound();
   }
+
+  // Get all articles for dynamic navbar
+  const contentDir = path.join(process.cwd(), 'src', 'content', 'articles');
+  const files = fs.readdirSync(contentDir);
+  const allArticles = files.filter(f => f.endsWith('.md')).map(f => {
+    const { data } = matter(fs.readFileSync(path.join(contentDir, f), 'utf-8'));
+    return { category: data.category || 'uncategorized' };
+  });
+  const topCategories = getTopCategories(allArticles);
 
   // Format category name for display (e.g. "home-office" -> "Home Office")
   const categoryName = resolvedParams.slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -77,7 +98,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           <nav>
             <ul className="flex space-x-6 text-sm font-medium text-slate-600">
               <li><Link href="/" className="hover:text-indigo-600 transition">Home</Link></li>
-              <li className="text-indigo-600 font-bold">{categoryName}</li>
+              {topCategories.map((cat, idx) => (
+                <li key={idx} className={`capitalize ${cat.toLowerCase() === resolvedParams.slug.toLowerCase() ? 'text-indigo-600 font-bold' : 'hover:text-indigo-600 transition'}`}>
+                  <Link href={`/category/${cat}`}>{cat.replace('-', ' ')}</Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>

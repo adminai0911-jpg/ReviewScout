@@ -29,8 +29,21 @@ const getArticles = () => {
   return articles;
 };
 
+const getTopCategories = (articles: any[]) => {
+  const counts: Record<string, number> = {};
+  articles.forEach(a => {
+    const cat = a.category.toLowerCase();
+    counts[cat] = (counts[cat] || 0) + 1;
+  });
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(x => x[0]);
+};
+
 export default function Home() {
   const articles = getArticles();
+  const topCategories = getTopCategories(articles);
 
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-indigo-500 selection:text-white font-sans text-slate-900">
@@ -46,18 +59,12 @@ export default function Home() {
           </Link>
           <nav className="hidden md:block">
             <ul className="flex space-x-8 text-sm font-semibold text-slate-500">
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors relative group">
-                <Link href="/category/tech">Tech</Link>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
-              </li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors relative group">
-                <Link href="/category/outdoors">Outdoors</Link>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
-              </li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors relative group">
-                <Link href="/category/home">Home</Link>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
-              </li>
+              {topCategories.map((cat, idx) => (
+                <li key={idx} className="hover:text-indigo-600 cursor-pointer transition-colors relative group capitalize">
+                  <Link href={`/category/${cat}`}>{cat.replace('-', ' ')}</Link>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
