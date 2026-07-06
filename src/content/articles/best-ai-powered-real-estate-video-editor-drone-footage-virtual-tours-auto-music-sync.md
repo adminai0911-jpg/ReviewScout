@@ -1,5 +1,4 @@
 ---
-pinned: true
 title: "Best AI-Powered Video Editor for Real Estate Agents: Drone Footage, Virtual Tours, and Automatic Music Sync"
 date: "2026-07-06"
 category: "software"
