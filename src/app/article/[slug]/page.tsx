@@ -10,6 +10,7 @@ import { createClient } from '@supabase/supabase-js';
 import PriceDropWidget from '../../../components/PriceDropWidget';
 import SaaSBanner from '../../../components/SaaSBanner';
 import FloatingShareBar from '../../../components/FloatingShareBar';
+import ScarcityTimer from '../../../components/ScarcityTimer';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -284,6 +285,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           {/* Markdown Content rendered with Tailwind Typography */}
           <div className="px-6 md:px-16 py-16">
             
+            <ScarcityTimer />
+
             {/* E-E-A-T: "How We Test" Methodology (SEO Shield) */}
             <div className="bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-2xl p-8 mb-12 shadow-sm">
               <h3 className="font-bold text-slate-900 text-lg mb-3 flex items-center">

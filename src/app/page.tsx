@@ -3,6 +3,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
+import AIWizard from '../components/AIWizard';
+import FlashDealsStorefront from '../components/FlashDealsStorefront';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -40,8 +42,6 @@ const getTopCategories = (articles: any[]) => {
     .slice(0, 3)
     .map(x => x[0]);
 };
-
-import AIWizard from '../components/AIWizard';
 
 export default async function Home() {
   const articles = await getArticles();
@@ -121,6 +121,8 @@ export default async function Home() {
               </div>
             </div>
           </div>
+
+          <FlashDealsStorefront />
 
           {/* Article Grid Header & Language Filters */}
           <div className="flex flex-col gap-6 mb-10">
