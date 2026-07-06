@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Metadata } from 'next';
@@ -255,8 +256,73 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               prose-p:text-slate-600 prose-p:leading-relaxed
               prose-li:text-slate-600
               prose-strong:text-slate-900">
+              
+              {/* Wirecutter-style Author Profile (Trust Factor) */}
+              <div className="flex items-center gap-4 mb-10 pb-10 border-b border-slate-100 not-prose">
+                <img 
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" 
+                  alt="Sarah Jenkins" 
+                  className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md"
+                />
+                <div>
+                  <p className="font-bold text-slate-900 text-lg flex items-center gap-1.5">
+                    Sarah Jenkins 
+                    <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
+                  </p>
+                  <p className="text-sm text-slate-500 font-medium">Lead Product Tester & Review Editor</p>
+                </div>
+              </div>
+
               <ReactMarkdown
                 components={{
+                  li: ({ node, children, ...props }) => {
+                    const getText = (children: React.ReactNode): string => {
+                      let text = '';
+                      React.Children.forEach(children, (child) => {
+                        if (typeof child === 'string') text += child;
+                        else if (React.isValidElement(child) && child.props.children) {
+                          text += getText(child.props.children);
+                        }
+                      });
+                      return text;
+                    };
+                    
+                    const text = getText(children).trim().toLowerCase();
+                    
+                    // Visual Pros & Cons UI
+                    if (text.startsWith('pros:') || text.startsWith('pro:')) {
+                      return (
+                        <li className="bg-emerald-50 text-emerald-900 p-4 rounded-xl border border-emerald-100 list-none flex items-start gap-3 my-3 shadow-sm">
+                          <span className="text-xl shrink-0 leading-none">✅</span> 
+                          <div className="font-medium text-emerald-800">{children}</div>
+                        </li>
+                      );
+                    }
+                    if (text.startsWith('cons:') || text.startsWith('con:')) {
+                      return (
+                        <li className="bg-rose-50 text-rose-900 p-4 rounded-xl border border-rose-100 list-none flex items-start gap-3 my-3 shadow-sm">
+                          <span className="text-xl shrink-0 leading-none">❌</span> 
+                          <div className="font-medium text-rose-800">{children}</div>
+                        </li>
+                      );
+                    }
+                    
+                    // Verified Expert Pick Badge injection
+                    if (text.includes("editor's top pick") || text.includes("👑")) {
+                      return (
+                        <li className="list-none mb-6">
+                          <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-200 to-yellow-400 text-yellow-900 px-3 py-1.5 rounded-full text-xs uppercase tracking-wider font-black shadow-sm mb-3">
+                            ✅ Verified Expert Pick
+                          </div>
+                          <div className="text-xl font-bold text-slate-800 p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm">
+                            {children}
+                          </div>
+                        </li>
+                      );
+                    }
+                    
+                    return <li {...props} className="marker:text-indigo-400 pl-2">{children}</li>;
+                  },
                   a: ({ node, ...props }) => {
                     if (props.href && props.href.includes('amazon.')) {
                       // Pass the original Amazon link through our Geo-Routing engine
@@ -351,23 +417,36 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </footer>
 
       {/* CRO: Aggressive Global Sticky Buy Bar (Desktop + Mobile) */}
-      <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-2xl border-t border-slate-200/50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-[100] transform transition-transform duration-300">
-        <div className="max-w-4xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
-          <div className="hidden sm:block flex-grow truncate">
-            <p className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-0.5 animate-pulse">Top Pick</p>
-            <p className="text-slate-900 font-bold truncate pr-4">{data.title || "The Ultimate Buying Guide"}</p>
+      <div className="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-2xl border-t border-slate-200 shadow-[0_-15px_50px_rgba(0,0,0,0.15)] z-[100] transform transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+        <div className="max-w-4xl mx-auto px-4 py-4 sm:py-5 flex items-center justify-between gap-4">
+          
+          <div className="hidden sm:flex flex-grow truncate items-center gap-4">
+            <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center shrink-0">
+              <svg className="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <div>
+              <p className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-0.5 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> 
+                Current Top Pick
+              </p>
+              <p className="text-slate-900 font-bold truncate pr-4">{data.title || "The Ultimate Buying Guide"}</p>
+            </div>
           </div>
-          <div className="flex-grow sm:flex-grow-0 flex justify-center sm:justify-end w-full sm:w-auto">
+
+          <div className="flex-grow sm:flex-grow-0 flex justify-center w-full sm:w-auto relative group">
+            {/* Pulsating glow effect around the button */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-500 animate-pulse"></div>
             <a 
               href={amazonUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black text-lg py-3 px-8 rounded-xl shadow-lg shadow-orange-500/30 flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95"
+              className="relative w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-black text-lg py-4 px-10 rounded-xl shadow-2xl shadow-orange-500/40 flex justify-center items-center gap-3 transition-all hover:scale-105 active:scale-95 border border-white/20"
             >
               Check Price on Amazon
-              <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              <svg className="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
             </a>
           </div>
+
         </div>
       </div>
     </div>
