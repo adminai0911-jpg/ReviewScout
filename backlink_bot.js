@@ -14,7 +14,7 @@ async function generateBacklinkGuestPost(topic, targetSite) {
     
     Make the article highly engaging, formatted in Markdown, with H2s, H3s, and bullet points.`;
     
-    const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+    const response = await ai.models.generateContent({ model: 'gemini-flash-lite-latest', contents: prompt });
     return response.text.trim();
 }
 

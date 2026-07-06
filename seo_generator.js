@@ -21,10 +21,17 @@ async function generateContentWithFailover(prompt, apiKeys, grokKey) {
     for (const key of apiKeys) {
         try {
             const ai = new GoogleGenAI({ apiKey: key });
-            const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+            const response = await ai.models.generateContent({ model: 'gemini-flash-lite-latest', contents: prompt });
             return response.text.trim();
         } catch (error) {
-            console.log(`⚠️ Gemini Key Failed (Possibly Rate Limited)`);
+            const msg = error.message || "";
+            console.log(`⚠️ Gemini Key Error: ${msg}`);
+            // If it's a safety or bad request error, it will fail on all keys, so abort early.
+            if (msg.includes('SAFETY') || msg.includes('400')) {
+                throw new Error(`Content Blocked by Safety Filters: ${msg}`);
+            }
+            console.log(`🔄 Rotating to next API key...`);
+            await sleep(3000); // Wait 3 seconds before trying next key to prevent IP ban
         }
     }
     console.error(`🚀 All Gemini keys exhausted! Will retry later...`);
@@ -46,7 +53,7 @@ async function runInfiniteGenerator() {
         apiKeys = [process.env.GEMINI_API_KEY.trim()];
     }
 
-    apiKeys = apiKeys.sort(() => Math.random() - 0.5);
+    // Do NOT randomize keys. Use the first one until it hits a 429, then rotate sequentially.
     const grokKey = process.env.XAI_API_KEY;
 
     console.log(`🔑 Loaded ${apiKeys.length} Gemini API Key(s) for massive scaling.`);
@@ -181,20 +188,7 @@ async function runInfiniteGenerator() {
 
             totalGenerated++;
             
-            if (totalGenerated % 5 === 0) {
-                console.log(`\n🚀 [AUTO-DEPLOY] Pushing 5 new articles to GitHub to trigger Vercel build...`);
-                try {
-                    const { execSync } = require('child_process');
-                    execSync('git add src/content/articles/*.md');
-                    execSync('git commit -m "Auto-generated 5 new SEO articles"');
-                    execSync('git push origin main');
-                    console.log(`✅ Successfully pushed to GitHub. Vercel is now building your live site!`);
-                } catch (err) {
-                    console.log(`⚠️ Auto-Push failed. (Ensure you have linked a remote GitHub repository).`);
-                }
-            }
-            
-            console.log(`\n⏳ Cooling down for 60 seconds...`);
+            console.log(`\n⏳ Cooling down for 60 seconds to protect Gemini API limits...`);
             await sleep(60000);
 
         } catch (err) {
