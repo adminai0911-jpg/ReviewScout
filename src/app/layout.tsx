@@ -45,6 +45,7 @@ import LiveSalesPopup from "@/components/LiveSalesPopup";
 import GlobalPromoBanner from "@/components/GlobalPromoBanner";
 import SocialProofPopup from "@/components/SocialProofPopup";
 import TrendingTicker from "@/components/TrendingTicker";
+import WebPushPrompt from "@/components/WebPushPrompt";
 
 export default function RootLayout({
   children,
@@ -62,6 +63,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <GlobalPromoBanner />
         <TrendingTicker />
+        <WebPushPrompt />
         
         {/* Massive AI-GEO Global Schema */}
         <Script id="global-schema" type="application/ld+json" strategy="beforeInteractive">

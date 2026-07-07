@@ -86,10 +86,10 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {sortedArticles.slice(0, displayCount).map((article) => {
           // Generate a highly specific but truncated prompt for the image to prevent URL limits
-          const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 12).join(' ') + ' product photography studio lighting hyperrealistic');
+          const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 5).join(' ') + ' cinematic product shot studio lighting');
           // Use the article title's length and character codes to generate a highly unique, stable seed for this specific article
           const uniqueSeed = article.title.length * (article.title.charCodeAt(0) || 1) * 999;
-          const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=600&height=400&nologo=true&seed=${uniqueSeed}`;
+          const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=600&height=400&nologo=true&seed=${uniqueSeed}&model=flux`;
           
           return (
             <Link href={`/article/${article.slug}`} key={article.slug} className="group relative bg-[#0a0a0a] rounded-3xl shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all duration-500 border border-white/5 hover:border-indigo-500/30 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
