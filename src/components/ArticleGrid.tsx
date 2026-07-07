@@ -99,6 +99,9 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
                 <img 
                   src={imageUrl}
                   alt={article.title}
+                  onError={(e) => {
+                    e.currentTarget.src = `https://picsum.photos/seed/${uniqueSeed}/600/400`;
+                  }}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500"></div>
