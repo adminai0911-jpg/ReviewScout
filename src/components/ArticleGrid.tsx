@@ -49,20 +49,6 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
     }
   }, [initialArticles]);
 
-  // Map categories to beautiful, reliable Unsplash CDN image IDs
-  const getUnsplashId = (category: string) => {
-    const cat = (category || '').toLowerCase();
-    if (cat.includes('software') || cat.includes('saas') || cat.includes('tech') || cat.includes('computing')) return '1550751827438-d5600e00a944'; // Tech setup
-    if (cat.includes('health') || cat.includes('medical')) return '1576091160399-112ba8d25d1d'; // Medical tech
-    if (cat.includes('photo') || cat.includes('optic') || cat.includes('astronomy')) return '1516035054174-a5d6a2f43db4'; // Camera lens
-    if (cat.includes('business') || cat.includes('office')) return '1497215848148-31681283fb79'; // Professional desk
-    if (cat.includes('garden') || cat.includes('outdoor')) return '1416879598555-82092243d467'; // Outdoor gear
-    if (cat.includes('music') || cat.includes('audio')) return '1511379938547-c1f69419868d'; // Studio equipment
-    if (cat.includes('pet')) return '1583337130417-3346a1be7dee'; // Pet accessories
-    if (cat.includes('auto') || cat.includes('tool')) return '1517524008697-84bc678fdb9a'; // Tools/Engineering
-    return '1498050108023-c5249f4df085'; // Default tech/code
-  };
-
   if (sortedArticles.length === 0) {
     return (
       <div className="text-center py-32 bg-white/50 backdrop-blur-sm rounded-3xl border border-white border-dashed shadow-sm">
@@ -86,7 +72,9 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {sortedArticles.map((article) => {
-          const unsplashId = getUnsplashId(article.category);
+          // Generate a highly specific but truncated prompt for the image to prevent URL limits
+          const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 12).join(' ') + ' product photography');
+          const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=600&height=400&nologo=true`;
           
           return (
             <Link href={`/article/${article.slug}`} key={article.slug} className="group relative bg-white rounded-3xl shadow-sm hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 border border-slate-100 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
@@ -94,7 +82,7 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
               {/* Image Header */}
               <div className="h-56 bg-slate-900 relative overflow-hidden">
                 <img 
-                  src={`https://images.unsplash.com/photo-${unsplashId}?w=600&h=400&fit=crop&q=80`}
+                  src={imageUrl}
                   alt={article.title}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
