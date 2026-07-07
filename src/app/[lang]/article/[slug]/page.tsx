@@ -7,11 +7,11 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { createClient } from '@supabase/supabase-js';
-import PriceDropWidget from '../../../components/PriceDropWidget';
-import SaaSBanner from '../../../components/SaaSBanner';
-import FloatingShareBar from '../../../components/FloatingShareBar';
-import ScarcityTimer from '../../../components/ScarcityTimer';
-import UnlockToRead from '../../../components/UnlockToRead';
+import PriceDropWidget from '@/components/PriceDropWidget';
+import SaaSBanner from '@/components/SaaSBanner';
+import FloatingShareBar from '@/components/FloatingShareBar';
+import ScarcityTimer from '@/components/ScarcityTimer';
+import UnlockToRead from '@/components/UnlockToRead';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';

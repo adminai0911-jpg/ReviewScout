@@ -3,9 +3,9 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
-import AIWizard from '../components/AIWizard';
-import FlashDealsStorefront from '../components/FlashDealsStorefront';
-import ArticleGrid from '../components/ArticleGrid';
+import AIWizard from '@/components/AIWizard';
+import FlashDealsStorefront from '@/components/FlashDealsStorefront';
+import ArticleGrid from '@/components/ArticleGrid';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
