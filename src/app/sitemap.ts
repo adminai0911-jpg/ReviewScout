@@ -9,7 +9,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://reviewscout.tech';
+  const baseUrl = 'https://review-scout-pi.vercel.app';
   const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,

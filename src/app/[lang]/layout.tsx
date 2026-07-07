@@ -20,20 +20,20 @@ export const metadata: Metadata = {
     google: "bc5hPzXstw6y8lpbiXYdEHfTSZkySuSi5XR-MD4lJZQ",
   },
   alternates: {
-    canonical: 'https://reviewscout.tech',
+    canonical: 'https://review-scout-pi.vercel.app',
     languages: {
-      'en-US': 'https://reviewscout.tech',
-      'es-ES': 'https://reviewscout.tech/es',
-      'fr-FR': 'https://reviewscout.tech/fr',
-      'de-DE': 'https://reviewscout.tech/de',
-      'pt-BR': 'https://reviewscout.tech/pt',
-      'it-IT': 'https://reviewscout.tech/it'
+      'en-US': 'https://review-scout-pi.vercel.app',
+      'es-ES': 'https://review-scout-pi.vercel.app/es',
+      'fr-FR': 'https://review-scout-pi.vercel.app/fr',
+      'de-DE': 'https://review-scout-pi.vercel.app/de',
+      'pt-BR': 'https://review-scout-pi.vercel.app/pt',
+      'it-IT': 'https://review-scout-pi.vercel.app/it'
     },
   },
   openGraph: {
     title: "ReviewScout | Find the Perfect Gear",
     description: "Expertly curated recommendations for every profession, hobby, and budget.",
-    siteName: "reviewscout.tech",
+    siteName: "review-scout-pi.vercel.app",
     type: "website"
   }
 };
@@ -78,23 +78,23 @@ export default async function RootLayout({
               "@graph": [
                 {
                   "@type": "WebSite",
-                  "@id": "https://reviewscout.tech/#website",
-                  "url": "https://reviewscout.tech",
-                  "name": "ReviewScout.tech",
+                  "@id": "https://review-scout-pi.vercel.app/#website",
+                  "url": "https://review-scout-pi.vercel.app",
+                  "name": "ReviewScout",
                   "description": "Expertly curated AI-driven recommendations for every profession, hobby, and budget.",
                   "publisher": {
-                    "@id": "https://reviewscout.tech/#organization"
+                    "@id": "https://review-scout-pi.vercel.app/#organization"
                   },
                   "inLanguage": "en-US"
                 },
                 {
                   "@type": "Organization",
-                  "@id": "https://reviewscout.tech/#organization",
+                  "@id": "https://review-scout-pi.vercel.app/#organization",
                   "name": "ReviewScout",
-                  "url": "https://reviewscout.tech",
+                  "url": "https://review-scout-pi.vercel.app",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://reviewscout.tech/favicon.ico"
+                    "url": "https://review-scout-pi.vercel.app/favicon.ico"
                   },
                   "sameAs": [
                     "https://twitter.com/reviewscout",

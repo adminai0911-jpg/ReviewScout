@@ -29,7 +29,7 @@ export async function GET(request: Request) {
 
     // Pick a random article to post
     const article = articles[Math.floor(Math.random() * articles.length)];
-    const url = `https://reviewscout.tech/${article.language}/article/${article.slug}`;
+    const url = `https://review-scout-pi.vercel.app/${article.language}/article/${article.slug}`;
 
     // 2. Generate the AI Visual for Social Media
     const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 5).join(' ') + ' cinematic product shot studio lighting');

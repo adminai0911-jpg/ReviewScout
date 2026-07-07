@@ -20,10 +20,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: 'ReviewScout | #1 Global Shopping Guide',
     description: 'Discover the absolute best gear and tech globally. Verified by AI, curated by experts.',
     alternates: {
-      canonical: `https://reviewscout.tech/${lang}`,
+      canonical: `https://review-scout-pi.vercel.app/${lang}`,
       languages: {
-        [lang]: `https://reviewscout.tech/${lang}`,
-        'x-default': 'https://reviewscout.tech/en',
+        [lang]: `https://review-scout-pi.vercel.app/${lang}`,
+        'x-default': 'https://review-scout-pi.vercel.app/en',
       },
     },
   };

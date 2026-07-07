@@ -47,19 +47,19 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: `${title} | ReviewScout Verified Review`,
     description: description,
     alternates: {
-      canonical: `https://reviewscout.tech/${resolvedParams.lang}/article/${resolvedParams.slug}`,
+      canonical: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
       languages: {
-        [resolvedParams.lang]: `https://reviewscout.tech/${resolvedParams.lang}/article/${resolvedParams.slug}`,
-        'x-default': `https://reviewscout.tech/en/article/${resolvedParams.slug}`,
+        [resolvedParams.lang]: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
+        'x-default': `https://review-scout-pi.vercel.app/en/article/${resolvedParams.slug}`,
       },
     },
     openGraph: {
       title: title,
       description: description,
       type: 'article',
-      url: `https://reviewscout.tech/${resolvedParams.lang}/article/${resolvedParams.slug}`,
+      url: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
       siteName: 'ReviewScout',
-      images: [{ url: 'https://reviewscout.tech/og-image.jpg' }],
+      images: [{ url: 'https://review-scout-pi.vercel.app/og-image.jpg' }],
     },
     twitter: {
       card: 'summary_large_image',
