@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function ArticleGrid({ initialArticles }: { initialArticles: any[] }) {
   const [sortedArticles, setSortedArticles] = useState(initialArticles);
   const [detectedLang, setDetectedLang] = useState<string | null>(null);
+  const [displayCount, setDisplayCount] = useState(12);
 
   useEffect(() => {
     try {
@@ -49,6 +50,18 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
     }
   }, [initialArticles]);
 
+  // Infinite Scroll Logic
+  useEffect(() => {
+    const handleScroll = () => {
+      // If user scrolls near the bottom of the page (within 1000px)
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+        setDisplayCount(prev => Math.min(prev + 12, sortedArticles.length));
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sortedArticles.length]);
+
   if (sortedArticles.length === 0) {
     return (
       <div className="text-center py-32 bg-white/50 backdrop-blur-sm rounded-3xl border border-white border-dashed shadow-sm">
@@ -64,14 +77,14 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
   return (
     <div>
       {detectedLang && (
-        <div className="mb-6 flex items-center gap-2 bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl text-sm font-bold border border-indigo-100">
+        <div className="mb-6 flex items-center gap-2 bg-[#0a0a0a]/50 text-indigo-400 px-4 py-3 rounded-xl text-sm font-bold border border-indigo-500/20 backdrop-blur-md shadow-[0_0_15px_rgba(99,102,241,0.15)]">
           <svg className="w-4 h-4 animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          Auto-Localized for {detectedLang.charAt(0).toUpperCase() + detectedLang.slice(1)} Speakers
+          Auto-Localized Algorithm for {detectedLang.charAt(0).toUpperCase() + detectedLang.slice(1)} Speakers
         </div>
       )}
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {sortedArticles.map((article) => {
+        {sortedArticles.slice(0, displayCount).map((article) => {
           // Generate a highly specific but truncated prompt for the image to prevent URL limits
           const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 12).join(' ') + ' product photography studio lighting hyperrealistic');
           // Use the article title's length and character codes to generate a highly unique, stable seed for this specific article
@@ -126,6 +139,18 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
           );
         })}
       </div>
+
+      {displayCount < sortedArticles.length && (
+        <div className="mt-16 flex justify-center pb-20">
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative w-12 h-12">
+              <div className="absolute inset-0 rounded-full border-t-2 border-indigo-500 animate-spin"></div>
+              <div className="absolute inset-1 rounded-full border-b-2 border-fuchsia-500 animate-spin animation-delay-500"></div>
+            </div>
+            <p className="text-slate-400 font-bold uppercase tracking-wider text-xs animate-pulse">Loading More Content...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
