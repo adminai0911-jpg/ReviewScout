@@ -6,8 +6,14 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-// Initialize Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+// Initialize Gemini with load balancing across 9 keys
+const getGenAI = () => {
+  const keysStr = process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY || '';
+  if (!keysStr) return null;
+  const keys = keysStr.split(',').map(k => k.trim());
+  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+  return new GoogleGenerativeAI(randomKey);
+};
 
 // The Massive pSEO Matrix (1000+ Combinations)
 const PRODUCTS = [
@@ -60,10 +66,6 @@ export async function GET(request: Request) {
   if (!supabase) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
-  
-  if (!process.env.GEMINI_API_KEY) {
-    return NextResponse.json({ error: 'GEMINI_API_KEY missing' }, { status: 500 });
-  }
 
   // Generate a random combination
   const product = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
@@ -78,6 +80,11 @@ export async function GET(request: Request) {
     const { data: existing } = await supabase.from('articles').select('id').eq('slug', slug).single();
     if (existing) {
       return NextResponse.json({ success: true, message: 'Article already exists, skipping AI generation.' });
+    }
+
+    const genAI = getGenAI();
+    if (!genAI) {
+      return NextResponse.json({ error: 'GEMINI_API_KEYS missing' }, { status: 500 });
     }
 
     // 2. Call Gemini AI to write the article
