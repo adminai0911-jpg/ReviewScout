@@ -79,7 +79,7 @@ export default function GlobalPromoBanner() {
   const currentPromos = promos[lang as keyof typeof promos] || promos['en'];
 
   return (
-    <div className="relative z-50 overflow-hidden">
+    <div className="sticky top-0 z-[100] overflow-hidden shadow-md">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-[length:200%_auto] animate-gradient-x"></div>
       
