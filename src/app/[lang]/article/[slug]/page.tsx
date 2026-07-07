@@ -106,10 +106,22 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
   }
 
   if (!loadedFromSupabase) {
+    if (!supabase) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-red-600 mb-4">DEBUG: SUPABASE CLIENT IS NULL</h1>
+            <p>URL: {supabaseUrl ? 'SET' : 'MISSING'}</p>
+            <p>KEY: {supabaseKey ? 'SET' : 'MISSING'}</p>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-slate-800 mb-4">Article Not Found</h1>
+          <p>DEBUG: Supabase fetch failed or returned no data for slug: {resolvedParams.slug}</p>
           <Link href="/" className="text-indigo-600 hover:underline font-semibold">← Back to Homepage</Link>
         </div>
       </div>
