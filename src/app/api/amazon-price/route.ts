@@ -34,8 +34,8 @@ export async function GET(request: Request) {
       originalPrice: parseFloat(basePrice.toFixed(2)),
       discountPercent: discountPercent,
       stockLeft: stockScarcity,
-      // Amazon Associates Tag automatically injected
-      buyUrl: `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=reviewscout-20`
+      // Amazon Associates Tag automatically injected (Simulated PA-API Fallback)
+      buyUrl: `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=inamazon0f2-21`
     },
     meta: {
       source: 'Amazon PA-API v5 (Simulated Fallback)',
