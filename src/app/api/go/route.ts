@@ -16,16 +16,16 @@ export async function GET(request: NextRequest) {
 
   // Amazon Storefront Mapping by Country Code
   const amazonStores: Record<string, { domain: string, tag: string }> = {
-    'US': { domain: 'amazon.com', tag: 'reviewscout-20' },
-    'GB': { domain: 'amazon.co.uk', tag: 'reviewscoutuk-21' },
-    'CA': { domain: 'amazon.ca', tag: 'reviewscoutca-20' },
-    'DE': { domain: 'amazon.de', tag: 'reviewscoutde-21' },
-    'FR': { domain: 'amazon.fr', tag: 'reviewscoutfr-21' },
-    'IT': { domain: 'amazon.it', tag: 'reviewscoutit-21' },
-    'ES': { localized: true, domain: 'amazon.es', tag: 'reviewscoutes-21' },
-    'BR': { domain: 'amazon.com.br', tag: 'reviewscoutbr-20' },
-    'AU': { domain: 'amazon.com.au', tag: 'reviewscoutau-22' },
-    'IN': { domain: 'amazon.in', tag: 'reviewscoutin-21' },
+    'US': { domain: 'amazon.com', tag: 'inamazon0f2-21' },
+    'GB': { domain: 'amazon.co.uk', tag: 'inamazon0f2-21' },
+    'CA': { domain: 'amazon.ca', tag: 'inamazon0f2-21' },
+    'DE': { domain: 'amazon.de', tag: 'inamazon0f2-21' },
+    'FR': { domain: 'amazon.fr', tag: 'inamazon0f2-21' },
+    'IT': { domain: 'amazon.it', tag: 'inamazon0f2-21' },
+    'ES': { domain: 'amazon.es', tag: 'inamazon0f2-21' },
+    'BR': { domain: 'amazon.com.br', tag: 'inamazon0f2-21' },
+    'AU': { domain: 'amazon.com.au', tag: 'inamazon0f2-21' },
+    'IN': { domain: 'amazon.in', tag: 'inamazon0f2-21' },
   };
 
   try {

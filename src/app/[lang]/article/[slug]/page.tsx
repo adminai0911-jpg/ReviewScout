@@ -127,7 +127,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
   }
 
   // CRO: Generate a dynamic Amazon Search Link based on the article title
-  const affiliateId = "reviewscout-20";
+  const affiliateId = "inamazon0f2-21";
   const rawAmazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
   const amazonUrl = `/api/go?url=${encodeURIComponent(rawAmazonUrl)}`;
 
@@ -419,7 +419,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                           <div className="flex flex-col items-start gap-3">
                             <span className="text-white text-base leading-snug">{children}</span>
                             <a 
-                              href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(text)}&tag=reviewscout-20`)}`}
+                              href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(text)}&tag=inamazon0f2-21`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wide shadow-md hover:-translate-y-0.5 transition-all w-full border border-white/20"
@@ -446,7 +446,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                       // If the LLM hallucinated a bad link, fallback to a search query
                       const baseAmzUrl = props.href.includes('/dp/') || props.href.includes('/s?') 
                         ? props.href 
-                        : `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=reviewscout-20`;
+                        : `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=inamazon0f2-21`;
                       const routedUrl = `/api/go?url=${encodeURIComponent(baseAmzUrl)}`;
                       
                       return (
@@ -501,7 +501,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedArticles.map((article, i) => (
-              <Link key={i} href={`/article/${article.slug}`} className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 border border-slate-100 flex flex-col justify-between h-full group">
+              <Link key={i} href={`/${resolvedParams.lang}/article/${article.slug}`} className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 border border-slate-100 flex flex-col justify-between h-full group">
                 <h3 className="font-bold text-slate-800 leading-snug group-hover:text-indigo-600 transition-colors">{article.title}</h3>
                 <span className="text-sm font-semibold text-indigo-500 mt-6 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                   Read Guide <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>

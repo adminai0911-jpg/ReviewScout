@@ -1,18 +1,19 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true, // Prevents Vercel from crashing or hanging when loading external Amazon product images
+    unoptimized: true,
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production", // Strip console logs in production for faster execution
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
+    removeConsole: process.env.NODE_ENV === "production",
   },
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
 };
 
 export default nextConfig;
