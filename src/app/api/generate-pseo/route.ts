@@ -5,19 +5,59 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-// The pSEO Matrix
+// The Massive pSEO Matrix (1000+ Combinations)
 const PRODUCTS = [
-  "Sony WH-1000XM5", "Apple AirPods Max", "Bose QuietComfort Ultra", 
-  "Sennheiser Momentum 4", "Anker Soundcore Space Q45"
+  // Tech & Audio
+  "Sony WH-1000XM5", "Apple AirPods Max", "Bose QuietComfort Ultra", "Sennheiser Momentum 4", "Anker Soundcore Space Q45",
+  // Smart Home
+  "Amazon Echo Dot", "Google Nest Hub", "Philips Hue Starter Kit", "Ring Video Doorbell", "iRobot Roomba j7+",
+  // Photography & Video
+  "DJI Mini 4 Pro", "GoPro HERO12 Black", "Sony ZV-E10", "Insta360 X3", "Canon EOS R50",
+  // Laptops & Tablets
+  "MacBook Air M3", "iPad Pro 11-inch", "Microsoft Surface Pro 9", "Samsung Galaxy Tab S9", "Dell XPS 15",
+  // Fitness & Health
+  "Apple Watch Series 9", "Garmin Fenix 7", "Oura Ring Gen3", "Whoop 4.0", "Fitbit Charge 6",
+  // Home Appliances
+  "Dyson V15 Detect", "Ninja Creami", "Breville Barista Express", "Instant Pot Duo", "Vitamix 5200"
 ];
 
 const LOCATIONS = [
-  { city: "Tokyo", country: "Japan", lang: "ja" },
+  // India & Regional Languages
+  { city: "Mumbai", country: "India", lang: "hi" },
+  { city: "Chennai", country: "India", lang: "ta" },
+  { city: "Hyderabad", country: "India", lang: "te" },
+  { city: "Bengaluru", country: "India", lang: "kn" },
+  { city: "Kochi", country: "India", lang: "ml" },
+  { city: "Kolkata", country: "India", lang: "bn" },
+  { city: "Pune", country: "India", lang: "mr" },
+  { city: "Delhi", country: "India", lang: "en" },
+  // North America
+  { city: "New York", country: "United States", lang: "en" },
+  { city: "Toronto", country: "Canada", lang: "en" },
+  { city: "Montreal", country: "Canada", lang: "fr" },
+  { city: "Mexico City", country: "Mexico", lang: "es" },
+  // Europe
+  { city: "London", country: "United Kingdom", lang: "en" },
   { city: "Berlin", country: "Germany", lang: "de" },
   { city: "Paris", country: "France", lang: "fr" },
+  { city: "Rome", country: "Italy", lang: "it" },
   { city: "Madrid", country: "Spain", lang: "es" },
-  { city: "London", country: "UK", lang: "en" },
-  { city: "Seoul", country: "South Korea", lang: "ko" }
+  { city: "Amsterdam", country: "Netherlands", lang: "nl" },
+  { city: "Stockholm", country: "Sweden", lang: "sv" },
+  { city: "Warsaw", country: "Poland", lang: "pl" },
+  { city: "Brussels", country: "Belgium", lang: "fr" },
+  { city: "Dublin", country: "Ireland", lang: "en" },
+  // Asia & Oceania
+  { city: "Tokyo", country: "Japan", lang: "ja" },
+  { city: "Sydney", country: "Australia", lang: "en" },
+  { city: "Singapore", country: "Singapore", lang: "en" },
+  // Middle East & Africa
+  { city: "Dubai", country: "United Arab Emirates", lang: "ar" },
+  { city: "Riyadh", country: "Saudi Arabia", lang: "ar" },
+  { city: "Istanbul", country: "Turkey", lang: "tr" },
+  { city: "Cairo", country: "Egypt", lang: "ar" },
+  // South America
+  { city: "São Paulo", country: "Brazil", lang: "pt" }
 ];
 
 const USE_CASES = [
