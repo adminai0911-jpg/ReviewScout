@@ -47,14 +47,19 @@ import SocialProofPopup from "@/components/SocialProofPopup";
 import TrendingTicker from "@/components/TrendingTicker";
 import WebPushPrompt from "@/components/WebPushPrompt";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ lang: string }>;
+}) {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang || 'en';
+
   return (
     <html
-      lang="en"
+      lang={lang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>

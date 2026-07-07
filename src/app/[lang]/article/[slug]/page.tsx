@@ -18,7 +18,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 // --- SEO: Dynamic Metadata Generation ---
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   
   let title = "The Ultimate Buying Guide";
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: title,
       description: description,
       type: 'article',
-      url: `https://review-scout-pi.vercel.app/article/${resolvedParams.slug}`,
+      url: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
       siteName: 'ReviewScout',
       images: [{ url: 'https://review-scout-pi.vercel.app/og-image.jpg' }],
     },
@@ -68,7 +68,7 @@ export async function generateStaticParams() {
   return []; // DynamicParams handles missing slugs
 }
 
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ArticlePage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const resolvedParams = await params;
   
   let data: any = {};

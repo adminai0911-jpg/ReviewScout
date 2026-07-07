@@ -44,7 +44,15 @@ const getTopCategories = (articles: any[]) => {
     .map(x => x[0]);
 };
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}) {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang || 'en';
+  
+  // We can pass `lang` down to AIWizard or ArticleGrid if we want, or fetch localized articles directly.
   const articles = await getArticles();
   const topCategories = getTopCategories(articles);
 
