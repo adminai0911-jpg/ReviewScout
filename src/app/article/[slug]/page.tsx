@@ -137,7 +137,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const ratingValue = data.title ? (4.2 + (data.title.length % 8) / 10).toFixed(1) : "4.8";
 
   return (
-    <div className="min-h-screen bg-slate-50 selection:bg-indigo-500 selection:text-white font-sans text-slate-900 pb-32">
+    <div className="min-h-screen bg-[#030303] selection:bg-indigo-500 selection:text-white font-sans text-slate-200 pb-32">
       
       {/* Amazon OneLink Geo-Targeting Script */}
       <Script 
@@ -153,19 +153,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }}
       />
 
-      {/* Header - Glassmorphism */}
-      <header className="sticky top-12 z-40 bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-sm transition-all duration-300">
+      {/* Header - Dark Glassmorphism */}
+      <header className="sticky top-12 z-40 bg-[#030303]/70 backdrop-blur-xl border-b border-white/5 shadow-sm transition-all duration-300">
         <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" className="text-xl font-black tracking-tighter flex items-center gap-2 group w-max">
-            <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+            <div className="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             </div>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">ReviewScout</span>
-            <span className="text-indigo-600">.tech</span>
+            <span className="text-white">ReviewScout</span>
+            <span className="text-indigo-400">.tech</span>
           </Link>
           
           {/* CRO: Affiliate Disclosure in Header for Trust */}
-          <span className="text-[10px] text-slate-400 hidden sm:block uppercase tracking-wider font-bold">
+          <span className="text-[10px] text-slate-500 hidden sm:block uppercase tracking-wider font-bold">
             Ad: Amazon Associate
           </span>
         </div>
@@ -298,17 +298,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <p className="text-slate-600 leading-relaxed text-sm">To provide you with the most accurate recommendations, our AI engine aggregates data from thousands of verified purchaser reviews, technical specifications, and expert industry consensus. We evaluate products based on performance, durability, value for money, and real-world utility.</p>
             </div>
 
-            <div className="prose prose-lg md:prose-xl prose-slate max-w-none 
-              prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
-              prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-b prose-h2:pb-4 prose-h2:border-slate-100
+            <div className="prose prose-lg md:prose-xl prose-invert max-w-none 
+              prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white
+              prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-b prose-h2:pb-4 prose-h2:border-white/10
               prose-h3:text-2xl prose-h3:mt-10
-              prose-a:text-white prose-a:bg-gradient-to-r prose-a:from-orange-500 prose-a:to-red-500 prose-a:hover:from-orange-600 prose-a:hover:to-red-600 prose-a:no-underline prose-a:px-8 prose-a:py-4 prose-a:rounded-xl prose-a:font-bold prose-a:inline-flex prose-a:items-center prose-a:mt-6 prose-a:mb-2 prose-a:shadow-xl prose-a:shadow-orange-500/20 prose-a:transition-all prose-a:hover:-translate-y-1 prose-a:w-full sm:prose-a:w-auto prose-a:justify-center
-              prose-p:text-slate-600 prose-p:leading-relaxed
-              prose-li:text-slate-600
-              prose-strong:text-slate-900">
+              prose-a:text-white prose-a:bg-gradient-to-r prose-a:from-indigo-500 prose-a:to-fuchsia-500 prose-a:hover:from-indigo-600 prose-a:hover:to-fuchsia-600 prose-a:no-underline prose-a:px-8 prose-a:py-4 prose-a:rounded-xl prose-a:font-bold prose-a:inline-flex prose-a:items-center prose-a:mt-6 prose-a:mb-2 prose-a:shadow-[0_0_20px_rgba(99,102,241,0.4)] prose-a:transition-all prose-a:hover:-translate-y-1 prose-a:w-full sm:prose-a:w-auto prose-a:justify-center
+              prose-p:text-slate-300 prose-p:leading-relaxed
+              prose-li:text-slate-300
+              prose-strong:text-white">
               
               {/* Wirecutter-style Author Profile (Trust Factor) */}
-              <div className="flex items-center gap-4 mb-10 pb-10 border-b border-slate-100 not-prose">
+              <div className="flex items-center gap-4 mb-10 pb-10 border-b border-white/10 not-prose">
                 <img 
                   src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" 
                   alt="Sarah Jenkins" 

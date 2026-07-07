@@ -73,29 +73,31 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {sortedArticles.map((article) => {
           // Generate a highly specific but truncated prompt for the image to prevent URL limits
-          const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 12).join(' ') + ' product photography');
-          const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=600&height=400&nologo=true`;
+          const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 12).join(' ') + ' product photography studio lighting hyperrealistic');
+          // Use the article title's length and character codes to generate a highly unique, stable seed for this specific article
+          const uniqueSeed = article.title.length * (article.title.charCodeAt(0) || 1) * 999;
+          const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=600&height=400&nologo=true&seed=${uniqueSeed}`;
           
           return (
-            <Link href={`/article/${article.slug}`} key={article.slug} className="group relative bg-white rounded-3xl shadow-sm hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 border border-slate-100 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
+            <Link href={`/article/${article.slug}`} key={article.slug} className="group relative bg-[#0a0a0a] rounded-3xl shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all duration-500 border border-white/5 hover:border-indigo-500/30 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
               
               {/* Image Header */}
               <div className="h-56 bg-slate-900 relative overflow-hidden">
                 <img 
                   src={imageUrl}
                   alt={article.title}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500"></div>
                 
                 <div className="absolute top-4 left-4 flex gap-2 z-10">
-                  <div className="bg-white/20 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-white/10 shadow-lg">
+                  <div className="bg-black/40 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-white/10 shadow-lg">
                     {article.language}
                   </div>
                 </div>
                 
                 <div className="absolute bottom-4 left-4 right-4 text-white z-10">
-                  <div className="flex items-center text-xs font-medium text-white mb-2 drop-shadow-md">
+                  <div className="flex items-center text-xs font-bold text-indigo-300 mb-2 drop-shadow-md">
                     <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     {article.date}
                   </div>
@@ -103,21 +105,21 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
               </div>
               
               {/* Card Content */}
-              <div className="p-8 flex flex-col flex-grow bg-white relative">
-                <div className="absolute -top-6 right-8 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border border-slate-100 group-hover:scale-110 transition-transform">
-                  <svg className="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              <div className="p-8 flex flex-col flex-grow bg-[#0a0a0a] relative">
+                <div className="absolute -top-6 right-8 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.5)] border border-indigo-400 group-hover:scale-110 group-hover:bg-fuchsia-600 group-hover:border-fuchsia-400 group-hover:shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300">
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-800 leading-snug mb-4 group-hover:text-indigo-600 transition-colors">
+                <h3 className="text-xl font-bold text-white leading-snug mb-4 group-hover:text-indigo-400 transition-colors drop-shadow-sm">
                   {article.title}
                 </h3>
                 
-                <div className="mt-auto pt-6 flex items-center justify-between">
+                <div className="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-[8px] font-bold text-slate-500">RS</div>
-                    <span className="text-xs font-semibold text-slate-500">Expert Team</span>
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 flex items-center justify-center text-[9px] font-black text-white shadow-md">RS</div>
+                    <span className="text-xs font-semibold text-slate-400">Expert Team</span>
                   </div>
-                  <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">Read Full Guide</span>
+                  <span className="text-xs font-black text-indigo-400 uppercase tracking-wider group-hover:text-fuchsia-400 transition-colors">Read Full Guide</span>
                 </div>
               </div>
             </Link>

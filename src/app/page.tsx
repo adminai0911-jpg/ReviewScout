@@ -49,23 +49,23 @@ export default async function Home() {
   const topCategories = getTopCategories(articles);
 
   return (
-    <div className="min-h-screen bg-slate-50 selection:bg-indigo-500 selection:text-white font-sans text-slate-900">
-      {/* Header - Glassmorphism */}
-      <header className="sticky top-12 z-40 bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-sm transition-all duration-300">
+    <div className="min-h-screen bg-[#030303] selection:bg-indigo-500 selection:text-white font-sans text-slate-200">
+      {/* Header - Dark Glassmorphism */}
+      <header className="sticky top-12 z-40 bg-[#030303]/70 backdrop-blur-xl border-b border-white/5 shadow-sm transition-all duration-300">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" className="text-2xl font-black tracking-tighter flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 group-hover:scale-110 group-hover:shadow-indigo-500/50 transition-all">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">ReviewScout</span>
-            <span className="text-indigo-600">.tech</span>
+            <span className="text-white">ReviewScout</span>
+            <span className="text-indigo-400">.tech</span>
           </Link>
           <nav className="hidden md:block">
-            <ul className="flex space-x-8 text-sm font-semibold text-slate-500">
+            <ul className="flex space-x-8 text-sm font-semibold text-slate-400">
               {topCategories.map((cat, idx) => (
-                <li key={idx} className="hover:text-indigo-600 cursor-pointer transition-colors relative group capitalize">
+                <li key={idx} className="hover:text-indigo-400 cursor-pointer transition-colors relative group capitalize">
                   <Link href={`/category/${cat}`}>{cat.replace('-', ' ')}</Link>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
                 </li>
               ))}
             </ul>
@@ -73,52 +73,52 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* Hero Section - Dynamic & Immersive */}
+      {/* Hero Section - Highly Immersive Dark Mode */}
       <main className="relative overflow-hidden">
-        {/* Abstract Background Shapes */}
-        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob"></div>
-        <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-violet-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob animation-delay-4000"></div>
+        {/* Massive Ambient Glows */}
+        <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-60 animate-pulse"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-50 animation-delay-2000"></div>
+        <div className="absolute bottom-[-20%] left-[20%] w-[700px] h-[700px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-40 animation-delay-4000"></div>
 
-        <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
-          <div className="text-center max-w-4xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-widest mb-8 shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 relative z-10">
+          <div className="text-center max-w-4xl mx-auto mb-24">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-indigo-300 text-xs font-black uppercase tracking-widest mb-10 shadow-[0_0_20px_rgba(99,102,241,0.2)] backdrop-blur-md hover:bg-white/10 transition-colors">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,1)]"></span>
               </span>
-              AI-Powered Buyer's Guides
+              Next-Gen AI Buyer's Engine
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1] text-slate-900">
-              Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-500">Perfect Gear</span> Without the Guesswork.
+            <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[1.05] text-white drop-shadow-2xl">
+              Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-rose-400">Perfect Gear</span> Without the Guesswork.
             </h1>
-            <p className="text-xl md:text-2xl text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
-              Expertly curated recommendations, deeply researched specs, and the absolute best prices on Amazon.
+            <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+              Expertly curated recommendations, deeply researched specs, and the absolute best prices on the web.
             </p>
           </div>
 
           <AIWizard />
 
-          {/* Enterprise Trust Banner ("As Featured In") */}
-          <div className="mt-24 mb-8">
-            <p className="text-center text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">Trusted by millions. As featured in</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 bg-white/50 backdrop-blur-md py-8 rounded-3xl border border-white border-dashed shadow-sm">
-              <div className="flex items-center gap-2 font-black text-xl text-slate-800 tracking-tighter">
-                <svg className="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          {/* Enterprise Trust Banner */}
+          <div className="mt-32 mb-16">
+            <p className="text-center text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mb-8">Trusted by millions. As featured in</p>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700 bg-white/5 backdrop-blur-xl py-10 rounded-[2rem] border border-white/10 shadow-2xl">
+              <div className="flex items-center gap-2 font-black text-xl text-white tracking-tighter">
+                <svg className="w-6 h-6 text-indigo-500 drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 TechInsider
               </div>
-              <div className="flex items-center gap-1.5 font-serif font-bold text-xl text-slate-800">
-                <span className="text-2xl italic">T</span>he<span className="text-blue-600">Wire</span>
+              <div className="flex items-center gap-1.5 font-serif font-bold text-xl text-white">
+                <span className="text-2xl italic">T</span>he<span className="text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]">Wire</span>
               </div>
-              <div className="flex items-center gap-2 font-bold text-lg text-slate-800 tracking-widest uppercase">
-                <svg className="w-5 h-5 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <div className="flex items-center gap-2 font-bold text-lg text-white tracking-widest uppercase">
+                <svg className="w-5 h-5 text-rose-500 drop-shadow-[0_0_10px_rgba(244,63,94,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 GizmoPro
               </div>
-              <div className="flex items-center gap-2 font-extrabold text-xl text-slate-800">
+              <div className="flex items-center gap-2 font-extrabold text-xl text-white">
                 Buy<span className="font-light text-slate-400">Smart</span>
               </div>
-              <div className="hidden sm:flex items-center gap-2 font-black text-xl text-slate-800 tracking-tight">
-                GEAR<span className="text-indigo-600">HUB</span>
+              <div className="hidden sm:flex items-center gap-2 font-black text-xl text-white tracking-tight">
+                GEAR<span className="text-indigo-500 drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]">HUB</span>
               </div>
             </div>
           </div>
@@ -126,14 +126,14 @@ export default async function Home() {
           <FlashDealsStorefront />
 
           {/* Article Grid Header & Language Filters */}
-          <div className="flex flex-col gap-6 mb-10">
-            <div className="flex flex-col md:flex-row justify-between items-end pb-4 border-b border-slate-200">
+          <div className="flex flex-col gap-6 mb-12 mt-24">
+            <div className="flex flex-col md:flex-row justify-between items-end pb-6 border-b border-white/10">
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Latest Intel</h2>
-                <p className="text-slate-500 mt-1">Fresh guides updated hourly.</p>
+                <h2 className="text-4xl font-bold text-white tracking-tight">Latest Intel</h2>
+                <p className="text-slate-400 mt-2 text-lg">Fresh guides updated hourly.</p>
               </div>
-              <div className="mt-4 md:mt-0 flex items-center gap-2 text-sm font-semibold text-slate-500 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
-                <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+              <div className="mt-4 md:mt-0 flex items-center gap-2 text-sm font-bold text-indigo-300 bg-indigo-500/10 px-5 py-2.5 rounded-xl border border-indigo-500/20 shadow-[0_0_15px_rgba(99,102,241,0.1)]">
+                <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
                 {articles.length} active guides
               </div>
             </div>
@@ -141,34 +141,34 @@ export default async function Home() {
             {/* Language Filter Pills */}
             <div className="flex flex-wrap gap-3 items-center">
               <span className="text-sm font-bold text-slate-500 mr-2 uppercase tracking-wider">Regions:</span>
-              <Link href="/language/english" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+              <Link href="/language/english" className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all text-sm font-semibold text-slate-300 hover:text-white">
                 🇺🇸 English
               </Link>
-              <Link href="/language/spanish" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+              <Link href="/language/spanish" className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all text-sm font-semibold text-slate-300 hover:text-white">
                 🇪🇸 Español
               </Link>
-              <Link href="/language/french" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+              <Link href="/language/french" className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all text-sm font-semibold text-slate-300 hover:text-white">
                 🇫🇷 Français
               </Link>
-              <Link href="/language/german" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+              <Link href="/language/german" className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all text-sm font-semibold text-slate-300 hover:text-white">
                 🇩🇪 Deutsch
               </Link>
-              <Link href="/language/italian" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+              <Link href="/language/italian" className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all text-sm font-semibold text-slate-300 hover:text-white">
                 🇮🇹 Italiano
               </Link>
-              <Link href="/language/portuguese" className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all text-sm font-semibold text-slate-700 hover:text-indigo-600">
+              <Link href="/language/portuguese" className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all text-sm font-semibold text-slate-300 hover:text-white">
                 🇧🇷 Português
               </Link>
             </div>
           </div>
 
           {articles.length === 0 ? (
-            <div className="text-center py-32 bg-white/50 backdrop-blur-sm rounded-3xl border border-white border-dashed shadow-sm">
-              <div className="w-20 h-20 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-6 animate-pulse">
-                <svg className="w-10 h-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+            <div className="text-center py-32 bg-[#0a0a0a]/80 backdrop-blur-md rounded-[2rem] border border-white/10 shadow-2xl">
+              <div className="w-20 h-20 mx-auto bg-indigo-500/20 rounded-full flex items-center justify-center mb-6 animate-pulse shadow-[0_0_20px_rgba(99,102,241,0.4)]">
+                <svg className="w-10 h-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
               </div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-2">Synthesizing Data...</h3>
-              <p className="text-slate-500">The AI Engine is currently drafting the first batch of articles.</p>
+              <h3 className="text-2xl font-bold text-white mb-2">Synthesizing Data...</h3>
+              <p className="text-slate-400">The AI Engine is currently drafting the first batch of articles.</p>
             </div>
           ) : (
             <ArticleGrid initialArticles={articles} />
