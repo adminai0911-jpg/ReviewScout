@@ -13,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       }
     ],
-    sitemap: 'https://review-scout-pi.vercel.app/sitemap.xml',
+    sitemap: 'https://reviewscout.tech/sitemap.xml',
   };
 }

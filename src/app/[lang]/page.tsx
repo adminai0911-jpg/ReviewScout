@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
+import { Metadata } from 'next';
 import AIWizard from '@/components/AIWizard';
 import FlashDealsStorefront from '@/components/FlashDealsStorefront';
 import ArticleGrid from '@/components/ArticleGrid';
@@ -10,6 +11,23 @@ import ArticleGrid from '@/components/ArticleGrid';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang || 'en';
+  
+  return {
+    title: 'ReviewScout | #1 Global Shopping Guide',
+    description: 'Discover the absolute best gear and tech globally. Verified by AI, curated by experts.',
+    alternates: {
+      canonical: `https://reviewscout.tech/${lang}`,
+      languages: {
+        [lang]: `https://reviewscout.tech/${lang}`,
+        'x-default': 'https://reviewscout.tech/en',
+      },
+    },
+  };
+}
 
 export const revalidate = 3600; // ISR cache for 1 hour
 

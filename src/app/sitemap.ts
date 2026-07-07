@@ -9,7 +9,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://review-scout-pi.vercel.app';
+  const baseUrl = 'https://reviewscout.tech';
   const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -31,19 +31,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         
         data.forEach(item => {
           if (item.category) categories.add(item.category);
-          if (item.language) languages.add(item.language.toLowerCase());
+          const lang = item.language ? item.language.toLowerCase() : 'en';
+          languages.add(lang);
           
           routes.push({
-            url: `${baseUrl}/article/${item.slug}`,
+            url: `${baseUrl}/${lang}/article/${item.slug}`,
             lastModified: new Date(item.created_at || new Date()),
             changeFrequency: 'weekly',
             priority: 0.8,
+            alternates: {
+              languages: {
+                [lang]: `${baseUrl}/${lang}/article/${item.slug}`,
+                'x-default': `${baseUrl}/en/article/${item.slug}`,
+              },
+            },
           });
         });
 
         categories.forEach(cat => {
+          // Provide English as default for category pages in sitemap
           routes.push({
-            url: `${baseUrl}/category/${cat}`,
+            url: `${baseUrl}/en/category/${cat}`,
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.9,
@@ -52,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         languages.forEach(lang => {
           routes.push({
-            url: `${baseUrl}/language/${lang}`,
+            url: `${baseUrl}/${lang}`,
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.9,
