@@ -88,7 +88,7 @@ export async function GET(request: Request) {
     }
 
     // 2. Call Gemini AI to write the article
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
     const prompt = `
       You are an expert product reviewer and SEO copywriter for a site called "ReviewScout".
