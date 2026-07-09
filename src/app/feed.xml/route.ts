@@ -7,7 +7,7 @@ const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabase
 export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET() {
-  const baseUrl = 'https://review-scout-pi.vercel.app';
+  const baseUrl = 'https://review-scout-bbbc.vercel.app';
   
   let articles: any[] = [];
   
