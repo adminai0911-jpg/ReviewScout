@@ -5,11 +5,11 @@ export async function POST(req: Request) {
   try {
     const { message, history, articleContext } = await req.json();
 
-    let apiKeys = [];
+    const apiKeys: string[] = [];
     if (process.env.GEMINI_API_KEYS) {
-        apiKeys = process.env.GEMINI_API_KEYS.split(',').map(k => k.trim());
+        apiKeys.push(...process.env.GEMINI_API_KEYS.split(',').map(k => k.trim()));
     } else if (process.env.GEMINI_API_KEY) {
-        apiKeys = [process.env.GEMINI_API_KEY.trim()];
+        apiKeys.push(process.env.GEMINI_API_KEY.trim());
     }
 
     if (apiKeys.length === 0) {
