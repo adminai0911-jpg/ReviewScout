@@ -12,10 +12,11 @@ export const revalidate = 3600;
 const getArticlesByCategory = async (categorySlug: string) => {
   if (supabase) {
     try {
+      const decodedCategory = decodeURIComponent(categorySlug).toLowerCase();
       const { data, error } = await supabase
         .from('articles')
         .select('*')
-        .eq('category', categorySlug.toLowerCase())
+        .eq('category', decodedCategory)
         .order('created_at', { ascending: false });
         
       if (!error && data && data.length > 0) {
@@ -65,7 +66,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const topCategories = getTopCategories(allArticles);
 
   // Format category name for display (e.g. "home-office" -> "Home Office")
-  const categoryName = resolvedParams.slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const decodedParam = decodeURIComponent(resolvedParams.slug);
+  const categoryName = decodedParam.split(/[- ]/).map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -78,7 +80,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <ul className="flex space-x-6 text-sm font-medium text-slate-600">
               <li><Link href="/" className="hover:text-indigo-600 transition">Home</Link></li>
               {topCategories.map((cat, idx) => (
-                <li key={idx} className={`capitalize ${cat.toLowerCase() === resolvedParams.slug.toLowerCase() ? 'text-indigo-600 font-bold' : 'hover:text-indigo-600 transition'}`}>
+                <li key={idx} className={`capitalize ${cat.toLowerCase() === decodedParam.toLowerCase() ? 'text-indigo-600 font-bold' : 'hover:text-indigo-600 transition'}`}>
                   <Link href={`/category/${cat}`}>{cat.replace('-', ' ')}</Link>
                 </li>
               ))}
