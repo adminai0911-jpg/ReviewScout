@@ -16,7 +16,7 @@ const getArticlesByCategory = async (categorySlug: string) => {
       const { data, error } = await supabase
         .from('articles')
         .select('*')
-        .eq('category', decodedCategory)
+        .ilike('category', decodedCategory)
         .order('created_at', { ascending: false });
         
       if (!error && data && data.length > 0) {
