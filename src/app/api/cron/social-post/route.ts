@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import webpush from 'web-push';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -102,14 +103,53 @@ export async function GET(request: Request) {
       }
     }
 
+    // 5. Blast Web Push Notifications to all Subscribers
+    let pushSuccessCount = 0;
+    let pushFailCount = 0;
+    
+    if (process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+      webpush.setVapidDetails(
+        'mailto:adminai0911@gmail.com',
+        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+        process.env.VAPID_PRIVATE_KEY
+      );
+
+      const { data: subscribers } = await supabase.from('push_subscriptions').select('*');
+      
+      if (subscribers && subscribers.length > 0) {
+        const pushPayload = JSON.stringify({
+          title: "🔥 PRICE DROP ALERT 🔥",
+          body: `We just found an insane deal on the ${article.title}. Click to view!`,
+          icon: "https://review-scout-pi.vercel.app/favicon.ico",
+          url: url
+        });
+
+        for (const sub of subscribers) {
+          try {
+            await webpush.sendNotification({
+              endpoint: sub.endpoint,
+              keys: { p256dh: sub.p256dh, auth: sub.auth }
+            }, pushPayload);
+            pushSuccessCount++;
+          } catch (err: any) {
+            if (err.statusCode === 410 || err.statusCode === 404) {
+              await supabase.from('push_subscriptions').delete().eq('id', sub.id);
+            }
+            pushFailCount++;
+          }
+        }
+      }
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Autonomous Social Distribution Complete',
+      message: 'Autonomous Social Distribution & Push Blast Complete',
       payload: {
         article: article.title,
         socialCopy: postBody,
         imageAsset: imageUrl,
-        networkStatus: socialEngines
+        networkStatus: socialEngines,
+        pushBlast: { sent: pushSuccessCount, failedOrCleaned: pushFailCount }
       }
     });
 
