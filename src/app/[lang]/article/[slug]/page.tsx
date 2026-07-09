@@ -155,6 +155,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
   const ratingValue = data.title ? (4.2 + (data.title.length % 8) / 10).toFixed(1) : "4.8";
 
   return (
+    <>
+      {/* Reading Progress Bar (Micro-interaction) */}
+      <div className="fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 z-50 transition-all duration-300" style={{ width: '0%' }} id="reading-progress"></div>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('reading-progress').style.width = scrolled + '%';
+          });
+        `
+      }} />
+
     <div className="min-h-screen bg-[#030303] selection:bg-indigo-500 selection:text-white font-sans text-slate-200 pb-32">
       
       {/* Amazon OneLink Geo-Targeting Script */}
@@ -422,7 +436,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                               href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(text)}&tag=inamazon0f2-21`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wide shadow-md hover:-translate-y-0.5 transition-all w-full border border-white/20"
+                              className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wide shadow-[0_0_15px_rgba(249,115,22,0.5)] hover:shadow-[0_0_25px_rgba(239,68,68,0.7)] animate-pulse transition-all w-full border border-white/20"
                             >
                               Check Price
                             </a>

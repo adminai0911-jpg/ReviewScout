@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import Script from "next/script";
 import "@/app/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -46,6 +46,7 @@ import GlobalPromoBanner from "@/components/GlobalPromoBanner";
 import SocialProofPopup from "@/components/SocialProofPopup";
 import TrendingTicker from "@/components/TrendingTicker";
 import WebPushPrompt from "@/components/WebPushPrompt";
+import FloatingActionBar from "@/components/FloatingActionBar";
 
 export default async function RootLayout({
   children,
@@ -60,12 +61,12 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${outfit.variable} h-full antialiased`}
     >
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
         <GlobalPromoBanner />
         <TrendingTicker />
         <WebPushPrompt />
@@ -123,6 +124,7 @@ export default async function RootLayout({
         {children}
         
         {/* Global Components */}
+        <FloatingActionBar />
         <LeadPopup />
         <LiveSalesPopup />
         <PushManager />
