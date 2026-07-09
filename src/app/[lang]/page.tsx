@@ -208,7 +208,7 @@ export default async function Home({
           <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10 tracking-tight">Never Miss a Price Drop</h2>
           <p className="text-slate-400 mb-10 max-w-2xl mx-auto relative z-10 text-lg">Join 15,000+ subscribers who get our exclusive Amazon deal alerts and top-rated buyer's guides delivered straight to their inbox.</p>
           
-          <form className="flex flex-col sm:flex-row max-w-xl mx-auto relative z-10 gap-3" action="/api/subscribe" method="POST">
+          <form className="flex flex-col sm:flex-row max-w-xl mx-auto relative z-10 gap-3" action="/api/newsletter" method="POST">
             <input type="email" name="email" placeholder="Enter your email address" className="flex-grow px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all backdrop-blur-md" required />
             <button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-lg shadow-indigo-500/25 whitespace-nowrap">
               Subscribe Free
