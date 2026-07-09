@@ -41,14 +41,66 @@ export async function GET(request: Request) {
     const viralHashtags = "#AmazonFinds #Deals #TechReview";
     const postBody = `🚨 PRICE DROP ALERT 🚨\n\nWe just found an insane deal on the ${article.title}. \n\nOur AI price tracker confirms this is the lowest price in 30 days.\n\nCheck stock here 👇\n${url} \n\n${viralHashtags}`;
 
-    // 4. Distribute to the Omnichannel Network (Simulated API calls until keys are added)
-    const socialEngines = {
-      twitter: process.env.TWITTER_API_KEY ? 'Posted' : 'Missing API Key (Simulated Success)',
-      pinterest: process.env.PINTEREST_API_KEY ? 'Posted' : 'Missing API Key (Simulated Success)',
-      facebook: process.env.FACEBOOK_GRAPH_KEY ? 'Posted' : 'Missing API Key (Simulated Success)'
-    };
+    // 4. Distribute to the Omnichannel Network (Buffer GraphQL API)
+    const bufferApiKey = process.env.BUFFER_API_KEY;
+    if (!bufferApiKey) {
+      return NextResponse.json({ error: 'BUFFER_API_KEY is missing' }, { status: 500 });
+    }
 
-    // In production, we would use TwitterApi, Pinterest SDK, etc. here.
+    const channels = [];
+    if (process.env.BUFFER_TWITTER_CHANNEL_ID) channels.push({ id: process.env.BUFFER_TWITTER_CHANNEL_ID, name: 'Twitter' });
+    if (process.env.BUFFER_FACEBOOK_CHANNEL_ID) channels.push({ id: process.env.BUFFER_FACEBOOK_CHANNEL_ID, name: 'Facebook' });
+    if (process.env.BUFFER_PINTEREST_CHANNEL_ID) channels.push({ id: process.env.BUFFER_PINTEREST_CHANNEL_ID, name: 'Pinterest' });
+    if (process.env.BUFFER_INSTAGRAM_ID) channels.push({ id: process.env.BUFFER_INSTAGRAM_ID, name: 'Instagram' });
+    if (process.env.BUFFER_LINKEDIN_ID) channels.push({ id: process.env.BUFFER_LINKEDIN_ID, name: 'LinkedIn' });
+
+    const bufferQuery = `
+      mutation CreatePost($input: CreatePostInput!) {
+        createPost(input: $input) {
+          ... on PostActionSuccess {
+            post { id }
+          }
+        }
+      }
+    `;
+
+    const socialEngines: Record<string, any> = {};
+
+    for (const channel of channels) {
+      const bufferVariables = {
+        input: {
+          channelId: channel.id,
+          text: postBody,
+          mode: "shareNow",
+          schedulingType: "automatic",
+          assets: [ { image: { url: imageUrl } } ]
+        }
+      };
+
+      try {
+        const bufferResponse = await fetch('https://api.buffer.com', {
+          method: 'POST',
+          headers: { 
+            'Authorization': `Bearer ${bufferApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: bufferQuery, variables: bufferVariables })
+        });
+
+        if (bufferResponse.ok) {
+          const bData = await bufferResponse.json();
+          if (bData.errors) {
+            socialEngines[channel.name] = `Error: ${JSON.stringify(bData.errors)}`;
+          } else {
+            socialEngines[channel.name] = 'Posted Successfully';
+          }
+        } else {
+          socialEngines[channel.name] = `HTTP Error: ${bufferResponse.status}`;
+        }
+      } catch (err: any) {
+        socialEngines[channel.name] = `Failed: ${err.message}`;
+      }
+    }
 
     return NextResponse.json({
       success: true,
