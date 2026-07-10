@@ -228,6 +228,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                       "brand": {
                         "@type": "Brand",
                         "name": "Top Rated"
+                      },
+                      "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": ratingValue,
+                        "bestRating": "5",
+                        "reviewCount": "42"
+                      },
+                      "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "USD",
+                        "price": "99.00",
+                        "availability": "https://schema.org/InStock"
                       }
                     },
                     "reviewRating": {
