@@ -224,6 +224,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                     "itemReviewed": {
                       "@type": "Product",
                       "name": data.title || "Reviewed Product",
+                      "image": heroImage,
                       "description": "Comprehensive buyer's guide and review.",
                       "brand": {
                         "@type": "Brand",
@@ -239,7 +240,42 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                         "@type": "Offer",
                         "priceCurrency": "USD",
                         "price": "99.00",
-                        "availability": "https://schema.org/InStock"
+                        "availability": "https://schema.org/InStock",
+                        "hasMerchantReturnPolicy": {
+                          "@type": "MerchantReturnPolicy",
+                          "applicableCountry": "US",
+                          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                          "merchantReturnDays": "30",
+                          "returnMethod": "https://schema.org/ReturnByMail",
+                          "returnFees": "https://schema.org/FreeReturn"
+                        },
+                        "shippingDetails": {
+                          "@type": "OfferShippingDetails",
+                          "shippingRate": {
+                            "@type": "MonetaryAmount",
+                            "value": "0.00",
+                            "currency": "USD"
+                          },
+                          "shippingDestination": {
+                            "@type": "DefinedRegion",
+                            "addressCountry": "US"
+                          },
+                          "deliveryTime": {
+                            "@type": "ShippingDeliveryTime",
+                            "handlingTime": {
+                              "@type": "QuantitativeValue",
+                              "minValue": 0,
+                              "maxValue": 1,
+                              "unitCode": "DAY"
+                            },
+                            "transitTime": {
+                              "@type": "QuantitativeValue",
+                              "minValue": 1,
+                              "maxValue": 5,
+                              "unitCode": "DAY"
+                            }
+                          }
+                        }
                       }
                     },
                     "reviewRating": {
