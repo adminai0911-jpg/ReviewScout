@@ -96,7 +96,18 @@ export async function GET(request: Request) {
       
       Topic: "${title}"
       Target Language: ${location.languageName}
+      Target Keyword/Product: ${product}
+      Target City/Region: ${location.city}, ${location.country}
+
+      CRITICAL MONETIZATION RULE: 
+      If the keyword is about a Software, SaaS, App, or digital service (e.g., "CRM", "Medical Dictation", "ERP"), YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.) instead of the software itself. This is because the site is an Amazon Affiliate and we must drive hardware sales!
       
+      Format the response as a valid JSON object with the following structure:
+      {
+        "title": "SEO optimized, clickbaity but professional title including the keyword and year",
+        "content": "The full article in Markdown format"
+      }
+
       Requirements:
       1. MUST be written entirely in ${location.languageName}.
       2. Format using Markdown (use ## and ### for headings).
