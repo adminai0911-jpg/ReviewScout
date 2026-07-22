@@ -65,6 +65,8 @@ export default async function RootLayout({
     >
       <head>
         <link rel="icon" href="/favicon.ico" />
+        {/* Impact.com Verification */}
+        <meta name="impact-site-verification" content="b7f81974-6121-406a-af7d-a04020931ed0" />
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
