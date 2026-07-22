@@ -9,6 +9,7 @@ import SaaSBanner from '@/components/SaaSBanner';
 import FloatingShareBar from '@/components/FloatingShareBar';
 import ScarcityTimer from '@/components/ScarcityTimer';
 import UnlockToRead from '@/components/UnlockToRead';
+import ExitIntentModal from '@/components/ExitIntentModal';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -66,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export const revalidate = 3600; // ISR Cache for 1 hour
+export const revalidate = 604800; // ISR Cache for 7 days (Zero Server Compute Cost)
 export const dynamicParams = true; // Ensure Vercel dynamically renders any slug not pre-generated
 
 export async function generateStaticParams() {
@@ -643,6 +644,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
 
         </div>
       </div>
+
+      <ExitIntentModal />
     </div>
     </>
   );
