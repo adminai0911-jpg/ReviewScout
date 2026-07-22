@@ -40,7 +40,7 @@ export default function ScarcityTimer() {
   return (
     <div className="bg-rose-50 border-y sm:border border-rose-200 sm:rounded-2xl p-4 md:p-6 my-8 relative overflow-hidden group shadow-sm">
       {/* Background Pulse */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-[40px] animate-pulse"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/20 rounded-full blur-[40px] animate-pulse"></div>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
         
