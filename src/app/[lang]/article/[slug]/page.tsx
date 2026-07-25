@@ -156,9 +156,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
   // Calculate dynamic review rating based on string length (pseudo-random but consistent)
   const ratingValue = data.title ? (4.2 + (data.title.length % 8) / 10).toFixed(1) : "4.8";
 
+  const extractText = (children: React.ReactNode): string => {
+    let text = '';
+    React.Children.forEach(children, (child) => {
+      if (typeof child === 'string') text += child;
+      else if (React.isValidElement(child) && child.props.children) {
+        text += extractText(child.props.children);
+      }
+    });
+    return text;
+  };
+
   return (
     <>
-      {/* Reading Progress Bar (Micro-interaction) */}
+      {/* Amazon OneLink Global Script - Place inside head if needed, but layout handles body injection */}
       <div className="fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 z-50 transition-all duration-300" style={{ width: '0%' }} id="reading-progress"></div>
       <script dangerouslySetInnerHTML={{
         __html: `
@@ -447,30 +458,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
               <ReactMarkdown
                   components={{
                     h2: ({ node, children, ...props }) => {
-                      const text = String(children);
+                      const text = extractText(children);
                       const slug = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
                       return <h2 id={slug} {...props}>{children}</h2>;
                     },
                     h3: ({ node, children, ...props }) => {
-                      const text = String(children);
+                      const text = extractText(children);
                       const slug = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
                       return <h3 id={slug} {...props}>{children}</h3>;
                     },
                     li: ({ node, children, ...props }) => {
-                    const getText = (children: React.ReactNode): string => {
-                      let text = '';
-                      React.Children.forEach(children, (child) => {
-                        if (typeof child === 'string') text += child;
-                        else if (React.isValidElement(child) && child.props.children) {
-                          text += getText(child.props.children);
-                        }
-                      });
-                      return text;
-                    };
-                    
-                    const text = getText(children).trim().toLowerCase();
-                    
-                    // Visual Pros & Cons UI
+                      const text = extractText(children).trim().toLowerCase();
+                      
+                      // Visual Pros & Cons UI
                     if (text.startsWith('pros:') || text.startsWith('pro:')) {
                       return (
                         <li className="bg-emerald-50 text-emerald-900 p-4 rounded-xl border border-emerald-100 list-none flex items-start gap-3 my-3 shadow-sm">
