@@ -142,6 +142,14 @@ export default async function RootLayout({
           `}
         </Script>
 
+        {/* Google AdSense Verification Script */}
+        <Script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4477459074077400" 
+          crossOrigin="anonymous" 
+          strategy="afterInteractive"
+        />
+
         {children}
         
         {/* Global Components */}

@@ -561,7 +561,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
       {/* Google AdSense Ready-Slot (Mid-Article) */}
       <div className="max-w-4xl mx-auto px-6 py-4">
         <div className="bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center min-h-[90px] border border-dashed border-slate-200">
-          <div className="adsbygoogle text-slate-400 text-xs font-semibold uppercase tracking-widest" style={{ display: 'block', width: '100%', height: '90px' }} data-ad-client="ca-pub-placeholder" data-ad-slot="placeholder" data-ad-format="auto" data-full-width-responsive="true">Advertisement Slot</div>
+          <div className="adsbygoogle text-slate-400 text-xs font-semibold uppercase tracking-widest" style={{ display: 'block', width: '100%', height: '90px' }} data-ad-client="ca-pub-4477459074077400" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true">Advertisement Slot</div>
         </div>
       </div>
 
