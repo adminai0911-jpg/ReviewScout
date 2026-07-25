@@ -3,10 +3,8 @@
 import React from 'react';
 
 export default function PriceComparisonTable({ productName }: { productName: string }) {
-  // Placeholder tracking IDs (to be replaced once approved)
   const affiliateIds = {
-    aliexpress: "placeholder_ali_id",
-    ebay: "placeholder_epn_id",
+    aliexpress: "reviewscout_ai",
     shareasale: "placeholder_sas_id",
     amazon: "inamazon0f2-21"
   };
@@ -51,29 +49,6 @@ export default function PriceComparisonTable({ productName }: { productName: str
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
-                >
-                  Check Price
-                </a>
-              </td>
-            </tr>
-
-            {/* eBay (Refurbished/Deals) */}
-            <tr className="hover:bg-slate-50 transition-colors group">
-              <td className="px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center font-bold text-blue-600 text-xs">EB</div>
-                  <span className="font-bold text-slate-800">eBay</span>
-                </div>
-              </td>
-              <td className="px-6 py-4 text-sm text-slate-600">
-                Best for Refurbished & Used Deals
-              </td>
-              <td className="px-6 py-4 text-right">
-                <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}&campid=${affiliateIds.ebay}`)}`}
-                  target="_blank"
-                  rel="nofollow noopener"
-                  className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
                 >
                   Check Price
                 </a>

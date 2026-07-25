@@ -110,7 +110,6 @@ export async function GET(request: Request) {
       | Retailer | Price Estimate | Link |
       |----------|---------------|------|
       | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
-      | **eBay** | *Best for Refurbished/Used* | [Check Price on eBay](https://ebay.com/placeholder_id) |
       | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
       | **ShareASale Partners** | *Direct from Manufacturer* | [Check Direct Price](https://shareasale.com/placeholder_id) |
       
