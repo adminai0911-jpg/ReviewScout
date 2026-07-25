@@ -5,7 +5,7 @@ import React from 'react';
 export default function PriceComparisonTable({ productName }: { productName: string }) {
   const affiliateIds = {
     aliexpress: "reviewscout_ai",
-    shareasale: "placeholder_sas_id",
+    shareasale: "3003527",
     amazon: "inamazon0f2-21"
   };
 
@@ -49,6 +49,29 @@ export default function PriceComparisonTable({ productName }: { productName: str
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                >
+                  Check Price
+                </a>
+              </td>
+            </tr>
+
+            {/* ShareASale (Direct Manufacturer / B2B) */}
+            <tr className="hover:bg-slate-50 transition-colors group">
+              <td className="px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center font-bold text-purple-600 text-xs">SAS</div>
+                  <span className="font-bold text-slate-800">Direct Deals</span>
+                </div>
+              </td>
+              <td className="px-6 py-4 text-sm text-slate-600">
+                Direct from Manufacturer (B2B & Software)
+              </td>
+              <td className="px-6 py-4 text-right">
+                <a 
+                  href={`/api/go?url=${encodeURIComponent(`https://www.shareasale.com/r.cfm?b=12345&u=${affiliateIds.shareasale}&m=54321`)}`}
+                  target="_blank"
+                  rel="nofollow noopener"
+                  className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
                 >
                   Check Price
                 </a>
