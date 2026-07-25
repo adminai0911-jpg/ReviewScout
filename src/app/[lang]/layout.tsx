@@ -16,6 +16,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "ReviewScout | Find the Perfect Gear",
   description: "Expertly curated recommendations for every profession, hobby, and budget.",
+  other: {
+    "google-adsense-account": "ca-pub-4477459074077400"
+  },
   verification: {
     google: "bc5hPzXstw6y8lpbiXYdEHfTSZkySuSi5XR-MD4lJZQ",
   },
