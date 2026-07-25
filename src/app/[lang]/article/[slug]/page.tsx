@@ -7,14 +7,7 @@ import { createClient } from '@supabase/supabase-js';
 import PriceDropWidget from '@/components/PriceDropWidget';
 import SaaSBanner from '@/components/SaaSBanner';
 import FloatingShareBar from '@/components/FloatingShareBar';
-import ScarcityTimer from '@/components/ScarcityTimer';
-import UnlockToRead from '@/components/UnlockToRead';
-import ExitIntentModal from '@/components/ExitIntentModal';
 import PriceComparisonTable from '@/components/PriceComparisonTable';
-import CouponRevealer from '@/components/CouponRevealer';
-import LiveSalesPopup from '@/components/LiveSalesPopup';
-import FloatingActionBar from '@/components/FloatingActionBar';
-import AIChatAgent from '@/components/AIChatAgent';
 import { processAutoLinks } from '@/components/AutoLinker';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -683,11 +676,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
         </div>
       </div>
 
-      <CouponRevealer productName={data.title || "this product"} />
-      <ExitIntentModal />
-      <LiveSalesPopup />
-      <FloatingActionBar />
-      <AIChatAgent productName={data.title || "this product"} />
     </div>
     </>
   );
