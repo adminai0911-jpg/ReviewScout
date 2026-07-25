@@ -100,7 +100,19 @@ export async function GET(request: Request) {
       Target City/Region: ${location.city}, ${location.country}
 
       CRITICAL MONETIZATION RULE: 
-      If the keyword is about a Software, SaaS, App, or digital service (e.g., "CRM", "Medical Dictation", "ERP"), YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.) instead of the software itself. This is because the site is an Amazon Affiliate and we must drive hardware sales!
+      If the keyword is about a Software, SaaS, App, or digital service, YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.).
+      
+      MULTI-PLATFORM AGGREGATION:
+      At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively. Use AliExpress, eBay, and ShareASale.
+      
+      ## 💰 Best Places to Buy [Product Name] Today
+      We scour the internet daily to find you the lowest prices from verified global retailers. 
+      | Retailer | Price Estimate | Link |
+      |----------|---------------|------|
+      | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
+      | **eBay** | *Best for Refurbished/Used* | [Check Price on eBay](https://ebay.com/placeholder_id) |
+      | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
+      | **ShareASale Partners** | *Direct from Manufacturer* | [Check Direct Price](https://shareasale.com/placeholder_id) |
       
       Format the response as a valid JSON object with the following structure:
       {

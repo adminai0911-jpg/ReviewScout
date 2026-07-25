@@ -10,6 +10,7 @@ import FloatingShareBar from '@/components/FloatingShareBar';
 import ScarcityTimer from '@/components/ScarcityTimer';
 import UnlockToRead from '@/components/UnlockToRead';
 import ExitIntentModal from '@/components/ExitIntentModal';
+import PriceComparisonTable from '@/components/PriceComparisonTable';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -529,6 +530,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
 
             <PriceDropWidget articleSlug={resolvedParams.slug} productName={data.title || "this product"} />
 
+            {/* Dynamic Multi-Platform Aggregation Table */}
+            <PriceComparisonTable productName={data.title || "this product"} />
+
             {/* Affiliate Disclaimer (Mandatory for Amazon Associates to prevent bans) */}
             <div className="mt-16 p-6 bg-slate-50 border border-slate-100 rounded-xl">
               <p className="text-xs text-slate-500 leading-relaxed text-center">
@@ -632,13 +636,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
             {/* Pulsating glow effect around the button */}
             <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-500 animate-pulse"></div>
             <a 
-              href={amazonUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="relative w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-black text-lg py-4 px-10 rounded-xl shadow-2xl shadow-orange-500/40 flex justify-center items-center gap-3 transition-all hover:scale-105 active:scale-95 border border-white/20"
+              href="#price-comparison" 
+              className="relative w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-fuchsia-600 hover:from-indigo-600 hover:to-fuchsia-700 text-white font-black text-lg py-4 px-10 rounded-xl shadow-2xl shadow-indigo-500/40 flex justify-center items-center gap-3 transition-all hover:scale-105 active:scale-95 border border-white/20"
             >
-              Check Price on Amazon
-              <svg className="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+              Compare Deals (3+ Stores)
+              <svg className="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
             </a>
           </div>
 
