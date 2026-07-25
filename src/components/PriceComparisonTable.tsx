@@ -21,6 +21,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
   const affiliateIds = {
     aliexpress: "reviewscout_ai",
     shareasale: "3003527",
+    awin: "3003527",
     earnkaro: "5476200",
     amazon: "inamazon0f2-21"
   };
@@ -87,6 +88,29 @@ export default function PriceComparisonTable({ productName }: { productName: str
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                >
+                  Check Price
+                </a>
+              </td>
+            </tr>
+
+            {/* Awin (Premium European/Global Brands) */}
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
+              <td className="px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-pink-500/20 border border-pink-500/30 rounded flex items-center justify-center font-bold text-pink-400 text-xs shadow-[0_0_10px_rgba(236,72,153,0.2)]">AW</div>
+                  <span className="font-bold text-slate-200">Awin Brands</span>
+                </div>
+              </td>
+              <td className="px-6 py-4 text-sm text-slate-400">
+                Premium Global Retailers & Software
+              </td>
+              <td className="px-6 py-4 text-right">
+                <a 
+                  href={`/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=12345&awinaffid=${affiliateIds.awin}&clickref=&p=`)}`}
+                  target="_blank"
+                  rel="nofollow noopener"
+                  className="inline-flex items-center justify-center bg-pink-600 hover:bg-pink-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
                 >
                   Check Price
                 </a>

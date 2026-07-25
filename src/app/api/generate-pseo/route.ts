@@ -106,7 +106,7 @@ export async function GET(request: Request) {
       If the keyword is about a Software, SaaS, App, or digital service, YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.).
       
       MULTI-PLATFORM AGGREGATION:
-      At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively. Use AliExpress, eBay, and ShareASale.
+      At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively. Use AliExpress, eBay, Awin, and ShareASale.
       
       ## 💰 Best Places to Buy [Product Name] Today
       We scour the internet daily to find you the lowest prices from verified global retailers. 
@@ -114,7 +114,7 @@ export async function GET(request: Request) {
       |----------|---------------|------|
       | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
       | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
-      | **ShareASale Partners** | *Direct from Manufacturer* | [Check Direct Price](https://shareasale.com/placeholder_id) |
+      | **Awin / ShareASale** | *Direct from Manufacturer* | [Check Direct Price](https://awin1.com/placeholder_id) |
       
       Format the response as a valid JSON object with the following structure:
       {
