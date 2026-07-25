@@ -158,8 +158,6 @@ export default async function RootLayout({
         
         {/* Global Components */}
         <FloatingActionBar />
-        <LeadPopup />
-        <LiveSalesPopup />
         <PushManager />
         <AIChatAgent />
       </body>
