@@ -93,7 +93,7 @@ export async function GET(request: Request) {
 
       // Hardcode the hidden Pinterest Board ID we extracted via GraphQL (Amazon board)
       if (channel.name === 'Pinterest') {
-        bufferVariables.input.pinboardId = "6a48e2daad8752625205d395";
+        bufferVariables.input.pinboardId = process.env.PINTEREST_BOARD_ID || "amezon";
       }
 
       try {

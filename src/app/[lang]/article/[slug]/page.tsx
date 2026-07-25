@@ -6,9 +6,11 @@ import Script from 'next/script';
 import { createClient } from '@supabase/supabase-js';
 import PriceDropWidget from '@/components/PriceDropWidget';
 import SaaSBanner from '@/components/SaaSBanner';
+import { Suspense } from 'react';
 import FloatingShareBar from '@/components/FloatingShareBar';
 import PriceComparisonTable from '@/components/PriceComparisonTable';
 import AIWizard from '@/components/AIWizard';
+import FAQGenerator from '@/components/FAQGenerator';
 import TableOfContents from '@/components/TableOfContents';
 import { processAutoLinks } from '@/components/AutoLinker';
 
@@ -42,29 +44,47 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     return { title: 'Article Not Found | ReviewScout' };
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://review-scout-bbbc.vercel.app';
+  const articleUrl = `${siteUrl}/${resolvedParams.lang}/article/${resolvedParams.slug}`;
+
   return {
     title: `${title} | ReviewScout Verified Review`,
     description: description,
+    keywords: [title, 'review', 'buy', 'discount', 'best price', 'comparison', 'guide'],
+    authors: [{ name: 'ReviewScout Editorial Team', url: siteUrl }],
     alternates: {
-      canonical: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
+      canonical: articleUrl,
       languages: {
-        [resolvedParams.lang]: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
-        'x-default': `https://review-scout-pi.vercel.app/en/article/${resolvedParams.slug}`,
+        [resolvedParams.lang]: articleUrl,
+        'x-default': `${siteUrl}/en/article/${resolvedParams.slug}`,
       },
     },
     openGraph: {
       title: title,
       description: description,
       type: 'article',
-      url: `https://review-scout-pi.vercel.app/${resolvedParams.lang}/article/${resolvedParams.slug}`,
+      url: articleUrl,
       siteName: 'ReviewScout',
-      images: [{ url: 'https://review-scout-pi.vercel.app/og-image.jpg' }],
+      images: [{ url: `${siteUrl}/og-image.jpg` }],
     },
     twitter: {
       card: 'summary_large_image',
       title: title,
       description: description,
-    }
+      images: [`${siteUrl}/og-image.jpg`],
+      creator: '@ReviewScoutAI',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
   };
 }
 
@@ -613,6 +633,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
           <div className="adsbygoogle text-slate-400 text-xs font-semibold uppercase tracking-widest" style={{ display: 'block', width: '100%', height: '90px' }} data-ad-client="ca-pub-4477459074077400" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true">Advertisement Slot</div>
         </div>
       </div>
+
+      {/* Dynamic FAQ Snippet Generator (SEO Rich Snippets) */}
+      <FAQGenerator productName={data.title} />
 
       {/* Related Articles */}
       {relatedArticles.length > 0 && (
