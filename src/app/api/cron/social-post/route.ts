@@ -65,6 +65,7 @@ export async function GET(request: Request) {
       if (process.env.BUFFER_INSTAGRAM_ID) channels.push({ id: process.env.BUFFER_INSTAGRAM_ID, name: 'Instagram', apiKey: key2 });
       if (process.env.BUFFER_LINKEDIN_ID) channels.push({ id: process.env.BUFFER_LINKEDIN_ID, name: 'LinkedIn', apiKey: key2 });
       if (process.env.BUFFER_TIKTOK_CHANNEL_ID) channels.push({ id: process.env.BUFFER_TIKTOK_CHANNEL_ID, name: 'TikTok', apiKey: key2 });
+      if (process.env.BUFFER_YOUTUBE_CHANNEL_ID) channels.push({ id: process.env.BUFFER_YOUTUBE_CHANNEL_ID, name: 'YouTube', apiKey: key2 });
     }
 
     const bufferQuery = `
