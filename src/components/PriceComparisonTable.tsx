@@ -22,6 +22,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
     aliexpress: "reviewscout_ai",
     shareasale: "3003527",
     awin: "3003527",
+    digistore24: "adminai091181b6",
     earnkaro: "5476200",
     amazon: "inamazon0f2-21"
   };
@@ -116,6 +117,30 @@ export default function PriceComparisonTable({ productName }: { productName: str
                 </a>
               </td>
             </tr>
+
+            {/* Digistore24 (Digital Products/Software) */}
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
+              <td className="px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-blue-500/20 border border-blue-500/30 rounded flex items-center justify-center font-bold text-blue-400 text-xs shadow-[0_0_10px_rgba(59,130,246,0.2)]">DS</div>
+                  <span className="font-bold text-slate-200">Digital Partners</span>
+                </div>
+              </td>
+              <td className="px-6 py-4 text-sm text-slate-400">
+                Software & Digital Tools
+              </td>
+              <td className="px-6 py-4 text-right">
+                <a 
+                  href={`/api/go?url=${encodeURIComponent(`https://www.digistore24.com/redir/12345/${affiliateIds.digistore24}/CAMPAIGNKEY`)}`}
+                  target="_blank"
+                  rel="nofollow noopener"
+                  className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                >
+                  Check Price
+                </a>
+              </td>
+            </tr>
+
 
             {/* Amazon (Fastest) */}
             <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
