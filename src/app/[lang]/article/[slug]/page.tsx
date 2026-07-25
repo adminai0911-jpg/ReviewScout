@@ -268,7 +268,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                     "itemReviewed": {
                       "@type": "Product",
                       "name": data.title || "Reviewed Product",
-                      "image": heroImage,
+                      "image": "https://images.unsplash.com/photo-1550009158-9effb66236b2?w=1200&q=80",
                       "description": "Comprehensive buyer's guide and review.",
                       "brand": {
                         "@type": "Brand",
