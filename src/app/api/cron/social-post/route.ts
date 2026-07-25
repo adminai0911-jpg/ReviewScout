@@ -43,17 +43,29 @@ export async function GET(request: Request) {
     const postBody = `🚨 PRICE DROP ALERT 🚨\n\nWe just found an insane deal on the ${article.title}. \n\nOur AI price tracker confirms this is the lowest price in 30 days.\n\nCheck stock here 👇\n${url} \n\n${viralHashtags}`;
 
     // 4. Distribute to the Omnichannel Network (Buffer GraphQL API)
-    const bufferApiKey = process.env.BUFFER_API_KEY;
-    if (!bufferApiKey) {
-      return NextResponse.json({ error: 'BUFFER_API_KEY is missing' }, { status: 500 });
+    // Support Dual-Buffer Accounts for 6+ Platforms bypass
+    const key1 = process.env.BUFFER_API_KEY_1 || process.env.BUFFER_API_KEY;
+    const key2 = process.env.BUFFER_API_KEY_2;
+
+    if (!key1 && !key2) {
+      return NextResponse.json({ error: 'Buffer API Keys are missing' }, { status: 500 });
     }
 
     const channels = [];
-    if (process.env.BUFFER_TWITTER_CHANNEL_ID) channels.push({ id: process.env.BUFFER_TWITTER_CHANNEL_ID, name: 'Twitter' });
-    if (process.env.BUFFER_FACEBOOK_CHANNEL_ID) channels.push({ id: process.env.BUFFER_FACEBOOK_CHANNEL_ID, name: 'Facebook' });
-    if (process.env.BUFFER_PINTEREST_CHANNEL_ID) channels.push({ id: process.env.BUFFER_PINTEREST_CHANNEL_ID, name: 'Pinterest' });
-    if (process.env.BUFFER_INSTAGRAM_ID) channels.push({ id: process.env.BUFFER_INSTAGRAM_ID, name: 'Instagram' });
-    if (process.env.BUFFER_LINKEDIN_ID) channels.push({ id: process.env.BUFFER_LINKEDIN_ID, name: 'LinkedIn' });
+    
+    // Account 1 (Legacy fallback to BUFFER_API_KEY if BUFFER_API_KEY_1 isn't set)
+    if (key1) {
+      if (process.env.BUFFER_TWITTER_CHANNEL_ID) channels.push({ id: process.env.BUFFER_TWITTER_CHANNEL_ID, name: 'Twitter', apiKey: key1 });
+      if (process.env.BUFFER_FACEBOOK_CHANNEL_ID) channels.push({ id: process.env.BUFFER_FACEBOOK_CHANNEL_ID, name: 'Facebook', apiKey: key1 });
+      if (process.env.BUFFER_PINTEREST_CHANNEL_ID) channels.push({ id: process.env.BUFFER_PINTEREST_CHANNEL_ID, name: 'Pinterest', apiKey: key1 });
+    }
+    
+    // Account 2
+    if (key2) {
+      if (process.env.BUFFER_INSTAGRAM_ID) channels.push({ id: process.env.BUFFER_INSTAGRAM_ID, name: 'Instagram', apiKey: key2 });
+      if (process.env.BUFFER_LINKEDIN_ID) channels.push({ id: process.env.BUFFER_LINKEDIN_ID, name: 'LinkedIn', apiKey: key2 });
+      if (process.env.BUFFER_TIKTOK_CHANNEL_ID) channels.push({ id: process.env.BUFFER_TIKTOK_CHANNEL_ID, name: 'TikTok', apiKey: key2 });
+    }
 
     const bufferQuery = `
       mutation CreatePost($input: CreatePostInput!) {
@@ -82,7 +94,7 @@ export async function GET(request: Request) {
         const bufferResponse = await fetch('https://api.buffer.com', {
           method: 'POST',
           headers: { 
-            'Authorization': `Bearer ${bufferApiKey}`,
+            'Authorization': `Bearer ${channel.apiKey}`,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ query: bufferQuery, variables: bufferVariables })
