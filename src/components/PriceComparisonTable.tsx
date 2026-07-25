@@ -27,36 +27,35 @@ export default function PriceComparisonTable({ productName }: { productName: str
   const encodedProduct = encodeURIComponent(productName);
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden my-12" id="price-comparison">
-      <div className="bg-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-        <h3 className="text-white font-bold text-lg m-0 flex items-center gap-2">
-          <span className="text-2xl">💰</span> 
-          Global Price Comparison
-        </h3>
-        <span className="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Live Deals</span>
+    <div className="bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl overflow-hidden my-12" id="price-comparison">
+      <div className="bg-black/40 px-6 py-4 border-b border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+          <h3 className="font-bold text-white text-lg tracking-tight">Live Price Comparison</h3>
+        </div>
+        <span className="bg-indigo-500/20 text-indigo-300 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-indigo-500/30 shadow-[0_0_10px_rgba(99,102,241,0.2)]">Live Data</span>
       </div>
-      
-      <div className="p-0 overflow-x-auto">
+      <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+            <tr className="bg-white/5 text-slate-400 text-xs uppercase tracking-wider border-b border-white/10">
               <th className="px-6 py-4 font-semibold">Retailer</th>
               <th className="px-6 py-4 font-semibold">Why Buy Here?</th>
               <th className="px-6 py-4 font-semibold text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/5">
             
             {/* AliExpress (Global Reach) */}
-            <tr className="hover:bg-slate-50 transition-colors group">
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
               <td className="px-6 py-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center font-bold text-orange-600 text-xs">ALI</div>
-                  <span className="font-bold text-slate-800">AliExpress</span>
+                  <div className="w-8 h-8 bg-orange-500/20 border border-orange-500/30 rounded flex items-center justify-center font-bold text-orange-400 text-xs shadow-[0_0_10px_rgba(249,115,22,0.2)]">ALI</div>
+                  <span className="font-bold text-slate-200">AliExpress</span>
                 </div>
               </td>
-              <td className="px-6 py-4 text-sm text-slate-600">
-                <span className="inline-flex items-center gap-1"><span className="text-emerald-500 font-bold">Lowest Price</span> (Cheap Global Shipping)</span>
+              <td className="px-6 py-4 text-sm text-slate-400">
+                <span className="inline-flex items-center gap-1"><span className="text-emerald-400 font-bold">Lowest Price</span> (Cheap Global Shipping)</span>
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
@@ -71,14 +70,14 @@ export default function PriceComparisonTable({ productName }: { productName: str
             </tr>
 
             {/* ShareASale (Direct Manufacturer / B2B) */}
-            <tr className="hover:bg-slate-50 transition-colors group">
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
               <td className="px-6 py-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center font-bold text-purple-600 text-xs">SAS</div>
-                  <span className="font-bold text-slate-800">Direct Deals</span>
+                  <div className="w-8 h-8 bg-purple-500/20 border border-purple-500/30 rounded flex items-center justify-center font-bold text-purple-400 text-xs shadow-[0_0_10px_rgba(168,85,247,0.2)]">SAS</div>
+                  <span className="font-bold text-slate-200">Direct Deals</span>
                 </div>
               </td>
-              <td className="px-6 py-4 text-sm text-slate-600">
+              <td className="px-6 py-4 text-sm text-slate-400">
                 Direct from Manufacturer (B2B & Software)
               </td>
               <td className="px-6 py-4 text-right">
@@ -94,14 +93,14 @@ export default function PriceComparisonTable({ productName }: { productName: str
             </tr>
 
             {/* Amazon (Fastest) */}
-            <tr className="hover:bg-slate-50 transition-colors group">
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
               <td className="px-6 py-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-slate-800 rounded flex items-center justify-center font-bold text-white text-xs">AMZ</div>
-                  <span className="font-bold text-slate-800">Amazon</span>
+                  <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center font-bold text-white text-xs">AMZ</div>
+                  <span className="font-bold text-slate-200">Amazon</span>
                 </div>
               </td>
-              <td className="px-6 py-4 text-sm text-slate-600">
+              <td className="px-6 py-4 text-sm text-slate-400">
                 Fastest Local Shipping & Returns
               </td>
               <td className="px-6 py-4 text-right">
@@ -109,7 +108,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
                   href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
-                  className="inline-flex items-center justify-center bg-slate-800 hover:bg-black text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                  className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap border border-white/10"
                 >
                   Check Price
                 </a>

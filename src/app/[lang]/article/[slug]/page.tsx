@@ -248,11 +248,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-        <article className="bg-white rounded-[2rem] shadow-2xl shadow-indigo-500/5 overflow-hidden border border-slate-100">
-          
-          {/* Article Header */}
-          <div className="bg-slate-900 px-8 py-20 text-center text-white relative overflow-hidden">
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-12 relative z-10">
+          <article className="bg-slate-900/60 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl shadow-indigo-500/10 overflow-hidden border border-white/10 ring-1 ring-white/5 relative">
+            
+            {/* Article Header */}
+            <div className="px-8 py-24 text-center text-white relative overflow-hidden border-b border-white/10">
             {/* Dynamic Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-slate-900 to-violet-900/50 z-0"></div>
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[100px] z-0"></div>
@@ -422,12 +422,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
 
             <div className="prose prose-lg md:prose-xl prose-invert max-w-none 
               prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white
-              prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-b prose-h2:pb-4 prose-h2:border-white/10
-              prose-h3:text-2xl prose-h3:mt-10
-              prose-a:text-white prose-a:bg-gradient-to-r prose-a:from-indigo-500 prose-a:to-fuchsia-500 prose-a:hover:from-indigo-600 prose-a:hover:to-fuchsia-600 prose-a:no-underline prose-a:px-8 prose-a:py-4 prose-a:rounded-xl prose-a:font-bold prose-a:inline-flex prose-a:items-center prose-a:mt-6 prose-a:mb-2 prose-a:shadow-[0_0_20px_rgba(99,102,241,0.4)] prose-a:transition-all prose-a:hover:-translate-y-1 prose-a:w-full sm:prose-a:w-auto prose-a:justify-center
-              prose-p:text-slate-300 prose-p:leading-relaxed
-              prose-li:text-slate-300
-              prose-strong:text-white">
+              prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:mt-20 prose-h2:mb-8 prose-h2:border-b prose-h2:pb-4 prose-h2:border-white/10 prose-h2:text-indigo-50
+              prose-h3:text-2xl prose-h3:mt-12 prose-h3:text-indigo-100
+              prose-p:text-slate-300 prose-p:leading-loose
+              prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300
+              prose-strong:text-white prose-strong:font-bold
+              prose-li:text-slate-300 prose-li:marker:text-indigo-500
+              prose-img:rounded-2xl prose-img:shadow-2xl prose-img:border prose-img:border-white/10
+            ">
               
               {/* Wirecutter-style Author Profile (Trust Factor) */}
               <div className="flex items-center gap-4 mb-10 pb-10 border-b border-white/10 not-prose">
@@ -436,13 +438,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                   alt="Sarah Jenkins" 
                   className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md"
                 />
-                <div>
-                  <p className="font-bold text-slate-900 text-lg flex items-center gap-1.5">
-                    Sarah Jenkins 
-                    <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
-                  </p>
-                  <p className="text-sm text-slate-500 font-medium">Lead Product Tester & Review Editor</p>
-                </div>
+                  <div>
+                    <p className="font-bold text-white text-lg flex items-center justify-center sm:justify-start gap-1.5">
+                      Sarah Jenkins 
+                      <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
+                    </p>
+                    <p className="text-sm text-slate-400 font-medium tracking-wide uppercase mt-1">Lead Product Tester</p>
+                  </div>
                 </div>
 
               <div className="mb-10">
@@ -586,13 +588,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
           </div>
           
           {/* Author Bio */}
-          <div className="bg-slate-50 border-t border-slate-100 p-8 md:p-12 flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-2xl shadow-lg shrink-0">
-              RS
+          <div className="bg-slate-900/50 backdrop-blur-xl border-t border-white/10 p-8 md:p-12 flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-transparent"></div>
+            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-black text-3xl shadow-xl shadow-indigo-500/30 shrink-0 border border-white/20 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+              AI
             </div>
-            <div>
-              <p className="font-bold text-slate-900 text-xl mb-2">Compiled by ReviewScout AI</p>
-              <p className="text-slate-600 leading-relaxed">This guide was generated by our proprietary AI engine which scans thousands of data points across the internet to bring you unbiased, highly accurate product recommendations.</p>
+            <div className="relative z-10">
+              <p className="font-bold text-white text-2xl mb-2 flex items-center justify-center sm:justify-start gap-2">
+                Compiled by ReviewScout AI 
+                <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+              </p>
+              <p className="text-slate-400 leading-relaxed text-lg max-w-2xl">This guide was generated by our proprietary AI engine which scans thousands of data points across the internet to bring you unbiased, highly accurate product recommendations.</p>
             </div>
           </div>
         </article>
@@ -611,16 +617,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
       {/* Related Articles */}
       {relatedArticles.length > 0 && (
         <section className="max-w-4xl mx-auto px-6 py-12">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex-grow h-px bg-slate-200"></div>
-            <h2 className="text-2xl font-bold text-slate-900">Keep Reading</h2>
-            <div className="flex-grow h-px bg-slate-200"></div>
+          <div className="flex items-center gap-4 mb-10">
+            <div className="flex-grow h-px bg-white/10"></div>
+            <h2 className="text-3xl font-black text-white tracking-tight">Keep Reading</h2>
+            <div className="flex-grow h-px bg-white/10"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {relatedArticles.map((article, i) => (
-              <Link key={i} href={`/${resolvedParams.lang}/article/${article.slug}`} className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 border border-slate-100 flex flex-col justify-between h-full group">
-                <h3 className="font-bold text-slate-800 leading-snug group-hover:text-indigo-600 transition-colors">{article.title}</h3>
-                <span className="text-sm font-semibold text-indigo-500 mt-6 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              <Link key={i} href={`/${resolvedParams.lang}/article/${article.slug}`} className="bg-slate-900/40 backdrop-blur-md p-8 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-500 border border-white/10 hover:border-indigo-500/50 flex flex-col justify-between h-full group hover:-translate-y-2">
+                <h3 className="font-bold text-white text-xl leading-snug group-hover:text-indigo-400 transition-colors">{article.title}</h3>
+                <span className="text-sm font-bold text-indigo-400 mt-8 inline-flex items-center gap-2 group-hover:gap-3 transition-all">
                   Read Guide <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </span>
               </Link>

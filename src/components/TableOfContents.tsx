@@ -22,17 +22,17 @@ export default function TableOfContents({ content }: { content: string }) {
   if (headings.length === 0) return null;
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-8 sticky top-4 z-10 hidden md:block max-h-[80vh] overflow-y-auto">
-      <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+    <div className="bg-slate-900/40 backdrop-blur-xl p-6 rounded-3xl shadow-xl border border-white/10 mb-10 sticky top-6 z-10 hidden md:block max-h-[80vh] overflow-y-auto">
+      <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-300 mb-6 flex items-center gap-2">
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
         Table of Contents
       </h3>
-      <ul className="space-y-2.5">
+      <ul className="space-y-3">
         {headings.map((h, i) => (
-          <li key={i} className={`${h.level === 3 ? 'ml-4 border-l border-slate-200 pl-3' : ''}`}>
+          <li key={i} className={`${h.level === 3 ? 'ml-4 border-l border-white/10 pl-4' : ''}`}>
             <a 
               href={`#${h.slug}`}
-              className="text-slate-600 hover:text-indigo-600 text-sm font-medium transition-colors hover:underline block leading-snug"
+              className="text-slate-400 hover:text-white text-sm font-medium transition-colors hover:underline block leading-snug"
             >
               {h.text}
             </a>
