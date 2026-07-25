@@ -3,11 +3,10 @@
 import React, { useEffect, useState } from 'react';
 
 export default function FloatingShareBar({ title }: { title?: string }) {
-  const [mounted, setMounted] = useState(false);
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setMounted(true);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setUrl(window.location.href);
   }, []);
 

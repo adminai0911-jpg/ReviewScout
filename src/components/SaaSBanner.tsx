@@ -1,17 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // A dynamic banner that injects high-ticket SaaS affiliate links
 // In a real scenario, this could rotate based on the article category
-export default function SaaSBanner({ category }: { category?: string }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+export default function SaaSBanner() {
 
   // Let's create a generic high-ticket offer that works for almost any niche
   // (e.g. AI website builder, AI video generator, premium hosting, etc.)

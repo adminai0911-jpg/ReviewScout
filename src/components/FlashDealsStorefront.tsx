@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 // Mock deals for the storefront
 const MOCK_DEALS = [
@@ -41,6 +40,7 @@ export default function FlashDealsStorefront() {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       if (tz) {
         const city = tz.split('/')[1]?.replace('_', ' ');
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (city) setRegion(city);
 
         // Detect local currency
@@ -58,7 +58,9 @@ export default function FlashDealsStorefront() {
             .catch(e => console.error("Rate fetch failed", e));
         }
       }
-    } catch (e) {}
+    } catch {
+      // ignore
+    }
   }, []);
 
   const formatPrice = (priceInUSD: number) => {
@@ -85,7 +87,7 @@ export default function FlashDealsStorefront() {
               </span>
               Live Storefront
             </div>
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Today's Flash Deals</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Today&apos;s Flash Deals</h2>
             <p className="text-slate-500 mt-2 font-medium">Aggressive price drops trending right now in <span suppressHydrationWarning className="text-slate-800 font-bold underline decoration-slate-300 underline-offset-2">{region}</span>.</p>
           </div>
           
@@ -107,6 +109,7 @@ export default function FlashDealsStorefront() {
 
               {/* Product Image */}
               <div className="h-48 bg-slate-100 relative overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={deal.image} alt={deal.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
               </div>

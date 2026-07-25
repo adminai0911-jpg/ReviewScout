@@ -10,9 +10,10 @@ export default function PriceComparisonTable({ productName }: { productName: str
       // Free & instant way to detect Indian users without an external API
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       if (timeZone === 'Asia/Kolkata' || timeZone === 'Asia/Calcutta') {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsIndianUser(true);
       }
-    } catch (e) {
+    } catch {
       // Fallback
     }
   }, []);

@@ -22,9 +22,11 @@ export default function PriceDropWidget({ articleSlug, productName }: { articleS
       if (res.ok) {
         setStatus('success');
       } else {
+        setError("Failed to subscribe. Please try again later.");
         setStatus('error');
       }
-    } catch (err) {
+    } catch {
+      setError("Failed to subscribe. Please try again later.");
       setStatus('error');
     }
   };
@@ -36,7 +38,7 @@ export default function PriceDropWidget({ articleSlug, productName }: { articleS
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
         </div>
         <h4 className="text-emerald-400 font-bold text-lg mb-1">Alert Set!</h4>
-        <p className="text-emerald-200/70 text-sm">We'll email you the moment the price drops on Amazon.</p>
+        <p className="text-emerald-200/70 text-sm">We&apos;ll email you the moment the price drops on Amazon.</p>
       </div>
     );
   }
@@ -50,8 +52,10 @@ export default function PriceDropWidget({ articleSlug, productName }: { articleS
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
         </div>
         <div>
-          <h4 className="text-white font-bold text-lg tracking-tight">Track Amazon Price Drops</h4>
-          <p className="text-slate-400 text-sm">Prices fluctuate daily. Enter your email to get alerted when this product hits its lowest price.</p>
+          <h4 className="text-white font-bold text-lg tracking-tight">Track Amazon Price</h4>
+          <p className="text-slate-400 text-sm mt-3 leading-relaxed">
+            Prices change fast! Drop your email and we&apos;ll notify you the second this product goes on sale.
+          </p>
         </div>
       </div>
 

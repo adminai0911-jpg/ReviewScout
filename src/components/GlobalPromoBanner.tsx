@@ -57,9 +57,10 @@ export default function GlobalPromoBanner() {
     try {
       const browserLang = navigator.language.split('-')[0].toLowerCase();
       if (promos[browserLang as keyof typeof promos]) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLang(browserLang);
       }
-    } catch (e) {
+    } catch {
       // fallback to 'en'
     }
 

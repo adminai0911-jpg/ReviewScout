@@ -41,12 +41,9 @@ export const metadata: Metadata = {
   }
 };
 
-import LeadPopup from "@/components/LeadPopup";
 import PushManager from "@/components/PushManager";
 import AIChatAgent from "@/components/AIChatAgent";
-import LiveSalesPopup from "@/components/LiveSalesPopup";
 import GlobalPromoBanner from "@/components/GlobalPromoBanner";
-import SocialProofPopup from "@/components/SocialProofPopup";
 import TrendingTicker from "@/components/TrendingTicker";
 import WebPushPrompt from "@/components/WebPushPrompt";
 import FloatingActionBar from "@/components/FloatingActionBar";

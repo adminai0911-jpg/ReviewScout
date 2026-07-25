@@ -180,7 +180,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
     let text = '';
     React.Children.forEach(children, (child) => {
       if (typeof child === 'string') text += child;
-      else if (React.isValidElement(child) && child.props.children) {
+      else if (React.isValidElement<any>(child) && child.props.children) {
         text += extractText(child.props.children);
       }
     });
@@ -533,7 +533,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                       let text = '';
                       React.Children.forEach(children, (child) => {
                         if (typeof child === 'string') text += child;
-                        else if (React.isValidElement(child) && child.props.children) {
+                        else if (React.isValidElement<any>(child) && child.props.children) {
                           text += getText(child.props.children);
                         }
                       });

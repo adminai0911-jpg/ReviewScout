@@ -1,22 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export default function TableOfContents({ content }: { content: string }) {
-  const [headings, setHeadings] = useState<{ level: number, text: string, slug: string }[]>([]);
-
-  useEffect(() => {
-    // Parse markdown string for H2 and H3
+  const headings = React.useMemo(() => {
     const regex = /^(##|###)\s+(.+)$/gm;
     const foundHeadings = [];
     let match;
     while ((match = regex.exec(content)) !== null) {
-      const level = match[1].length; // 2 for ##, 3 for ###
+      const level = match[1].length;
       const text = match[2].trim();
       const slug = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
       foundHeadings.push({ level, text, slug });
     }
-    setHeadings(foundHeadings);
+    return foundHeadings;
   }, [content]);
 
   if (headings.length === 0) return null;
