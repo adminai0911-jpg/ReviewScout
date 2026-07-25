@@ -1,11 +1,26 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function PriceComparisonTable({ productName }: { productName: string }) {
+  const [isIndianUser, setIsIndianUser] = useState(false);
+
+  useEffect(() => {
+    try {
+      // Free & instant way to detect Indian users without an external API
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (timeZone === 'Asia/Kolkata' || timeZone === 'Asia/Calcutta') {
+        setIsIndianUser(true);
+      }
+    } catch (e) {
+      // Fallback
+    }
+  }, []);
+
   const affiliateIds = {
     aliexpress: "reviewscout_ai",
     shareasale: "3003527",
+    earnkaro: "5476200",
     amazon: "inamazon0f2-21"
   };
 
@@ -100,6 +115,31 @@ export default function PriceComparisonTable({ productName }: { productName: str
                 </a>
               </td>
             </tr>
+
+            {/* GEO-TARGETED: Flipkart (Only shows in India) */}
+            {isIndianUser && (
+              <tr className="hover:bg-blue-50 transition-colors group bg-blue-50/30 border-t-2 border-blue-100">
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center font-bold text-yellow-300 text-xs">FK</div>
+                    <span className="font-bold text-slate-800">Flipkart (India)</span>
+                  </div>
+                </td>
+                <td className="px-6 py-4 text-sm text-slate-600">
+                  <span className="inline-flex items-center gap-1"><span className="text-blue-600 font-bold">Local Deal</span> (Big Billion Days & Fast Delivery)</span>
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <a 
+                    href={`/api/go?url=${encodeURIComponent(`https://www.flipkart.com/search?q=${encodedProduct}&affid=ekaro_${affiliateIds.earnkaro}`)}`}
+                    target="_blank"
+                    rel="nofollow noopener"
+                    className="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                  >
+                    Check Price
+                  </a>
+                </td>
+              </tr>
+            )}
 
           </tbody>
         </table>
