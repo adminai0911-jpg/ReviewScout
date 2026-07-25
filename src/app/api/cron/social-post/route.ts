@@ -91,9 +91,9 @@ export async function GET(request: Request) {
         }
       };
 
-      // Hardcode the hidden Pinterest Board ID we extracted via GraphQL
+      // Hardcode the hidden Pinterest Board ID we extracted via GraphQL (Amazon board)
       if (channel.name === 'Pinterest') {
-        bufferVariables.input.pinboardId = "6a48e2daad8752625205d396";
+        bufferVariables.input.pinboardId = "6a48e2daad8752625205d395";
       }
 
       try {
