@@ -81,7 +81,7 @@ export async function GET(request: Request) {
     const socialEngines: Record<string, any> = {};
 
     for (const channel of channels) {
-      const bufferVariables = {
+      const bufferVariables: any = {
         input: {
           channelId: channel.id,
           text: postBody,
@@ -90,6 +90,11 @@ export async function GET(request: Request) {
           assets: [ { image: { url: imageUrl } } ]
         }
       };
+
+      // Hardcode the hidden Pinterest Board ID we extracted via GraphQL
+      if (channel.name === 'Pinterest') {
+        bufferVariables.input.pinboardId = "6a48e2daad8752625205d396";
+      }
 
       try {
         const bufferResponse = await fetch('https://api.buffer.com', {
