@@ -8,6 +8,8 @@ import PriceDropWidget from '@/components/PriceDropWidget';
 import SaaSBanner from '@/components/SaaSBanner';
 import FloatingShareBar from '@/components/FloatingShareBar';
 import PriceComparisonTable from '@/components/PriceComparisonTable';
+import AIWizard from '@/components/AIWizard';
+import TableOfContents from '@/components/TableOfContents';
 import { processAutoLinks } from '@/components/AutoLinker';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -434,11 +436,27 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                   </p>
                   <p className="text-sm text-slate-500 font-medium">Lead Product Tester & Review Editor</p>
                 </div>
+                </div>
+
+              <div className="mb-10">
+                <AIWizard />
               </div>
 
+              <TableOfContents content={content} />
+
               <ReactMarkdown
-                components={{
-                  li: ({ node, children, ...props }) => {
+                  components={{
+                    h2: ({ node, children, ...props }) => {
+                      const text = String(children);
+                      const slug = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+                      return <h2 id={slug} {...props}>{children}</h2>;
+                    },
+                    h3: ({ node, children, ...props }) => {
+                      const text = String(children);
+                      const slug = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+                      return <h3 id={slug} {...props}>{children}</h3>;
+                    },
+                    li: ({ node, children, ...props }) => {
                     const getText = (children: React.ReactNode): string => {
                       let text = '';
                       React.Children.forEach(children, (child) => {

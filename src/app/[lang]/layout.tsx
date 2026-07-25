@@ -91,6 +91,10 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-slate-950 text-slate-100 overflow-x-hidden">
+        {/* Amazon OneLink script (Global Geo-Monetization) */}
+        <div id="amzn-assoc-ad-script-injection"></div>
+        <Script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=YOUR_AD_INSTANCE_ID" strategy="afterInteractive" />
+
         <GlobalPromoBanner />
         <TrendingTicker />
         <WebPushPrompt />
