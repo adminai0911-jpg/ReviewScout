@@ -65,6 +65,12 @@ const USE_CASES = [
 ];
 
 export async function GET(request: Request) {
+  // Security: Verify the Cron header to prevent unauthorized bot triggering
+  const authHeader = request.headers.get('authorization');
+  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   if (!supabase) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }

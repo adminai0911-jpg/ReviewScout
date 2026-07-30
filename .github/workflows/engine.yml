@@ -1,0 +1,23 @@
+name: Massive pSEO Automation Engine
+
+on:
+  schedule:
+    # Run every 4 hours (6 times a day)
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  run-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate New pSEO Article
+        run: |
+          echo "Triggering the AI Engine to write and publish a new article..."
+          curl -i -X GET "https://review-scout-bbbc.vercel.app/api/generate-pseo" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+      
+      - name: Auto-Post to Pinterest & Socials
+        run: |
+          echo "Triggering the Social Engine to drive traffic..."
+          curl -i -X GET "https://review-scout-bbbc.vercel.app/api/cron/social-post" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
