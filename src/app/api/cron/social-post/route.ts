@@ -9,7 +9,9 @@ const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabase
 export async function GET(request: Request) {
   // Security: Verify the Vercel Cron header to prevent unauthorized bot triggering
   const authHeader = request.headers.get('authorization');
-  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const validToken = `Bearer ${process.env.CRON_SECRET || 'ReviewScout-Cron-Token-9f8a7b6c5d4e'}`;
+  
+  if (authHeader !== validToken) {
     return new Response('Unauthorized', { status: 401 });
   }
 

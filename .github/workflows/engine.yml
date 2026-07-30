@@ -14,10 +14,10 @@ jobs:
         run: |
           echo "Triggering the AI Engine to write and publish a new article..."
           curl -i -X GET "https://review-scout-bbbc.vercel.app/api/generate-pseo" \
-            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+            -H "Authorization: Bearer ReviewScout-Cron-Token-9f8a7b6c5d4e"
       
       - name: Auto-Post to Pinterest & Socials
         run: |
           echo "Triggering the Social Engine to drive traffic..."
           curl -i -X GET "https://review-scout-bbbc.vercel.app/api/cron/social-post" \
-            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+            -H "Authorization: Bearer ReviewScout-Cron-Token-9f8a7b6c5d4e"

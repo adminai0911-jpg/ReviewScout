@@ -67,7 +67,9 @@ const USE_CASES = [
 export async function GET(request: Request) {
   // Security: Verify the Cron header to prevent unauthorized bot triggering
   const authHeader = request.headers.get('authorization');
-  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const validToken = `Bearer ${process.env.CRON_SECRET || 'ReviewScout-Cron-Token-9f8a7b6c5d4e'}`;
+  
+  if (authHeader !== validToken) {
     return new Response('Unauthorized', { status: 401 });
   }
 
