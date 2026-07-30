@@ -93,6 +93,14 @@ export async function GET(request: Request) {
         }
       };
 
+      if (channel.name === 'Pinterest') {
+        bufferVariables.input.metadata = {
+          pinterest: {
+            boardServiceId: "1089449034799967202" // Amazon Board serviceId
+          }
+        };
+      }
+
       try {
         const bufferResponse = await fetch('https://api.buffer.com', {
           method: 'POST',
