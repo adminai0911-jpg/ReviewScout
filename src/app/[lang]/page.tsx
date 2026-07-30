@@ -87,7 +87,7 @@ export default async function Home({
             <ul className="flex space-x-8 text-sm font-semibold text-slate-400">
               {topCategories.map((cat, idx) => (
                 <li key={idx} className="hover:text-indigo-400 cursor-pointer transition-colors relative group capitalize">
-                  <Link href={`/category/${cat}`}>{cat.replace('-', ' ')}</Link>
+                  <Link href={`/${lang}/category/${cat}`}>{cat.replace('-', ' ')}</Link>
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
                 </li>
               ))}

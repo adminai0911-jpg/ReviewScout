@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import { notFound } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import PriceDropWidget from '@/components/PriceDropWidget';
 import SaaSBanner from '@/components/SaaSBanner';
@@ -137,15 +138,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
         </div>
       );
     }
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Article Not Found</h1>
-          <p>DEBUG: Supabase fetch failed or returned no data for slug: {resolvedParams.slug}</p>
-          <Link href="/" className="text-indigo-600 hover:underline font-semibold">← Back to Homepage</Link>
-        </div>
-      </div>
-    );
+    // Hard 404 for SEO instead of a Soft 404 UI
+    notFound();
   }
 
   // CRO: Generate a dynamic Amazon Search Link based on the article title

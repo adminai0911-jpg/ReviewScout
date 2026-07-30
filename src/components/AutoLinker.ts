@@ -46,9 +46,18 @@ export function processAutoLinks(content: string, productName: string): string {
   const rawAmzUrl = `https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`;
   const cloakedAmzUrl = `/api/go?url=${encodeURIComponent(rawAmzUrl)}`;
 
-  keywords.forEach(kw => {
-    const regex = new RegExp(`(?<!\\[[^\\]]*)(?<!\\([^\\]]*)\\b(${kw})\\b(?![^\\[]*\\])(?![^\\(]*\\))`, 'gi');
-    newContent = newContent.replace(regex, `[$1](${cloakedAmzUrl})`);
+  // Use a single, lightning-fast O(n) regex to match either an existing markdown link OR a keyword.
+  // This completely eliminates the ReDoS timeout (5xx Server Error) caused by unbounded lookbehinds in V8.
+  const kwPattern = keywords.map(kw => `\\b${kw}\\b`).join('|');
+  const regex = new RegExp(`(\\[.*?\\]\\(.*?\\))|(${kwPattern})`, 'gi');
+
+  newContent = newContent.replace(regex, (match, existingLink, keyword) => {
+    if (existingLink) {
+      return existingLink; // Don't modify existing markdown links
+    } else if (keyword) {
+      return `[${keyword}](${cloakedAmzUrl})`; // Convert plain keywords into links
+    }
+    return match;
   });
 
   return newContent;

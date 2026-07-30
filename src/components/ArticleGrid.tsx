@@ -90,9 +90,10 @@ export default function ArticleGrid({ initialArticles }: { initialArticles: any[
           // Use the article title's length and character codes to generate a highly unique, stable seed for this specific article
           const uniqueSeed = article.title.length * (article.title.charCodeAt(0) || 1) * 999;
           const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=600&height=400&nologo=true&seed=${uniqueSeed}&model=flux`;
+          const lang = article.language ? article.language.toLowerCase() : 'en';
           
           return (
-            <Link href={`/article/${article.slug}`} key={article.slug} className="group relative bg-[#0a0a0a] rounded-3xl shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all duration-500 border border-white/5 hover:border-indigo-500/30 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
+            <Link href={`/${lang}/article/${article.slug}`} key={article.slug} className="group relative bg-[#0a0a0a] rounded-3xl shadow-xl hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all duration-500 border border-white/5 hover:border-indigo-500/30 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
               
               {/* Image Header */}
               <div className="h-56 bg-slate-900 relative overflow-hidden">

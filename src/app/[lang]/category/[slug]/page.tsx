@@ -47,7 +47,7 @@ const getTopCategories = (articles: any[]) => {
     .map(x => x[0]);
 };
 
-export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CategoryPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const resolvedParams = await params;
   const articles = await getArticlesByCategory(resolvedParams.slug);
 
@@ -81,7 +81,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               <li><Link href="/" className="hover:text-indigo-600 transition">Home</Link></li>
               {topCategories.map((cat, idx) => (
                 <li key={idx} className={`capitalize ${cat.toLowerCase() === decodedParam.toLowerCase() ? 'text-indigo-600 font-bold' : 'hover:text-indigo-600 transition'}`}>
-                  <Link href={`/category/${cat}`}>{cat.replace('-', ' ')}</Link>
+                  <Link href={`/${resolvedParams.lang}/category/${cat}`}>{cat.replace('-', ' ')}</Link>
                 </li>
               ))}
             </ul>
@@ -109,7 +109,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles.map((article) => (
-            <Link href={`/article/${article.slug}`} key={article.slug} className="group flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden transform hover:-translate-y-1">
+            <Link href={`/${resolvedParams.lang}/article/${article.slug}`} key={article.slug} className="group flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden transform hover:-translate-y-1">
               <div className="h-48 bg-slate-900 relative overflow-hidden">
                 <img 
                   src={`https://image.pollinations.ai/prompt/${encodeURIComponent("Professional 4K product photography of " + article.title + ", studio lighting, highly detailed, photorealistic, clean background")}?width=600&height=400&nologo=true`}

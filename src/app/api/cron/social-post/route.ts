@@ -39,16 +39,27 @@ export async function GET(request: Request) {
     // 2. Generate the AI Visual for Social Media
     const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 5).join(' ') + ' cinematic product shot studio lighting');
     const uniqueSeed = article.title.length * (article.title.charCodeAt(0) || 1) * 999;
-    const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}?width=1200&height=630&nologo=true&seed=${uniqueSeed}&model=flux`;
+    const imageUrl = `https://image.pollinations.ai/prompt/${safeTitle}.jpg?width=1200&height=630&nologo=true&seed=${uniqueSeed}&model=flux`;
 
-    // 3. Generate Viral Copy
-    const viralHashtags = "#AmazonFinds #Deals #TechReview";
-    const postBody = `🚨 PRICE DROP ALERT 🚨\n\nWe just found an insane deal on the ${article.title}. \n\nOur AI price tracker confirms this is the lowest price in 30 days.\n\nCheck stock here 👇\n${url} \n\n${viralHashtags}`;
+    // Prime the Pollinations image cache so Buffer doesn't time out while fetching it
+    try {
+      await fetch(imageUrl);
+    } catch (e) {
+      console.warn("Failed to prime image cache:", e);
+    }
+
+    // 3. Generate Viral Copy (Keep under 280 characters for Twitter & Pinterest)
+    const viralHashtags = "#AmazonFinds #Deals";
+    let shortTitle = article.title;
+    if (shortTitle.length > 80) {
+      shortTitle = shortTitle.substring(0, 77) + '...';
+    }
+    const postBody = `🚨 PRICE DROP ALERT 🚨\nInsane deal on the ${shortTitle}\n\nCheck stock here 👇\n${url}\n\n${viralHashtags}`;
 
     // 4. Distribute to the Omnichannel Network (Buffer GraphQL API)
     // Support Dual-Buffer Accounts for 6+ Platforms bypass
     const key1 = process.env.BUFFER_API_KEY_1 || process.env.BUFFER_API_KEY;
-    const key2 = process.env.BUFFER_API_KEY_2;
+    const key2 = process.env.BUFFER_VIDEO_API_KEY;
 
     if (!key1 && !key2) {
       return NextResponse.json({ error: 'Buffer API Keys are missing' }, { status: 500 });
@@ -67,8 +78,6 @@ export async function GET(request: Request) {
     if (key2) {
       if (process.env.BUFFER_INSTAGRAM_ID) channels.push({ id: process.env.BUFFER_INSTAGRAM_ID, name: 'Instagram', apiKey: key2 });
       if (process.env.BUFFER_LINKEDIN_ID) channels.push({ id: process.env.BUFFER_LINKEDIN_ID, name: 'LinkedIn', apiKey: key2 });
-      if (process.env.BUFFER_TIKTOK_CHANNEL_ID) channels.push({ id: process.env.BUFFER_TIKTOK_CHANNEL_ID, name: 'TikTok', apiKey: key2 });
-      if (process.env.BUFFER_YOUTUBE_CHANNEL_ID) channels.push({ id: process.env.BUFFER_YOUTUBE_CHANNEL_ID, name: 'YouTube', apiKey: key2 });
     }
 
     const bufferQuery = `
@@ -77,6 +86,9 @@ export async function GET(request: Request) {
           ... on PostActionSuccess {
             post { id }
           }
+          ... on MutationError {
+            message
+          }
         }
       }
     `;
@@ -84,20 +96,43 @@ export async function GET(request: Request) {
     const socialEngines: Record<string, any> = {};
 
     for (const channel of channels) {
-      const bufferVariables: any = {
+      let bufferVariables: any = {
         input: {
           channelId: channel.id,
           text: postBody,
           mode: "shareNow",
-          schedulingType: "automatic",
-          assets: [ { image: { url: imageUrl } } ]
+          schedulingType: "automatic"
         }
       };
+
+      // Twitter is extremely strict about 5MB image limits and often timeouts on AI-generated images, failing the entire post.
+      // Omitting the native asset for Twitter forces it to use Link Previews (Twitter Cards) which are 100% reliable.
+      // Pinterest and Instagram REQUIRE native image assets.
+      if (['Pinterest', 'Instagram', 'Facebook', 'LinkedIn'].includes(channel.name)) {
+        bufferVariables.input.assets = [
+          {
+            image: { url: imageUrl }
+          }
+        ];
+      }
 
       if (channel.name === 'Pinterest') {
         bufferVariables.input.metadata = {
           pinterest: {
             boardServiceId: "1089449034799967202" // Amazon Board serviceId
+          }
+        };
+      } else if (channel.name === 'Facebook') {
+        bufferVariables.input.metadata = {
+          facebook: {
+            type: "post"
+          }
+        };
+      } else if (channel.name === 'Instagram') {
+        bufferVariables.input.metadata = {
+          instagram: {
+            type: "post",
+            shouldShareToFeed: true
           }
         };
       }
@@ -116,6 +151,8 @@ export async function GET(request: Request) {
           const bData = await bufferResponse.json();
           if (bData.errors) {
             socialEngines[channel.name] = `Error: ${JSON.stringify(bData.errors)}`;
+          } else if (bData.data?.createPost?.message) {
+            socialEngines[channel.name] = `API Error: ${bData.data.createPost.message}`;
           } else {
             socialEngines[channel.name] = 'Posted Successfully';
           }
