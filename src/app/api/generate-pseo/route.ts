@@ -90,8 +90,9 @@ export async function GET(request: Request) {
     }
 
     // 2. Call Gemini AI to write the article
-    // We upgraded to gemini-2.5-pro as it is more stable and provides better SEO output
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+    // We switched to gemini-2.5-flash because the Pro model throws a 429 quota error on the free tier.
+    // Flash is incredibly fast, highly capable for SEO, and has a massive free tier quota.
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     
     const prompt = `
       You are an expert product reviewer and SEO copywriter for a site called "ReviewScout".
