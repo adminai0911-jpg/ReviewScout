@@ -570,22 +570,24 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                     </td>
                   ),
                   a: ({ node, ...props }) => {
-                    if (props.href && props.href.includes('amazon.')) {
-                      // Pass the original Amazon link through our Geo-Routing engine
-                      // If the LLM hallucinated a bad link, fallback to a search query
-                      const baseAmzUrl = props.href.includes('/dp/') || props.href.includes('/s?') 
-                        ? props.href 
-                        : `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=inamazon0f2-21`;
-                      const routedUrl = `/api/go?url=${encodeURIComponent(baseAmzUrl)}`;
+                    if (props.href && props.href.startsWith('/api/go')) {
+                      // These are verified affiliate links processed by AutoLinker
+                      
+                      // Determine the network from the URL parameter
+                      let btnText = "Check Live Price";
+                      if (props.href.includes('amazon')) btnText = "Check Price on Amazon";
+                      else if (props.href.includes('aliexpress')) btnText = "Check Price on AliExpress";
+                      else if (props.href.includes('awin') || props.href.includes('shareasale')) btnText = "Check Direct Price";
+                      else if (props.href.includes('digistore24')) btnText = "Check Digital Price";
                       
                       return (
-                        <a {...props} href={routedUrl} target="_blank" rel="noopener noreferrer">
-                          Check Price on Amazon
+                        <a {...props} target="_blank" rel="noopener noreferrer">
+                          {btnText}
                           <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                         </a>
                       );
                     }
-                    return <a {...props} className="!text-indigo-600 !bg-transparent !px-0 !py-0 !shadow-none hover:!translate-y-0 hover:!text-indigo-800 underline underline-offset-4 decoration-indigo-200 hover:decoration-indigo-500" />;
+                    return <a {...props} target="_blank" rel="noopener noreferrer" className="!text-indigo-600 !bg-transparent !px-0 !py-0 !shadow-none hover:!translate-y-0 hover:!text-indigo-800 underline underline-offset-4 decoration-indigo-200 hover:decoration-indigo-500" />;
                   }
                 }}
               >

@@ -41,7 +41,9 @@ export async function GET(request: NextRequest) {
       // Rewrite the affiliate tag
       urlObj.searchParams.set('tag', store.tag);
       
-      return NextResponse.redirect(urlObj.toString());
+      return NextResponse.redirect(urlObj.toString(), {
+        headers: { 'Cache-Control': 'no-store, max-age=0' }
+      });
     }
   } catch (error) {
     // If URL parsing fails, just fallback to the original URL
@@ -49,5 +51,7 @@ export async function GET(request: NextRequest) {
   }
 
   // For non-Amazon links or if parsing fails, just redirect to the original URL
-  return NextResponse.redirect(targetUrl);
+  return NextResponse.redirect(targetUrl, {
+    headers: { 'Cache-Control': 'no-store, max-age=0' }
+  });
 }

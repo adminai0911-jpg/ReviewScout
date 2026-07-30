@@ -144,13 +144,27 @@ export async function GET(request: Request) {
     `;
 
     const result = await model.generateContent(prompt);
-    const content = result.response.text();
+    let rawText = result.response.text();
+    
+    // Clean potential markdown JSON blocks
+    rawText = rawText.replace(/^```json\s*/im, '').replace(/^```\s*/im, '').replace(/```\s*$/im, '').trim();
+    
+    let parsedTitle = title;
+    let parsedContent = rawText;
+    
+    try {
+      const parsed = JSON.parse(rawText);
+      if (parsed.title) parsedTitle = parsed.title;
+      if (parsed.content) parsedContent = parsed.content;
+    } catch (e) {
+      console.error("Failed to parse Gemini JSON output, falling back to raw text", e);
+    }
 
     // 3. Save to Supabase
     const { data, error } = await supabase.from('articles').insert([{
-      title,
+      title: parsedTitle,
       slug,
-      content,
+      content: parsedContent,
       language: location.lang,
       category: 'Electronics',
       date: new Date().toISOString().split('T')[0]

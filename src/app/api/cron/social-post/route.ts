@@ -33,7 +33,8 @@ export async function GET(request: Request) {
     // Pick a random article to post
     const article = articles[Math.floor(Math.random() * articles.length)];
     const lang = (article.language || 'en').toLowerCase().substring(0, 2);
-    const url = `https://review-scout-pi.vercel.app/${lang}/article/${article.slug}`;
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://review-scout-bbbc.vercel.app';
+    const url = `${baseUrl}/${lang}/article/${article.slug}`;
 
     // 2. Generate the AI Visual for Social Media
     const safeTitle = encodeURIComponent(article.title.split(' ').slice(0, 5).join(' ') + ' cinematic product shot studio lighting');
@@ -143,7 +144,7 @@ export async function GET(request: Request) {
         const pushPayload = JSON.stringify({
           title: "🔥 PRICE DROP ALERT 🔥",
           body: `We just found an insane deal on the ${article.title}. Click to view!`,
-          icon: "https://review-scout-pi.vercel.app/favicon.ico",
+          icon: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://review-scout-bbbc.vercel.app'}/favicon.ico`,
           url: url
         });
 
