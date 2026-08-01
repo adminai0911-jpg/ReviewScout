@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react';
 
 export default function PriceComparisonTable({ productName }: { productName: string }) {
 
+  const skimlinksId = "307054X1795329";
+
   const affiliateIds = {
-    aliexpress: "reviewscout_ai",
-    ebay: "5339000000",
     awin: "3003527",
     digistore24: "adminai091181b6",
     earnkaro: "5476200",
-    amazon: "inamazon0f2-21"
+    amazon: "inamazon0f2-21",
+    shareasale: "3003527"
   };
 
   const encodedProduct = encodeURIComponent(productName);
@@ -48,7 +49,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.aliexpress.com/wholesale?SearchText=${encodedProduct}&aff_id=${affiliateIds.aliexpress}`)}`}
+                  href={`/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.aliexpress.com/wholesale?SearchText=${encodedProduct}`)}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
@@ -71,7 +72,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_id=114&ipn=icep&toolid=20004&campid=${affiliateIds.ebay}&mpre=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}`)}`)}`}
+                  href={`/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}`)}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
@@ -164,7 +165,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://walmart.com/search?q=${encodedProduct}&irgwc=1&sourceid=imp_${affiliateIds.walmart}`)}`}
+                  href={`/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.walmart.com/search?q=${encodedProduct}`)}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
@@ -187,7 +188,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.bestbuy.com/site/searchpage.jsp?st=${encodedProduct}&irclickid=${affiliateIds.bestbuy}`)}`}
+                  href={`/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.bestbuy.com/site/searchpage.jsp?st=${encodedProduct}`)}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"

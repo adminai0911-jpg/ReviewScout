@@ -156,10 +156,12 @@ export default async function RootLayout({
 
         {children}
         
-        {/* Global Components */}
         <FloatingActionBar />
         <PushManager />
         <AIChatAgent />
+
+        {/* Skimlinks Global Monetization Script */}
+        <Script strategy="afterInteractive" src="https://s.skimresources.com/js/307054X1795329.skimlinks.js" />
       </body>
     </html>
   );
