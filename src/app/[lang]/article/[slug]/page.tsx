@@ -677,7 +677,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
         
         {/* Google AdSense Ready-Slot (Footer) */}
         <div className="max-w-3xl mx-auto mb-8 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center min-h-[90px] border border-dashed border-slate-300">
-          <div className="adsbygoogle text-slate-400 text-xs font-semibold uppercase tracking-widest" style={{ display: 'block', width: '100%', height: '90px' }} data-ad-client="ca-pub-placeholder" data-ad-slot="placeholder" data-ad-format="auto" data-full-width-responsive="true">Advertisement Slot</div>
+          <div className="adsbygoogle text-slate-400 text-xs font-semibold uppercase tracking-widest" style={{ display: 'block', width: '100%', height: '90px' }} data-ad-client="ca-pub-4477459074077400" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true">Advertisement Slot</div>
         </div>
         <p className="font-semibold text-slate-700 mb-1">ReviewScout.tech</p>
         <p>© {new Date().getFullYear()} All rights reserved. As an Amazon Associate we earn from qualifying purchases.</p>
