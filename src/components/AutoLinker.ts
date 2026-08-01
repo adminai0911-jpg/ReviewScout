@@ -7,7 +7,11 @@ export function processAutoLinks(content: string, productName: string): string {
     aliexpress: "reviewscout_ai",
     ebay: "5339000000",
     awin: "3003527",
+    shareasale: "3003527",
     digistore24: "adminai091181b6",
+    earnkaro: "5476200",
+    walmart: "impact_12345",
+    bestbuy: "impact_67890",
     amazon: "inamazon0f2-21"
   };
 
@@ -28,6 +32,21 @@ export function processAutoLinks(content: string, productName: string): string {
     } else if (url.includes('awin1.com')) {
       // Awin -> Etsy Universal Search (Etsy Merchant ID: 6220)
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=6220&awinaffid=${affiliateIds.awin}&clickref=&p=${encodeURIComponent(`https://www.etsy.com/search?q=${encodedProduct}`)}`)}`;
+    } else if (url.includes('shareasale.com')) {
+      // ShareASale -> DHgate Wholesale Search (Merchant 42409)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.shareasale.com/r.cfm?b=1639527&u=${affiliateIds.shareasale}&m=42409&urllink=${encodeURIComponent(`https://www.dhgate.com/wholesale/search.do?searchkey=${encodedProduct}`)}`)}`;
+    } else if (url.includes('walmart.com')) {
+      // Walmart Universal Search (via Impact)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://walmart.com/search?q=${encodedProduct}&irgwc=1&sourceid=imp_${affiliateIds.walmart}`)}`;
+    } else if (url.includes('bestbuy.com')) {
+      // BestBuy Universal Search (via Impact)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.bestbuy.com/site/searchpage.jsp?st=${encodedProduct}&irclickid=${affiliateIds.bestbuy}`)}`;
+    } else if (url.includes('flipkart.com')) {
+      // Flipkart Universal Search (via EarnKaro)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.flipkart.com/search?q=${encodedProduct}&affid=ekaro_${affiliateIds.earnkaro}`)}`;
+    } else if (url.includes('croma.com')) {
+      // Croma Universal Search (via EarnKaro)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.croma.com/searchB?q=${encodedProduct}&affid=ekaro_${affiliateIds.earnkaro}`)}`;
     } else if (url.includes('digistore24.com')) {
       // Digistore24 -> Tube Mastery (High Converting Digital AI/Tech Course - ID 299134)
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.digistore24.com/redir/299134/${affiliateIds.digistore24}/REVIEW`)}`;

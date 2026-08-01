@@ -707,7 +707,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
               href="#price-comparison" 
               className="relative w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-fuchsia-600 hover:from-indigo-600 hover:to-fuchsia-700 text-white font-black text-lg py-4 px-10 rounded-xl shadow-2xl shadow-indigo-500/40 flex justify-center items-center gap-3 transition-all hover:scale-105 active:scale-95 border border-white/20"
             >
-              Compare Deals (3+ Stores)
+              Compare Deals (10+ Stores)
               <svg className="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
             </a>
           </div>

@@ -122,9 +122,14 @@ export async function GET(request: Request) {
       | Retailer | Price Estimate | Link |
       |----------|---------------|------|
       | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
+      | **Walmart** | *Great Local Pickup* | [Check Price on Walmart](https://walmart.com/placeholder_id) |
+      | **BestBuy** | *Premium Tech Deals* | [Check Price on BestBuy](https://bestbuy.com/placeholder_id) |
       | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
       | **eBay** | *Best for Refurbished/Used* | [Check Price on eBay](https://ebay.com/placeholder_id) |
       | **Etsy / Awin** | *Custom Accessories* | [Search Custom Accessories](https://awin1.com/placeholder_id) |
+      | **ShareASale** | *Direct B2B Hardware* | [Check B2B Deals](https://shareasale.com/placeholder_id) |
+      | **Flipkart** | *Best in India* | [Check Price on Flipkart](https://flipkart.com/placeholder_id) |
+      | **Croma** | *Trusted Electronics (India)* | [Check Price on Croma](https://croma.com/placeholder_id) |
       | **Digistore24** | *Digital Software Alternative* | [Check Digital Tools](https://digistore24.com/placeholder_id) |
       
       Format the response as a valid JSON object with the following structure:
