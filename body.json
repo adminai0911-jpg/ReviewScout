@@ -1,1 +1,0 @@
-{"query":"mutation CreatePost($input: CreatePostInput!) { createPost(input: $input) { ... on PostActionSuccess { post { id } } } }","variables":{"input":{"channelId":"6a48e2f15ab6d2f106a2ffd7","text":"Test","mode":"shareNow","schedulingType":"automatic","assets":[]}}}
