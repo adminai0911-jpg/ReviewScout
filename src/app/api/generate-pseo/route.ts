@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -97,91 +97,101 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'GEMINI_API_KEYS missing' }, { status: 500 });
     }
 
-    // 2. Call Gemini AI to write the article
-    // We switched to gemini-2.5-flash because the Pro model throws a 429 quota error on the free tier.
-    // Flash is incredibly fast, highly capable for SEO, and has a massive free tier quota.
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-    
-    const prompt = `
-      You are an expert product reviewer and SEO copywriter for a site called "ReviewScout".
-      Write a comprehensive, engaging, and highly informative Wirecutter-style product review.
-      
-      Topic: "${title}"
-      Target Language: ${location.languageName}
-      Target Keyword/Product: ${product}
-      Target City/Region: ${location.city}, ${location.country}
+    // 2. Queue the AI generation in the background to prevent cron-job.org timeout!
+    after(async () => {
+      try {
+        console.log(`Starting background generation for: ${title}`);
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        
+        const prompt = `
+          You are an expert product reviewer and SEO copywriter for a site called "ReviewScout".
+          Write a comprehensive, engaging, and highly informative Wirecutter-style product review.
+          
+          Topic: "${title}"
+          Target Language: ${location.languageName}
+          Target Keyword/Product: ${product}
+          Target City/Region: ${location.city}, ${location.country}
 
-      CRITICAL MONETIZATION RULE: 
-      If the keyword is about a Software, SaaS, App, or digital service, YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.).
-      
-      MULTI-PLATFORM AGGREGATION:
-      At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively.
-      
-      ## 💰 Best Places to Buy [Product Name] Today
-      We scour the internet daily to find you the lowest prices from verified global retailers. 
-      | Retailer | Price Estimate | Link |
-      |----------|---------------|------|
-      | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
-      | **Walmart** | *Great Local Pickup* | [Check Price on Walmart](https://walmart.com/placeholder_id) |
-      | **BestBuy** | *Premium Tech Deals* | [Check Price on BestBuy](https://bestbuy.com/placeholder_id) |
-      | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
-      | **eBay** | *Best for Refurbished/Used* | [Check Price on eBay](https://ebay.com/placeholder_id) |
-      | **Etsy / Awin** | *Custom Accessories* | [Search Custom Accessories](https://awin1.com/placeholder_id) |
-      | **ShareASale** | *Direct B2B Hardware* | [Check B2B Deals](https://shareasale.com/placeholder_id) |
-      | **Flipkart** | *Best in India* | [Check Price on Flipkart](https://flipkart.com/placeholder_id) |
-      | **Croma** | *Trusted Electronics (India)* | [Check Price on Croma](https://croma.com/placeholder_id) |
-      | **Digistore24** | *Digital Software Alternative* | [Check Digital Tools](https://digistore24.com/placeholder_id) |
-      
-      Format the response as a valid JSON object with the following structure:
-      {
-        "title": "SEO optimized, clickbaity but professional title including the keyword and year",
-        "content": "The full article in Markdown format"
+          CRITICAL MONETIZATION RULE: 
+          If the keyword is about a Software, SaaS, App, or digital service, YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.).
+          
+          MULTI-PLATFORM AGGREGATION:
+          At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively.
+          
+          ## 💰 Best Places to Buy [Product Name] Today
+          We scour the internet daily to find you the lowest prices from verified global retailers. 
+          | Retailer | Price Estimate | Link |
+          |----------|---------------|------|
+          | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
+          | **Walmart** | *Great Local Pickup* | [Check Price on Walmart](https://walmart.com/placeholder_id) |
+          | **BestBuy** | *Premium Tech Deals* | [Check Price on BestBuy](https://bestbuy.com/placeholder_id) |
+          | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
+          | **eBay** | *Best for Refurbished/Used* | [Check Price on eBay](https://ebay.com/placeholder_id) |
+          | **Etsy / Awin** | *Custom Accessories* | [Search Custom Accessories](https://awin1.com/placeholder_id) |
+          | **ShareASale** | *Direct B2B Hardware* | [Check B2B Deals](https://shareasale.com/placeholder_id) |
+          | **Flipkart** | *Best in India* | [Check Price on Flipkart](https://flipkart.com/placeholder_id) |
+          | **Croma** | *Trusted Electronics (India)* | [Check Price on Croma](https://croma.com/placeholder_id) |
+          | **Digistore24** | *Digital Software Alternative* | [Check Digital Tools](https://digistore24.com/placeholder_id) |
+          
+          Format the response as a valid JSON object with the following structure:
+          {
+            "title": "SEO optimized, clickbaity but professional title including the keyword and year",
+            "content": "The full article in Markdown format"
+          }
+
+          Requirements:
+          1. MUST be written entirely in ${location.languageName}.
+          2. Format using Markdown (use ## and ### for headings).
+          3. Do not include the main Title as an H1 heading (the site handles that). Just start with an introduction paragraph.
+          4. Include specific references to ${location.city} and ${location.country} to make it locally relevant.
+          5. Include a "Pros:" and "Cons:" bulleted list (the site uses this for special styling).
+          6. Include a section that clearly states "👑 Editor's Top Pick".
+          7. Be incredibly persuasive, pushing the user to click the verified links to buy on Amazon.
+          8. Minimum length: 600 words.
+        `;
+
+        const result = await model.generateContent(prompt);
+        let rawText = result.response.text();
+        
+        // Clean potential markdown JSON blocks
+        rawText = rawText.replace(/^```json\s*/im, '').replace(/^```\s*/im, '').replace(/```\s*$/im, '').trim();
+        
+        let parsedTitle = title;
+        let parsedContent = rawText;
+        
+        try {
+          const parsed = JSON.parse(rawText);
+          if (parsed.title) parsedTitle = parsed.title;
+          if (parsed.content) parsedContent = parsed.content;
+        } catch (e) {
+          console.error("Failed to parse Gemini JSON output, falling back to raw text", e);
+        }
+
+        // 3. Save to Supabase
+        const { error } = await supabase.from('articles').insert([{
+          title: parsedTitle,
+          slug,
+          content: parsedContent,
+          language: location.lang,
+          category: 'Electronics',
+          date: new Date().toISOString().split('T')[0]
+        }]);
+
+        if (error) {
+          console.error("Failed to insert into Supabase", error);
+        } else {
+          console.log(`Successfully generated and saved: ${parsedTitle}`);
+        }
+      } catch (err) {
+        console.error("Background task error:", err);
       }
+    });
 
-      Requirements:
-      1. MUST be written entirely in ${location.languageName}.
-      2. Format using Markdown (use ## and ### for headings).
-      3. Do not include the main Title as an H1 heading (the site handles that). Just start with an introduction paragraph.
-      4. Include specific references to ${location.city} and ${location.country} to make it locally relevant.
-      5. Include a "Pros:" and "Cons:" bulleted list (the site uses this for special styling).
-      6. Include a section that clearly states "👑 Editor's Top Pick".
-      7. Be incredibly persuasive, pushing the user to click the verified links to buy on Amazon.
-      8. Minimum length: 600 words.
-    `;
-
-    const result = await model.generateContent(prompt);
-    let rawText = result.response.text();
-    
-    // Clean potential markdown JSON blocks
-    rawText = rawText.replace(/^```json\s*/im, '').replace(/^```\s*/im, '').replace(/```\s*$/im, '').trim();
-    
-    let parsedTitle = title;
-    let parsedContent = rawText;
-    
-    try {
-      const parsed = JSON.parse(rawText);
-      if (parsed.title) parsedTitle = parsed.title;
-      if (parsed.content) parsedContent = parsed.content;
-    } catch (e) {
-      console.error("Failed to parse Gemini JSON output, falling back to raw text", e);
-    }
-
-    // 3. Save to Supabase
-    const { data, error } = await supabase.from('articles').insert([{
-      title: parsedTitle,
-      slug,
-      content: parsedContent,
-      language: location.lang,
-      category: 'Electronics',
-      date: new Date().toISOString().split('T')[0]
-    }]).select();
-
-    if (error) throw error;
-
+    // Respond immediately to cron-job.org so it never times out
     return NextResponse.json({
       success: true,
-      message: `pSEO article autonomously generated by Gemini: ${title}`,
-      data
+      message: `Background generation task queued for: ${title}`,
+      info: "cron-job.org will receive this response instantly!"
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
