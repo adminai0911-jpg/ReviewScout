@@ -21,7 +21,7 @@ async function generateContentWithFailover(prompt, apiKeys, grokKey) {
     for (const key of apiKeys) {
         try {
             const ai = new GoogleGenAI({ apiKey: key });
-            const response = await ai.models.generateContent({ model: 'gemini-flash-lite-latest', contents: prompt });
+            const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
             return response.text.trim();
         } catch (error) {
             const msg = error.message || "";
@@ -116,14 +116,18 @@ async function runInfiniteGenerator() {
             const articlePrompt = `You are an expert product reviewer, high-converting copywriter, and SEO specialist writing natively in ${targetLanguage}.
             Write a comprehensive, highly-engaging buyer's guide in ${targetLanguage} for the search query: "${topic.title}"
             
-            CRITICAL MONETIZATION RULES:
+            CRITICAL MONETIZATION RULES (DO NOT FAIL):
             1. Every time you mention a specific product, you MUST make it a clickable affiliate link.
-            2. If it is a physical product (like Amazon), use this URL format: [Product Name](https://www.amazon.com/s?k=PRODUCT+NAME+HERE&tag=reviewscout-20)
+            2. If it is a physical product (like Amazon), use this exact URL format: [Product Name](https://www.amazon.com/s?k=PRODUCT+NAME+HERE&tag=${affiliateId})
             
             CRITICAL VISUAL RULES (IMAGES):
             To increase conversions, you MUST include product images! You can dynamically generate them using this URL format:
             ![Image of Product](https://image.pollinations.ai/prompt/Professional%204K%20product%20photography%20of%20PRODUCT_NAME_URL_ENCODED%2C%20studio%20lighting%2C%20highly%20detailed%2C%20photorealistic%2C%20clean%20background?width=800&height=500&nologo=true)
             Place a beautiful hero image at the very top of the article, and place an image above each of the Top 3 product reviews.
+
+            PSYCHOLOGY CONVERSION HACKS:
+            - Create urgency (e.g., "Prices fluctuate quickly, click to check current discount").
+            - Validate the buyer's needs and clearly present the "Best Value" and "Premium Choice".
 
             Return ONLY valid Markdown format. Do not use any markdown code blocks (\`\`\`). Just raw markdown. Do not include YAML frontmatter.
             
@@ -138,9 +142,9 @@ async function runInfiniteGenerator() {
                - CRITICAL PSYCHOLOGY HACK: You must explicitly label the #1 product recommendation as the "👑 Editor's Top Pick" (translated to ${targetLanguage}).
                - For each product, include a dynamic image using the pollinations.ai URL.
                - Write a **Pros & Cons List** using bullet points.
-               - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/s?k=PRODUCT+NAME&tag=reviewscout-20)
+               - Include a markdown link formatted EXACTLY like this: [Check Price on Amazon](https://amazon.com/s?k=PRODUCT+NAME&tag=${affiliateId})
             4. A buying guide section.
-            5. A conclusion.
+            5. A conclusion highlighting the #1 choice one last time.
             
             Do not include any extra text outside the markdown.`;
 
