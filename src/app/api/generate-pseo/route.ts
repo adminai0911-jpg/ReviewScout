@@ -115,16 +115,17 @@ export async function GET(request: Request) {
       If the keyword is about a Software, SaaS, App, or digital service, YOU MUST recommend a related PHYSICAL HARDWARE product to buy (like a 4K Monitor, Ergonomic Chair, Professional Microphone, etc.).
       
       MULTI-PLATFORM AGGREGATION:
-      At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively. Use AliExpress, eBay, Awin, ShareASale, and Digistore24.
+      At the very end of the article, you MUST generate a markdown Price Comparison Table using this exact format with placeholder tracking IDs. DO NOT use Amazon exclusively.
       
       ## 💰 Best Places to Buy [Product Name] Today
       We scour the internet daily to find you the lowest prices from verified global retailers. 
       | Retailer | Price Estimate | Link |
       |----------|---------------|------|
-      | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
       | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
-      | **Awin / ShareASale** | *Direct from Manufacturer* | [Check Direct Price](https://awin1.com/placeholder_id) |
-      | **Digistore24** | *Digital Software & Tools* | [Check Digital Price](https://digistore24.com/placeholder_id) |
+      | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |
+      | **eBay** | *Best for Refurbished/Used* | [Check Price on eBay](https://ebay.com/placeholder_id) |
+      | **Etsy / Awin** | *Custom Accessories* | [Search Custom Accessories](https://awin1.com/placeholder_id) |
+      | **Digistore24** | *Digital Software Alternative* | [Check Digital Tools](https://digistore24.com/placeholder_id) |
       
       Format the response as a valid JSON object with the following structure:
       {

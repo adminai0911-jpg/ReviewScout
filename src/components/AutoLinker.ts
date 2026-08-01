@@ -5,7 +5,7 @@ export function processAutoLinks(content: string, productName: string): string {
 
   const affiliateIds = {
     aliexpress: "reviewscout_ai",
-    shareasale: "3003527",
+    ebay: "5339000000",
     awin: "3003527",
     digistore24: "adminai091181b6",
     amazon: "inamazon0f2-21"
@@ -22,10 +22,15 @@ export function processAutoLinks(content: string, productName: string): string {
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`;
     } else if (url.includes('aliexpress.com')) {
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.aliexpress.com/wholesale?SearchText=${encodedProduct}&aff_id=${affiliateIds.aliexpress}`)}`;
-    } else if (url.includes('awin1.com') || url.includes('shareasale.com')) {
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=12345&awinaffid=${affiliateIds.awin}&clickref=&p=`)}`;
+    } else if (url.includes('ebay.com')) {
+      // eBay Partner Network (EPN) Universal Search
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_id=114&ipn=icep&toolid=20004&campid=${affiliateIds.ebay}&mpre=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}`)}`)}`;
+    } else if (url.includes('awin1.com')) {
+      // Awin -> Etsy Universal Search (Etsy Merchant ID: 6220)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=6220&awinaffid=${affiliateIds.awin}&clickref=&p=${encodeURIComponent(`https://www.etsy.com/search?q=${encodedProduct}`)}`)}`;
     } else if (url.includes('digistore24.com')) {
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.digistore24.com/redir/12345/${affiliateIds.digistore24}/CAMPAIGNKEY`)}`;
+      // Digistore24 -> Tube Mastery (High Converting Digital AI/Tech Course - ID 299134)
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.digistore24.com/redir/299134/${affiliateIds.digistore24}/REVIEW`)}`;
     }
     
     return `[${text}](${finalUrl})`;

@@ -20,7 +20,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
 
   const affiliateIds = {
     aliexpress: "reviewscout_ai",
-    shareasale: "3003527",
+    ebay: "5339000000",
     awin: "3003527",
     digistore24: "adminai091181b6",
     earnkaro: "5476200",
@@ -72,71 +72,71 @@ export default function PriceComparisonTable({ productName }: { productName: str
               </td>
             </tr>
 
-            {/* ShareASale (Direct Manufacturer / B2B) */}
+            {/* eBay (EPN) */}
             <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
               <td className="px-6 py-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-purple-500/20 border border-purple-500/30 rounded flex items-center justify-center font-bold text-purple-400 text-xs shadow-[0_0_10px_rgba(168,85,247,0.2)]">SAS</div>
-                  <span className="font-bold text-slate-200">Direct Deals</span>
+                  <div className="w-8 h-8 bg-blue-500/20 border border-blue-500/30 rounded flex items-center justify-center font-bold text-blue-400 text-xs shadow-[0_0_10px_rgba(59,130,246,0.2)]">EB</div>
+                  <span className="font-bold text-slate-200">eBay</span>
                 </div>
               </td>
               <td className="px-6 py-4 text-sm text-slate-400">
-                Direct from Manufacturer (B2B & Software)
+                Best for Refurbished & Used Deals
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.shareasale.com/r.cfm?b=12345&u=${affiliateIds.shareasale}&m=54321`)}`}
-                  target="_blank"
-                  rel="nofollow noopener"
-                  className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
-                >
-                  Check Price
-                </a>
-              </td>
-            </tr>
-
-            {/* Awin (Premium European/Global Brands) */}
-            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
-              <td className="px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-pink-500/20 border border-pink-500/30 rounded flex items-center justify-center font-bold text-pink-400 text-xs shadow-[0_0_10px_rgba(236,72,153,0.2)]">AW</div>
-                  <span className="font-bold text-slate-200">Awin Brands</span>
-                </div>
-              </td>
-              <td className="px-6 py-4 text-sm text-slate-400">
-                Premium Global Retailers & Software
-              </td>
-              <td className="px-6 py-4 text-right">
-                <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=12345&awinaffid=${affiliateIds.awin}&clickref=&p=`)}`}
-                  target="_blank"
-                  rel="nofollow noopener"
-                  className="inline-flex items-center justify-center bg-pink-600 hover:bg-pink-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
-                >
-                  Check Price
-                </a>
-              </td>
-            </tr>
-
-            {/* Digistore24 (Digital Products/Software) */}
-            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
-              <td className="px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500/20 border border-blue-500/30 rounded flex items-center justify-center font-bold text-blue-400 text-xs shadow-[0_0_10px_rgba(59,130,246,0.2)]">DS</div>
-                  <span className="font-bold text-slate-200">Digital Partners</span>
-                </div>
-              </td>
-              <td className="px-6 py-4 text-sm text-slate-400">
-                Software & Digital Tools
-              </td>
-              <td className="px-6 py-4 text-right">
-                <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.digistore24.com/redir/12345/${affiliateIds.digistore24}/CAMPAIGNKEY`)}`}
+                  href={`/api/go?url=${encodeURIComponent(`https://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_id=114&ipn=icep&toolid=20004&campid=${affiliateIds.ebay}&mpre=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}`)}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
                 >
                   Check Price
+                </a>
+              </td>
+            </tr>
+
+            {/* Awin -> Etsy (Custom/Accessories) */}
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
+              <td className="px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-orange-500/20 border border-orange-500/30 rounded flex items-center justify-center font-bold text-orange-400 text-xs shadow-[0_0_10px_rgba(249,115,22,0.2)]">ET</div>
+                  <span className="font-bold text-slate-200">Etsy</span>
+                </div>
+              </td>
+              <td className="px-6 py-4 text-sm text-slate-400">
+                Custom Accessories & Handmade
+              </td>
+              <td className="px-6 py-4 text-right">
+                <a 
+                  href={`/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=6220&awinaffid=${affiliateIds.awin}&clickref=&p=${encodeURIComponent(`https://www.etsy.com/search?q=${encodedProduct}`)}`)}`}
+                  target="_blank"
+                  rel="nofollow noopener"
+                  className="inline-flex items-center justify-center bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                >
+                  Check Price
+                </a>
+              </td>
+            </tr>
+
+            {/* Digistore24 (Digital AI Alternative) */}
+            <tr className="hover:bg-white/5 transition-colors group border-b border-white/5">
+              <td className="px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-purple-500/20 border border-purple-500/30 rounded flex items-center justify-center font-bold text-purple-400 text-xs shadow-[0_0_10px_rgba(168,85,247,0.2)]">DS</div>
+                  <span className="font-bold text-slate-200">Digital Tools</span>
+                </div>
+              </td>
+              <td className="px-6 py-4 text-sm text-slate-400">
+                Top AI & Software Alternative
+              </td>
+              <td className="px-6 py-4 text-right">
+                <a 
+                  href={`/api/go?url=${encodeURIComponent(`https://www.digistore24.com/redir/299134/${affiliateIds.digistore24}/REVIEW`)}`}
+                  target="_blank"
+                  rel="nofollow noopener"
+                  className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap"
+                >
+                  Check Tools
                 </a>
               </td>
             </tr>
