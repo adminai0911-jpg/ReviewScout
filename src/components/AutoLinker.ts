@@ -3,15 +3,13 @@ export function processAutoLinks(content: string, productName: string): string {
   
   let newContent = content;
 
+  const skimlinksId = "307054X1795329";
+
   const affiliateIds = {
-    aliexpress: "reviewscout_ai",
-    ebay: "5339000000",
     awin: "3003527",
     shareasale: "3003527",
     digistore24: "adminai091181b6",
     earnkaro: "5476200",
-    walmart: "impact_12345",
-    bestbuy: "impact_67890",
     amazon: "inamazon0f2-21"
   };
 
@@ -25,10 +23,10 @@ export function processAutoLinks(content: string, productName: string): string {
     if (url.includes('amazon.')) {
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`;
     } else if (url.includes('aliexpress.com')) {
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.aliexpress.com/wholesale?SearchText=${encodedProduct}&aff_id=${affiliateIds.aliexpress}`)}`;
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.aliexpress.com/wholesale?SearchText=${encodedProduct}`)}`)}`;
     } else if (url.includes('ebay.com')) {
-      // eBay Partner Network (EPN) Universal Search
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_id=114&ipn=icep&toolid=20004&campid=${affiliateIds.ebay}&mpre=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}`)}`)}`;
+      // eBay via Skimlinks
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.ebay.com/sch/i.html?_nkw=${encodedProduct}`)}`)}`;
     } else if (url.includes('awin1.com')) {
       // Awin -> Etsy Universal Search (Etsy Merchant ID: 6220)
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.awin1.com/cread.php?awinmid=6220&awinaffid=${affiliateIds.awin}&clickref=&p=${encodeURIComponent(`https://www.etsy.com/search?q=${encodedProduct}`)}`)}`;
@@ -36,11 +34,11 @@ export function processAutoLinks(content: string, productName: string): string {
       // ShareASale -> DHgate Wholesale Search (Merchant 42409)
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.shareasale.com/r.cfm?b=1639527&u=${affiliateIds.shareasale}&m=42409&urllink=${encodeURIComponent(`https://www.dhgate.com/wholesale/search.do?searchkey=${encodedProduct}`)}`)}`;
     } else if (url.includes('walmart.com')) {
-      // Walmart Universal Search (via Impact)
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://walmart.com/search?q=${encodedProduct}&irgwc=1&sourceid=imp_${affiliateIds.walmart}`)}`;
+      // Walmart via Skimlinks
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.walmart.com/search?q=${encodedProduct}`)}`)}`;
     } else if (url.includes('bestbuy.com')) {
-      // BestBuy Universal Search (via Impact)
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.bestbuy.com/site/searchpage.jsp?st=${encodedProduct}&irclickid=${affiliateIds.bestbuy}`)}`;
+      // BestBuy via Skimlinks
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.bestbuy.com/site/searchpage.jsp?st=${encodedProduct}`)}`)}`;
     } else if (url.includes('flipkart.com')) {
       // Flipkart Universal Search (via EarnKaro)
       finalUrl = `/api/go?url=${encodeURIComponent(`https://www.flipkart.com/search?q=${encodedProduct}&affid=ekaro_${affiliateIds.earnkaro}`)}`;
