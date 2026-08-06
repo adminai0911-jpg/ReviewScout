@@ -1,5 +1,4 @@
-import { MetadataRoute } from 'next';
-export const revalidate = 86400; // Cache sitemap for 24 hours on Vercel Edge CDN
+export const dynamic = 'force-dynamic'; // Zero ISR Data Cache Writes
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';

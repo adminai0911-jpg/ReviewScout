@@ -6,7 +6,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic'; // Zero ISR Data Cache Writes
 
 // Read and filter articles by category
 const getArticlesByCategory = async (categorySlug: string) => {

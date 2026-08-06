@@ -1,4 +1,4 @@
-export const revalidate = 3600; // Cache for 1 hour
+export const dynamic = 'force-dynamic'; // Zero ISR Data Cache Writes
 
 export async function GET() {
   const baseUrl = 'https://review-scout-pi.vercel.app';

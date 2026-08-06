@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export const revalidate = 604800; // ISR Cache for 7 days (Zero Server Compute Cost)
+export const dynamic = 'force-dynamic'; // Zero ISR Data Cache Writes
 
 // Read articles from Supabase
 const getArticles = async () => {

@@ -4,7 +4,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-export const revalidate = 3600; // Cache for 1 hour
+export const dynamic = 'force-dynamic'; // Zero ISR Data Cache Writes
 
 export async function GET() {
   const baseUrl = 'https://review-scout-bbbc.vercel.app';

@@ -89,8 +89,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export const revalidate = 604800; // ISR Cache for 7 days (Zero Server Compute Cost)
-export const dynamicParams = true; // Ensure Vercel dynamically renders any slug not pre-generated
+export const dynamic = 'force-dynamic'; // Zero ISR Data Cache Writes (Prevents Vercel free tier limits)
 
 export async function generateStaticParams() {
   return []; // DynamicParams handles missing slugs

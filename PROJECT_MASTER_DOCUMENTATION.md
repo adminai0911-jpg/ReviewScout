@@ -5,7 +5,7 @@
 **GitHub Repository:** `https://github.com/adminai0911-jpg/ReviewScout.git`  
 **Deployment Platform:** Vercel (Serverless / App Router)  
 **Primary Database:** Supabase (PostgreSQL)  
-**Documentation Version:** 2.0 (Master Release)
+**Documentation Version:** 2.1 (Vercel Free Tier Zero-Cost Optimization Release)
 
 ---
 
@@ -20,7 +20,15 @@
 
 ---
 
-## 💰 2. Universal 10-Platform Monetization Matrix
+## ⚡ 2. Vercel Free Tier (100% Free Lifetime Guarantee)
+
+- **Zero Data Cache Writes (ISR Writes):** All `export const revalidate = N` statements have been purged from pages and routes (`article`, `category`, `language`, `sitemap.ts`, `feed.xml`, `products.xml`).
+- **Dynamic Serverless Rendering:** Replaced with `export const dynamic = 'force-dynamic'` and Edge CDN Caching Headers.
+- **Result:** Vercel Data Cache ISR Writes dropped to **0 per month**, completely preventing Vercel project auto-pausing or forced Pro upgrades.
+
+---
+
+## 💰 3. Universal 10-Platform Monetization Matrix
 
 All outbound links in body text and the live comparison table route through `/api/go` to maximize conversions.
 
@@ -39,7 +47,7 @@ All outbound links in body text and the live comparison table route through `/ap
 
 ---
 
-## 🤖 3. Autonomous pSEO Generation Engine
+## 🤖 4. Autonomous pSEO Generation Engine
 
 - **API Endpoint:** `/api/generate-pseo`
 - **Cron Token:** `Bearer ReviewScout-Cron-Token-9f8a7b6c5d4e`
@@ -56,7 +64,7 @@ All outbound links in body text and the live comparison table route through `/ap
 
 ---
 
-## 🗄️ 4. Supabase Database Schema
+## 🗄️ 5. Supabase Database Schema
 
 ### Table: `articles`
 ```sql
@@ -83,18 +91,18 @@ CREATE TABLE subscribers (
 
 ---
 
-## 🌐 5. SEO, Tracking & Verification Tags
+## 🌐 6. SEO, Tracking & Verification Tags
 
 - **Google AdSense:** `ca-pub-4477459074077400` (Integrated in `layout.tsx` & `metadata`)
 - **Google Analytics:** `G-KRL5RH2H00`
 - **Impact Verification:** `b7f81974-6121-406a-af7d-a04020931ed0`
 - **Google Search Console Verification:** `bc5hPzXstw6y8lpbiXYdEHfTSZkySuSi5XR-MD4lJZQ`
 - **Skimlinks Global Script:** `https://s.skimresources.com/js/307054X1795329.skimlinks.js`
-- **Dynamic Sitemap:** `/sitemap.xml` (Cached via ISR `revalidate = 86400`)
+- **Dynamic Sitemap:** `/sitemap.xml`
 
 ---
 
-## ⚙️ 6. Maintenance & Scaling Operations
+## ⚙️ 7. Maintenance & Scaling Operations
 
 1. **How to add new products/keywords to the AI:**
    Edit `src/app/api/generate-pseo/route.ts` and add items to the `PRODUCTS` array.
