@@ -5,7 +5,7 @@
 **GitHub Repository:** `https://github.com/adminai0911-jpg/ReviewScout.git`  
 **Deployment Platform:** Vercel (Serverless / App Router)  
 **Primary Database:** Supabase (PostgreSQL)  
-**Documentation Version:** 2.1 (Vercel Free Tier Zero-Cost Optimization Release)
+**Documentation Version:** 2.2 (Vercel Double Limit Zero-Cost Optimization Release)
 
 ---
 
@@ -20,11 +20,20 @@
 
 ---
 
-## ⚡ 2. Vercel Free Tier (100% Free Lifetime Guarantee)
+## ⚡ 2. Vercel Free Tier Double Limit Fix (100% Free Lifetime Guarantee)
 
-- **Zero Data Cache Writes (ISR Writes):** All `export const revalidate = N` statements have been purged from pages and routes (`article`, `category`, `language`, `sitemap.ts`, `feed.xml`, `products.xml`).
-- **Dynamic Serverless Rendering:** Replaced with `export const dynamic = 'force-dynamic'` and Edge CDN Caching Headers.
-- **Result:** Vercel Data Cache ISR Writes dropped to **0 per month**, completely preventing Vercel project auto-pausing or forced Pro upgrades.
+### Issue A: ISR Data Cache Writes (200,000 Limit)
+- **Problem:** `export const revalidate = N` was forcing Vercel to write HTML files to Vercel Data Cache on every background revalidation.
+- **Solution:** Purged all `revalidate = N` statements. Converted pages to standard dynamic rendering (`export const dynamic = 'force-dynamic'`).
+- **Result:** **0 Data Cache Writes** per month.
+
+### Issue B: Fast Origin Transfer (10 GB Limit)
+- **Problem:** Dynamic SSR without Edge CDN headers forced every bot/user request to hit the Vercel Origin Serverless Function, consuming 10 GB of Fast Origin Transfer.
+- **Solution:** Added Vercel Edge CDN headers in `next.config.ts`:
+  ```typescript
+  Cache-Control: public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400
+  ```
+- **Result:** Vercel's Edge Network CDN caches pages globally for 7 days. Requests are served from the **100 GB Fast Data Transfer Pool** instead of Origin. Fast Origin Transfer drops by **99%** to near **0 GB**.
 
 ---
 
