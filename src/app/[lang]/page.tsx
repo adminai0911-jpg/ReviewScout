@@ -44,7 +44,16 @@ const getArticles = async () => {
       console.log('Supabase fetch failed:', e);
     }
   }
-  return [];
+
+  // Fallback Curated Catalog (Ensures 100% homepage availability without Supabase)
+  return [
+    { id: '1', slug: 'best-sony-wh-1000xm5-for-commuting-in-london-united-kingdom', title: 'Best Sony WH-1000XM5 for Commuting in London, United Kingdom', category: 'Electronics', language: 'en', date: '2026-08-29' },
+    { id: '2', slug: 'best-apple-airpods-max-for-travel-in-new-york-united-states', title: 'Best Apple AirPods Max for Travel in New York, United States', category: 'Electronics', language: 'en', date: '2026-08-29' },
+    { id: '3', slug: 'best-macbook-air-m3-for-office-work-in-toronto-canada', title: 'Best MacBook Air M3 for Office Work in Toronto, Canada', category: 'Computing', language: 'en', date: '2026-08-29' },
+    { id: '4', slug: 'best-dji-mini-4-pro-for-travel-in-sydney-australia', title: 'Best DJI Mini 4 Pro for Travel in Sydney, Australia', category: 'Cameras', language: 'en', date: '2026-08-29' },
+    { id: '5', slug: 'best-apple-watch-series-9-for-home-use-in-tokyo-japan', title: 'Best Apple Watch Series 9 for Home Use in Tokyo, Japan', category: 'Wearables', language: 'en', date: '2026-08-29' },
+    { id: '6', slug: 'best-dyson-v15-detect-for-home-use-in-berlin-germany', title: 'Best Dyson V15 Detect for Home Use in Berlin, Germany', category: 'Smart Home', language: 'de', date: '2026-08-29' }
+  ];
 };
 
 const getTopCategories = (articles: any[]) => {
