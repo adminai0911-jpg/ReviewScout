@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   const country = request.headers.get('x-vercel-ip-country') || 'US';
 
   // Base Amazon Affiliate Tracking ID (Fallback)
-  const fallbackTag = 'reviewscout-20';
+  const fallbackTag = 'inamazon0f2-21';
 
   // Amazon Storefront Mapping by Country Code
   const amazonStores: Record<string, { domain: string, tag: string }> = {
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
     
     // Only rewrite Amazon links
     if (urlObj.hostname.includes('amazon.')) {
-      const store = amazonStores[country] || amazonStores['US'];
+      const store = amazonStores[country] || { domain: 'amazon.com', tag: fallbackTag };
       
       // Rewrite the domain to the local storefront
       urlObj.hostname = 'www.' + store.domain;
@@ -45,13 +45,12 @@ export async function GET(request: NextRequest) {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
     }
-  } catch (error) {
-    // If URL parsing fails, just fallback to the original URL
-    console.error("Invalid URL in Geo-Router:", targetUrl);
-  }
 
-  // For non-Amazon links or if parsing fails, just redirect to the original URL
-  return NextResponse.redirect(targetUrl, {
-    headers: { 'Cache-Control': 'no-store, max-age=0' }
-  });
+    return NextResponse.redirect(urlObj.toString(), {
+      headers: { 'Cache-Control': 'no-store, max-age=0' }
+    });
+  } catch (error) {
+    // If URL parsing fails, redirect safely to homepage
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 }
