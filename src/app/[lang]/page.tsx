@@ -34,7 +34,7 @@ const getArticles = async () => {
     try {
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, slug, title, category, language, date, created_at')
         .order('created_at', { ascending: false });
         
       if (!error && data && data.length > 0) {

@@ -14,7 +14,7 @@ const getArticlesByLanguage = async (languageSlug: string) => {
     try {
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, slug, title, category, language, date, created_at')
         .ilike('language', languageSlug)
         .order('created_at', { ascending: false });
         

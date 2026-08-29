@@ -15,7 +15,7 @@ const getArticlesByCategory = async (categorySlug: string) => {
       const decodedCategory = decodeURIComponent(categorySlug).toLowerCase();
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, slug, title, category, language, date, created_at')
         .ilike('category', decodedCategory)
         .order('created_at', { ascending: false });
         
