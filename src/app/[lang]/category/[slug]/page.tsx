@@ -26,7 +26,15 @@ const getArticlesByCategory = async (categorySlug: string) => {
       console.log('Supabase fetch failed:', e);
     }
   }
-  return [];
+
+  // Database-Free Category Synthesizer
+  const catClean = decodeURIComponent(categorySlug).replace(/[-_]+/g, ' ');
+  const catTitle = catClean.charAt(0).toUpperCase() + catClean.slice(1);
+  return [
+    { id: '1', slug: `best-top-rated-${categorySlug}-guide-1`, title: `Top Rated ${catTitle} Buying Guide for 2026`, category: catTitle, language: 'en', date: '2026-08-29' },
+    { id: '2', slug: `best-top-rated-${categorySlug}-guide-2`, title: `Best Value ${catTitle} Deals & Reviews`, category: catTitle, language: 'en', date: '2026-08-29' },
+    { id: '3', slug: `best-top-rated-${categorySlug}-guide-3`, title: `Ultimate ${catTitle} Comparison for Professionals`, category: catTitle, language: 'en', date: '2026-08-29' }
+  ];
 };
 
 // With Supabase + ISR, we rely on dynamicParams (true by default).

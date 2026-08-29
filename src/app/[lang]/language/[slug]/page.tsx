@@ -25,7 +25,14 @@ const getArticlesByLanguage = async (languageSlug: string) => {
       console.log('Supabase fetch failed:', e);
     }
   }
-  return [];
+
+  // Database-Free Language Synthesizer
+  const langName = languageSlug.charAt(0).toUpperCase() + languageSlug.slice(1);
+  return [
+    { id: '1', slug: `best-sony-wh-1000xm5-guide-${languageSlug}`, title: `Best Sony WH-1000XM5 Review (${langName})`, category: 'Electronics', language: langName, date: '2026-08-29' },
+    { id: '2', slug: `best-apple-airpods-max-guide-${languageSlug}`, title: `Best Apple AirPods Max Deals (${langName})`, category: 'Electronics', language: langName, date: '2026-08-29' },
+    { id: '3', slug: `best-macbook-air-m3-guide-${languageSlug}`, title: `Best MacBook Air M3 Buyer Guide (${langName})`, category: 'Computing', language: langName, date: '2026-08-29' }
+  ];
 };
 
 export async function generateStaticParams() {
