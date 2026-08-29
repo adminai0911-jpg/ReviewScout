@@ -42,7 +42,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   }
 
   if (!loadedFromSupabase) {
-    return { title: 'Article Not Found | ReviewScout' };
+    const words = resolvedParams.slug.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1));
+    title = words.join(' ');
+    description = `Read our comprehensive expert review and buyer's guide for ${title}. Find the best prices and top features.`;
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://review-scout-bbbc.vercel.app';
