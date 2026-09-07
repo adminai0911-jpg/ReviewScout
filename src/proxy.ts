@@ -45,11 +45,9 @@ export function proxy(request: NextRequest) {
   // Detect locale and redirect
   const locale = getLocale(request)
 
-  // e.g. incoming request is /article/best-camera
-  // The new URL is now /en/article/best-camera
-  return NextResponse.redirect(
-    new URL(`/${locale}${pathname}`, request.url),
-    { status: 307 }
+  // Rewrite internally so Googlebot gets HTTP 200 without any redirect headers
+  return NextResponse.rewrite(
+    new URL(`/${locale}${pathname}`, request.url)
   )
 }
 
