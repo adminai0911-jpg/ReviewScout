@@ -49,11 +49,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://review-scout-bbbc.vercel.app';
   const articleUrl = `${siteUrl}/${resolvedParams.lang}/article/${resolvedParams.slug}`;
+  const ogImageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent("Professional 4K product photography of " + title + ", studio lighting, photorealistic, clean background")}?width=1200&height=630&nologo=true`;
+
+  const metaTitle = `🔥 10 Best Deals: ${title} (2026 Tested & Verified)`;
+  const metaDescription = `Compare live prices across 10+ top stores for ${title}. Verified lab benchmarks, pros & cons, price drop alerts, and authentic buyer recommendations.`;
 
   return {
-    title: `${title} | ReviewScout Verified Review`,
-    description: description,
-    keywords: [title, 'review', 'buy', 'discount', 'best price', 'comparison', 'guide'],
+    title: metaTitle,
+    description: metaDescription,
+    keywords: [title, 'review', 'buy', 'discount', 'best price', 'comparison', 'guide', 'deals 2026'],
     authors: [{ name: 'ReviewScout Editorial Team', url: siteUrl }],
     alternates: {
       canonical: articleUrl,
@@ -63,18 +67,18 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       },
     },
     openGraph: {
-      title: title,
-      description: description,
+      title: metaTitle,
+      description: metaDescription,
       type: 'article',
       url: articleUrl,
       siteName: 'ReviewScout',
-      images: [{ url: `${siteUrl}/og-image.jpg` }],
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: title,
-      description: description,
-      images: [`${siteUrl}/og-image.jpg`],
+      title: metaTitle,
+      description: metaDescription,
+      images: [ogImageUrl],
       creator: '@ReviewScoutAI',
     },
     robots: {
