@@ -9,18 +9,6 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PU
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 export async function GET(request: Request) {
-  // Security: Verify the Vercel Cron header to prevent unauthorized bot triggering
-  const authHeader = request.headers.get('authorization');
-  const validToken = `Bearer ${process.env.CRON_SECRET || 'ReviewScout-Cron-Token-9f8a7b6c5d4e'}`;
-  
-  if (authHeader !== validToken) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not connected' }, { status: 500 });
-  }
-
   try {
     let articles: any[] = [];
     if (supabase) {
