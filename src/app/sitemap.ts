@@ -44,7 +44,27 @@ const LOCATIONS = [
   { city: "São Paulo", country: "Brazil", lang: "pt" }
 ];
 
-const USE_CASES = ["for Commuting", "for Office Work", "for Home Use", "for Travel", "for Professionals"];
+const INTENT_MODIFIERS = [
+  "price drop deals 2026",
+  "honest review and verdict",
+  "discount sale and lowest price",
+  "is it worth buying",
+  "buying guide and comparison",
+  "secret coupon deals",
+  "for commuting and travel",
+  "for office work and productivity"
+];
+
+const LANGUAGES = [
+  { code: "en", name: "English" },
+  { code: "de", name: "German" },
+  { code: "fr", name: "French" },
+  { code: "es", name: "Spanish" },
+  { code: "it", name: "Italian" },
+  { code: "pt", name: "Portuguese" },
+  { code: "hi", name: "Hindi" },
+  { code: "ja", name: "Japanese" }
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://review-scout-bbbc.vercel.app';
@@ -57,21 +77,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   ];
 
-  // Generate 1,000+ pSEO matrix URLs dynamically
+  // Generate 4,500+ high-intent buyer query URLs
   PRODUCTS.forEach(product => {
-    LOCATIONS.forEach(location => {
-      USE_CASES.forEach(useCase => {
-        const title = `Best ${product} ${useCase} in ${location.city}, ${location.country}`;
+    INTENT_MODIFIERS.forEach(intent => {
+      LANGUAGES.forEach(lang => {
+        const title = `${product} ${intent}`;
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         
         routes.push({
-          url: `${baseUrl}/${location.lang}/article/${slug}`,
+          url: `${baseUrl}/${lang.code}/article/${slug}`,
           lastModified: new Date(),
           changeFrequency: 'weekly',
-          priority: 0.8,
+          priority: 0.9,
           alternates: {
             languages: {
-              [location.lang]: `${baseUrl}/${location.lang}/article/${slug}`,
+              [lang.code]: `${baseUrl}/${lang.code}/article/${slug}`,
               'x-default': `${baseUrl}/en/article/${slug}`,
             },
           },
