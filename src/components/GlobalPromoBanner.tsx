@@ -99,7 +99,7 @@ export default function GlobalPromoBanner() {
             >
               {currentPromos[currentIndex]}
               
-              <a href="#" className="hidden sm:inline-flex items-center justify-center px-3 py-1 text-xs font-black bg-white text-indigo-600 rounded-full hover:bg-indigo-50 hover:scale-105 transition-transform uppercase tracking-wider shadow-sm ml-2">
+              <a href="https://www.amazon.in/?tag=inamazon0f2-21" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center justify-center px-3 py-1 text-xs font-black bg-white text-indigo-600 rounded-full hover:bg-indigo-50 hover:scale-105 transition-transform uppercase tracking-wider shadow-sm ml-2">
                 {lang === 'es' ? 'Explorar' : lang === 'fr' ? 'Explorer' : lang === 'de' ? 'Entdecken' : lang === 'pt' ? 'Explorar' : lang === 'it' ? 'Esplora' : lang === 'hi' ? 'खोजें' : 'Explore Now'}
                 <svg className="w-3 h-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
               </a>

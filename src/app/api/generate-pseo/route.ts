@@ -122,7 +122,7 @@ export async function GET(request: Request) {
           We scour the internet daily to find you the lowest prices from verified global retailers. 
           | Retailer | Price Estimate | Link |
           |----------|---------------|------|
-          | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.com/placeholder_id) |
+          | **Amazon** | *Fastest Local Shipping* | [Check Price on Amazon](https://amazon.in/placeholder_id) |
           | **Walmart** | *Great Local Pickup* | [Check Price on Walmart](https://walmart.com/placeholder_id) |
           | **BestBuy** | *Premium Tech Deals* | [Check Price on BestBuy](https://bestbuy.com/placeholder_id) |
           | **AliExpress** | *Lowest Price (Global Shipping)* | [Check Price on AliExpress](https://aliexpress.com/placeholder_id) |

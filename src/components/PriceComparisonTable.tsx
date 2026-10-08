@@ -142,7 +142,7 @@ export default function PriceComparisonTable({ productName }: { productName: str
               </td>
               <td className="px-6 py-4 text-right">
                 <a 
-                  href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`}
+                  href={`/api/go?url=${encodeURIComponent(`https://www.amazon.in/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`}
                   target="_blank"
                   rel="nofollow noopener"
                   className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-sm group-hover:shadow-md whitespace-nowrap border border-white/10"

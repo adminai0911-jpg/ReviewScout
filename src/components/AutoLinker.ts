@@ -21,7 +21,7 @@ export function processAutoLinks(content: string, productName: string): string {
     let finalUrl = url;
     
     if (url.includes('amazon.')) {
-      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`;
+      finalUrl = `/api/go?url=${encodeURIComponent(`https://www.amazon.in/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`)}`;
     } else if (url.includes('aliexpress.com')) {
       finalUrl = `/api/go?url=${encodeURIComponent(`https://go.redirectingat.com/?id=${skimlinksId}&url=${encodeURIComponent(`https://www.aliexpress.com/wholesale?SearchText=${encodedProduct}`)}`)}`;
     } else if (url.includes('ebay.com')) {
@@ -65,7 +65,7 @@ export function processAutoLinks(content: string, productName: string): string {
     "Check it out"
   ];
 
-  const rawAmzUrl = `https://www.amazon.com/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`;
+  const rawAmzUrl = `https://www.amazon.in/s?k=${encodedProduct}&tag=${affiliateIds.amazon}`;
   const cloakedAmzUrl = `/api/go?url=${encodeURIComponent(rawAmzUrl)}`;
 
   // Use a single, lightning-fast O(n) regex to match either an existing markdown link OR a keyword.

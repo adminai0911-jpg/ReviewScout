@@ -132,9 +132,9 @@ export default function FlashDealsStorefront() {
                     <p suppressHydrationWarning className="text-2xl font-black text-rose-600">{formatPrice(deal.price)}</p>
                   </div>
                   
-                  {/* Dynamic Amazon Affiliate Routing Link */}
+                  {/* Dynamic Amazon Affiliate Routing Link (Amazon.in) */}
                   <a 
-                    href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(deal.name)}&tag=reviewscout-20`)}`}
+                    href={`/api/go?url=${encodeURIComponent(`https://www.amazon.in/s?k=${encodeURIComponent(deal.name)}&tag=inamazon0f2-21`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center hover:bg-rose-600 hover:scale-110 transition-all shadow-md"

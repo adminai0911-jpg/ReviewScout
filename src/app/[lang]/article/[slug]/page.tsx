@@ -165,9 +165,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
     content = `# ${data.title}\n\nSearching for the absolute best price and authentic expert verification for **${data.title}**? Our engineering team evaluated real-world user telemetry, hardware teardowns, dynamic price history metrics, and warranty support to bring you this comprehensive buyer's guide.\n\n## Technical Benchmarks & Feature Highlights\n${featureSpecs}\n\n## Verified Pros & Cons\nPros: Exceptional build quality, top-tier benchmark scores, verified multi-store price drops.\nCons: High market demand can lead to temporary stock shortages during seasonal promotions.\n\n## How We Tested This Product\nOur lab suite subjects every device to a 48-hour continuous stress test, measuring thermal output, battery degradation, and real-world ergonomic comfort across varied environments.\n\n## Verdict\n👑 Editor's Choice: **${data.title}** delivers an outstanding balance of performance, durability, and value. Check the live multi-store deal comparison table below to claim the lowest available price across Amazon, Walmart, eBay, and global retailers today.`;
   }
 
-  // CRO: Generate a dynamic Amazon Search Link based on the article title
+  // CRO: Generate a dynamic Amazon Search Link based on the article title (Amazon.in)
   const affiliateId = "inamazon0f2-21";
-  const rawAmazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
+  const rawAmazonUrl = `https://www.amazon.in/s?k=${encodeURIComponent(data.title || "best products")}&tag=${affiliateId}`;
   const amazonUrl = `/api/go?url=${encodeURIComponent(rawAmazonUrl)}`;
 
   // SEO: Automated Internal Linking
@@ -594,7 +594,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ lang: 
                           <div className="flex flex-col items-start gap-3">
                             <span className="text-white text-base leading-snug">{children}</span>
                             <a 
-                              href={`/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(text)}&tag=inamazon0f2-21`)}`}
+                              href={`/api/go?url=${encodeURIComponent(`https://www.amazon.in/s?k=${encodeURIComponent(text)}&tag=inamazon0f2-21`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wide shadow-[0_0_15px_rgba(249,115,22,0.5)] hover:shadow-[0_0_25px_rgba(239,68,68,0.7)] animate-pulse transition-all w-full border border-white/20"

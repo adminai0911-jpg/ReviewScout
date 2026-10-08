@@ -20,8 +20,8 @@ export async function GET() {
     <description>Top AI-Curated Amazon Flash Deals</description>`;
 
   MOCK_DEALS.forEach((deal) => {
-    // Generate the affiliate redirect URL
-    const productUrl = `${baseUrl}/api/go?url=${encodeURIComponent(`https://www.amazon.com/s?k=${encodeURIComponent(deal.name)}&tag=reviewscout-20`)}`;
+    // Generate the affiliate redirect URL (Amazon.in)
+    const productUrl = `${baseUrl}/api/go?url=${encodeURIComponent(`https://www.amazon.in/s?k=${encodeURIComponent(deal.name)}&tag=inamazon0f2-21`)}`;
     
     xml += `
     <item>

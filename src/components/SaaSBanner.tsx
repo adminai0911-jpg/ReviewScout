@@ -32,7 +32,7 @@ export default function SaaSBanner() {
         <div className="shrink-0 w-full md:w-auto">
           {/* Real Amazon Affiliate Bounty Link */}
           <a 
-            href="https://www.amazon.com/amazonprime?tag=inamazon0f2-21" 
+            href="https://www.amazon.in/prime?tag=inamazon0f2-21" 
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full text-center bg-white text-slate-900 hover:bg-sky-50 font-black text-lg py-4 px-8 rounded-xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all hover:scale-105 active:scale-95 border border-white"

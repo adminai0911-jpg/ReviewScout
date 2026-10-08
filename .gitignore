@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Bot-generated content (stored in Supabase, not git)
 src/content/
+
+.vercel

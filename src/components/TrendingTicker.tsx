@@ -2,12 +2,12 @@
 
 export default function TrendingTicker() {
   const trends = [
-    "🔥 Trending: Best Vlogging Cameras under $500",
-    "📈 Price Drop: Sony WH-1000XM5 (-15%)",
+    "🔥 Trending: Best Tech Deals on Amazon India",
+    "⚖️ Free Instant Legal & Flight Claim Auditor: ClaimPulse Engine",
+    "📈 Amazon Great Deals: Electronics up to 60% Off",
     "⚡ Just Released: Apple M3 MacBook Air Review",
-    "💎 Most Bought Today: Anker 737 Power Bank",
-    "🚀 Flash Sale: Ninja Creami Ice Cream Maker",
-    "🌟 Expert Pick: Herman Miller Embody vs Aeron"
+    "💎 Most Bought Today: Anker Fast Power Banks",
+    "🚀 Flash Sale: Trending Home & Kitchen Bestsellers"
   ];
 
   return (

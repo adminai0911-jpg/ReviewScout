@@ -10,7 +10,7 @@ export default function CouponRevealer({ productName }: CouponRevealerProps) {
   const [revealed, setRevealed] = useState(false);
   
   const affiliateId = "inamazon0f2-21";
-  const rawAmazonUrl = `https://www.amazon.com/s?k=${encodeURIComponent(productName || "best products")}&tag=${affiliateId}`;
+  const rawAmazonUrl = `https://www.amazon.in/s?k=${encodeURIComponent(productName || "best products")}&tag=${affiliateId}`;
   const affiliateUrl = `/api/go?url=${encodeURIComponent(rawAmazonUrl)}`;
 
   const handleReveal = () => {
